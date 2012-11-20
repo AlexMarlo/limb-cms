@@ -1,0 +1,32 @@
+{{wrap with="admin_modal_page_layout.phtml" into="content_zone"}}
+
+  <h1>Зпрос к базе</h1>
+
+  {{form id='sql' name='sql' method='post' enctype="multipart/form-data"}}
+    {{include file='_admin/form_errors.phtml'/}}
+
+    <dl class='field'>
+      <dt>{{label for="sql"}}SQL:{{/label}}</dt>
+      <dd>{{textarea id="sql" name="sql" type="text" title="SQL"/}}</dd>
+    </dl>
+
+    {{include file='_admin/form_buttons.phtml' submit_button_name="Fetch" is_used_ajax="0"/}}
+  {{/form}}
+  <br/>
+
+  <? if($this->content){?>
+    {{list using="{$#content}"}}
+      {{list:item}}
+        <?
+          if(is_object($item))
+            var_dump($item);
+        ?>
+        <br/>
+      {{/list:item}}
+    {{/list}}
+  <?}?>
+{{/wrap}}
+
+{{into slot="extra_buttons"}}
+  {{input id='execute' type="submit" value='Execute' name="execute" /}}
+{{/into}}

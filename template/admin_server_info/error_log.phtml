@@ -1,0 +1,49 @@
+{{wrap with="admin_modal_page_layout.phtml" into="content_zone"}}
+
+  {{form id='refresh_form' name='refresh_form' method='post' enctype="multipart/form-data"}}
+    <a href="javascript: void(0);" onclick="document.getElementById('refresh_form').submit();">
+      <img src='/shared/cms/images/icons/arrow_refresh_small.png'/>
+    </a>
+  {{/form}}
+
+
+  
+  <br/>
+
+  {{list using="{$#errors}" counter="$counter"}}
+    {{list:item}}
+      <dl>
+        <dt>
+          <label>{$counter}.&nbsp;<a class="error_title_{$counter}" onclick="switch_visibility('error_content_{$counter}');return false;" href="javascript:void(0)"><b>{$item.title}</b></a></label>
+        </dt>
+        <dd class="error_content_{$counter}">
+          <br/>
+          <a href="{$item.url}">Go to error page</a><br/>
+          {$item.content|raw|nl2br}
+        </dd>
+      </dl>
+      <br/>
+      <br/>
+    {{/list:item}}
+    {{list:empty}}
+      <h2><snap style="color:green">Error log empty!</snap></h2>
+    {{/list:empty}}
+  {{/list}}
+
+{{/wrap}}
+{{into slot="js"}}//<script>
+  function switch_visibility(class_name)
+  {
+    var error = $("." + class_name);
+    if(error.attr('style') != undefined && error.attr('style').indexOf('none') > 0)
+      error.show('fast');
+    else
+      error.hide('fast');
+  }
+{{/into}}
+
+{{into slot="js_ready"}}
+  $("dd[class^='error_content_']").hide();
+  var dd = $("dd[class^='error_content_']");
+  $(dd[0]).show();
+{{/into}}

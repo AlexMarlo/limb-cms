@@ -1,0 +1,72 @@
+{{wrap with="admin_modal_page_layout.phtml" into="content_zone"}}
+
+  <h1>Просмотр файла</h1>
+
+  {{form id='view_file' name='view_file' method='post' enctype="multipart/form-data"}}
+    {{include file='_admin/form_errors.phtml'/}}
+
+    <dl class='field'>
+      <dt>{{label for="file_path"}}Path:{{/label}}</dt>
+      <dd>{{input id="file_path" name="file_path" type="text" title="Path"/}}</dd>
+    </dl>
+
+    {{include file='_admin/form_buttons.phtml' save_button_name="Просмотреть" is_used_ajax="0"/}}
+  {{/form}}
+  <br/>
+
+  <? if($this->type == 'file' || $this->type == 'text'){?>
+<textarea class="php" name="code">
+{$#content|raw}
+</textarea>
+
+  <?}elseif($this->type == 'image'){?>
+    <img src="{$#content}">
+
+  <?}elseif($this->type == 'flash'){?>
+    <embed
+      type="application/x-shockwave-flash"
+      pluginspage="http://www.macromedia.com/go/getflashplayer"
+      src="{$#content}"
+      width="685"
+      height="250"
+      play="true"
+      loop="true"
+      menu="true"
+    >
+    </embed>
+
+  <?}elseif($this->type == 'dir'){?>
+    {{list using="{$#content}"}}
+      {{list:item}}
+        {$item}<br/>
+      {{/list:item}}
+    {{/list}}
+
+  <?}?>
+
+{{/wrap}}
+
+{{into slot="css_zone"}}
+  #header h1 {margin:15px 0 0;}
+  
+  #body code {font-size:1.3em;background:#F0F0F0;}
+  #body p {margin:15px 0 0;}
+  #body textarea {width:100%;height:150px;}
+  #body ul, #body ol {margin:0 0 10px 10px;padding:0 20px;}
+{{/into}}
+
+{{into slot="header_zone"}}
+  <link rel="stylesheet" href="/shared/cms/syntax_hightlighter/SyntaxHighlighter.css?{$#static_files_version}" type="text/css"> 
+{{/into}}
+
+{{into slot="js_include"}}
+  <script language="javascript" src="/shared/cms/syntax_hightlighter/shCore.js?{$#static_files_version}"></script>
+  <script language="javascript" src="/shared/cms/syntax_hightlighter/shBrushPhp.js?{$#static_files_version}"></script>
+  <script language="javascript" src="/shared/cms/syntax_hightlighter/shBrushSql.js?{$#static_files_version}"></script>
+  <script language="javascript" src="/shared/cms/syntax_hightlighter/shBrushXml.js?{$#static_files_version}"></script>
+{{/into}}
+
+{{into slot="js_ready"}}
+  if(navigator.userAgent.indexOf('Opera 7') == -1 && dp)
+    dp.SyntaxHighlighter.HighlightAll('code', true, true, false);
+{{/into}}

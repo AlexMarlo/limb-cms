@@ -1,0 +1,52 @@
+{{wrap with="admin_page_layout.phtml" in="content_zone"}}
+  <? $controller = $this->toolkit->getDispatchedController()->getName(); ?>
+  {{include file='admin_server_info/include/tpls.phtml' /}}
+
+  <div id="header">
+    <h1>Server info</h1>
+
+  </div>
+
+  <div id="body">
+    <div class='list'>
+      <div class='list_actions'>
+        {{apply template='link' action="php_info" title="PHP Info" icon="page_white_php" /}}<br/>
+        {{apply template='link' action="error_log" title="Error log" icon="error" /}}<br/>
+        {{apply template='link' action="env" title="Limb Bitcms Variables" /}}<br/>
+      </div>
+      <br/>
+
+      <div class='list_actions'>
+        {{apply template='flush' action="flush_error_log" message="Error log file will be delete. Confirm?" title="Flush Error log" icon="server_delete" /}}<br/>
+        {{apply template='flush' action="flush_log" message="Log files will be delete. Confirm?" title="Flush log" icon="server_delete" /}}<br/>
+        {{apply template='flush' action="flush_compiled" message="Compiled templates will be delete. Confirm?" title="Flush compiled" icon="server_delete" /}}<br/>
+        {{apply template='flush' action="flush_cache" message="Cache files will be delete. Confirm?" title="Flush cache" icon="server_delete" /}}<br/>
+        {{apply template='flush' action="flush_i18n" message="I18N qt files will be delete. Confirm?" title="Flush i18n" icon="server_delete" /}}<br/>
+        {{apply template='flush' action="flush_var" message="All var files will be delete. Confirm?" title="Flush var" icon="server_delete" /}}<br/>
+      </div>
+      <br/>
+
+      <div class='list_actions'>
+        {{apply template='link' action="test_email" title="Test E-Mail" icon="email" /}}<br/>
+        {{apply template='link' action="view_file" title="View File" icon="eye" /}}<br/>
+        {{apply template='link' action="sql" title="SQL" icon="database_go" /}}<br/>
+      </div>
+      <br/>
+
+      <table>
+        <th>$_SERVER[&nbsp;]</th>
+        <th></th>
+        {{list using="{$_SERVER}" as="$value" key="$key"}}
+          {{list:item}}
+            <tr>
+              <td>{$key}</td>
+              <td><?=(is_array($value))? implode(', ', $value): $value?></td>
+            </tr>
+          {{/list:item}}
+        {{/list}}
+      </table>
+      
+    </div>
+  </div>
+
+{{/wrap}}

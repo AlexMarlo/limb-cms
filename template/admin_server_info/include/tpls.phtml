@@ -1,0 +1,29 @@
+{{template name="flush"}}
+  <?
+    $action = (!isset($action))? 'flush': $action;
+    $controller = (!isset($controller))? $this->toolkit->getDispatchedController()->getName(): $controller;
+    $message = (!isset($message))? 'Confirm flush objects?': $message;
+    $title = (!isset($title))? 'Flush': $title;
+  ?>
+  <a href='#' onclick="if(confirm('{$message}')) {jQuery.post('{{route_url params='controller:{$controller},action:{$action}'/}}', function(){})}"  title="{$title}">
+    <?if(!isset($icon)){?>
+      {$title}
+    <?}else{?>
+      <img src='/shared/cms/images/icons/{$icon}.png'/>&nbsp;&nbsp;{$title}
+    <?}?>
+  </a>
+{{/template}}
+
+{{template name="link"}}
+  <?
+    $action = (!isset($action))? 'flush': $action;
+    $controller = (!isset($controller))? $this->toolkit->getDispatchedController()->getName(): $controller;
+  ?>
+
+  <a href="/{$controller}/{$action}?TB_iframe=true&amp;width=800&amp;height=600&amp;not_esc=true" title="{$title}" class="thickbox">
+    <? if(isset($icon)){?>
+      <img src='/shared/cms/images/icons/{$icon}.png'/>&nbsp;&nbsp;
+    <?}?>
+    {$title}
+  </a>
+{{/template}}

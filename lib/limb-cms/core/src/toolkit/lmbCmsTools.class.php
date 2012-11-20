@@ -20,6 +20,7 @@ class lmbCmsTools extends lmbAbstractTools
 {
   protected $tree;
   protected $user;
+  protected $mailer_conf;
 
   function getCmsTree($tree_name = 'node')
   {
@@ -70,6 +71,15 @@ class lmbCmsTools extends lmbAbstractTools
     lmbToolkit :: instance()->getSession()->start();
     return lmbToolkit::instance()->getCmsUser()->isLoggedIn();    
   }
+
+  function getMailConf()
+  {
+    if(!is_object($this->mailer_conf))
+      $this->mailer_conf = lmbToolkit::instance()->getConf('mail');
+
+    return $this->mailer_conf;
+  }
+
 }
 
 
