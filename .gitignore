@@ -11,6 +11,7 @@ nbproject
 
 # CMS
 lib/limb
+lib/limb-app-dbman
 www/shared
 var/*
 
