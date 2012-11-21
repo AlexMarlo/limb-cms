@@ -1,0 +1,209 @@
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+<h2><strong>Limb CMS</strong></h2>
+
+<p>Limb CMS основана на фреймворке <a href="http://limb-project.com">LIMB.</a></p>
+
+<p>Limb CMS представляет из себя набор решений типовых проблем управления контентом:</p>
+<ul>
+    <li>Административный интерфейс</li>
+    <li>Текстовые страницы</li>
+    <li>Текстовые блоки</li>
+</ul>
+
+<br/>
+<h2><strong>Установка</strong></h2>
+<p>В данный момент CMS поставляется, как в виде пакета, так и в виде отдельного приложения.</p>
+
+<br/>
+<h3><strong>Установка пакета</strong></h3>
+
+<p>Пакет базируется на функционале WEB_APP, и представляет из себя набор моделей, контроллеров, шаблонов и сервисов.</p>
+<p>Самый простой способ создать приложение - воспользоваться утилитой limb.php: <code>limb project_create </code></p>
+<p>Для ручного создания приложения на базе пакета CMS воспользуйтесь [[limb3:ru:cms:cms_manual_setup|инструкцией]].</p>
+
+<br/>
+<h3><strong>Установка приложения</strong></h3>
+
+<p><strong> Текстовые страницы </strong></p>
+<p>Данный функционал позволяет создавать и управлять отдельными страницами вашего сайта.   Текст страницы вписывает в шаблон template/document/item.phtlm, который может быть перекрыт в вашем приложении.</p>
+
+<p><strong>Текстовые блоки </strong></p>
+<p>Текстовые блоки представляют из себя куски текста, которые можно редактировать из административного интерфейса, а потом легко вставлять в любое место вашего сайта.  Блоки объявляются в конфигурационном файле **text_blocks.conf.php**:</p>
+
+<p>
+<textarea class="php" name="code">
+  <?php
+  $conf = array(
+    'footer' => array('title' => 'Подвал Сайта',
+	  				  'content' => '<p>Подвал</p>'),
+  );
+</textarea>
+</p>
+
+<p>Поле **content** это первоначальное содержимое блока. После редактирования содержимое будет храниться и извлекаться из базы данных, а не из конфигурационного файла.</p>
+
+<p>Использование в MACRO-шаблонах:</p>
+<p><code>{{text_block id="footer"/}}</code></p>
+
+<p>Использование в PHP-коде:</p>
+<p>
+<textarea class="php" name="code">
+echo lmbCmsTextBlock::getRawContent('footer');
+</textarea>
+</p>
+
+<br/>
+<h3><strong>Расширение административного интерфейса</strong></h3>
+<ul>
+    <li>Для автоматической генерации административного интерфейса вы можете воспользоваться пакетом [[limb3:ru:packages:constructor|CONSTRUCTOR]]</li>
+    <li>Все контроллеры, имена которых начинаются с **admin** считаются частью административного интерфейса, и проверяют пользователя на "залогиненность" (см. lmbCmsAccessPolicyFilter)</li>
+</ul>
+
+<p>Разберем на примере добавления новостей на сайт:</p>
+
+<br/>
+<h3><strong>Схема базы</strong></h3>
+<p>Для начала создадим таблицу **news**:</p>
+
+<p>
+<textarea class="sql" name="code">
+CREATE TABLE  `skel`.`news` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL DEFAULT '',
+  `content` longtext NOT NULL,
+  `ctime` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+);
+</textarea>
+</p>
+
+<br/>
+<h3><strong>Создание модели и контроллера</strong></h3>
+<p>Для создания контроллеров, типичных для CRUD-ов, удобнее всего воспользоваться классом lmbAdminObjectController, в качестве базового. Для этого сначала создадим модель (файл /src/model/News.class.php):</p>
+
+<p>
+<textarea class="php" name="code">
+<?php
+lmb_require('limb/active_record/src/lmbActiveRecord.class.php');
+
+class News extends lmbActiveRecord {}
+</textarea>
+
+<p>и контроллер (файл /src/controller/AdminNewsController.class.php)
+<p>
+<textarea class="php" name="code">
+<?php
+lmb_require('limb/cms/src/controller/lmbAdminObjectController.class.php');
+lmb_require('src/model/News.class.php');
+
+class AdminNewsController extends lmbAdminObjectController
+{
+  protected $_object_class_name = 'News';
+}
+</textarea>
+</p>
+
+<br/>
+<h3><strong>Создание шаблонов</strong></h3>
+<p>Добавим шаблоны для отображения списка новостей (файл template/admin_news/display.phtml):</p>
+<p>
+<textarea class="php" name="code">
+{{wrap with="admin_page_layout.phtml" into="content_zone"}}
+    <div id="header">
+      <h1>Новости</h1>
+      <div class="header_actions">
+        <a href='{{route_url params="controller:admin_news,action:create"/}}' title="Добавить элемент" class='thickbox'><img src='/shared/cms/images/icons/page_white_add.png'/> Добавить новость</a>
+      </div>
+    </div>
+
+    <div id="body">
+      {{list using='{$#items}' parity='{$parity}'}}
+      {{include file="_admin_object/actions.phtml"/}}
+      <div class="list">
+        <table>
+          <tr>
+            <th>#ID</th><th>Заголовок</th><th>Дата</th><th>Действия</th>
+          </tr>
+          {{list:item}}
+            <tr class='{$parity}'>
+              <td>#{$item.id}</td><td>{$item.title}</td><td>{$item.ctime|date:'Y'}</td>
+              <td class='actions'>
+                {{apply template="object_action_edit" item="{$item}" icon="page_white_edit" /}}
+                {{apply template="object_action_delete" item="{$item}" icon="page_white_delete" /}}
+              </td>
+            </tr>
+            {{/list:item}}          
+          </table>
+        </div>
+      {{/list}}
+    </div>
+{{/wrap}}
+</textarea>
+</p>
+<p>, шаблон формы (файл template/admin_news/include/form_fields.phtml)</p>
+<p>
+<textarea class="php" name="code">
+{{include file='_admin/form_errors.phtml'/}}
+<div class='tabs'>
+
+  <ul>
+    <li id='properties'><a href="#">Свойства</a></li>
+  </ul>
+  
+  <div id="tab_properties">
+    <dl class="required field">
+      <dt><label for="title">Заголовок:</label></dt>
+      <dd>{{input type="text" name="title" id="title" title="Заголовок"/}}</dd>
+    </dl>
+    <dl class="field">
+      <dt>{{label for="content"}}Текст:{{/label}}</dt>
+      <dd>{{textarea name="content" id="content" title="Текст"/}}</dd>
+    </dl>
+  </div>
+  
+</div>
+{{include file='_admin/form_buttons.phtml'/}}
+</textarea>
+</p>
+
+<p>, шаблоны для создания и редактирования новости (файлы template/admin_news/create.phtml и template/admin_news/edit.phtml)</p>
+<p>
+<textarea class="php" name="code">
+{{wrap with="admin_modal_page_layout.phtml"}}
+  {{into slot='content_zone'}}
+    {{form id='object_form' name='user_form' method='post' enctype="multipart/form-data"}}
+      <h1>Добавление новости</h1>
+      {{include file='admin_news/include/form_fields.phtml'/}}
+    {{/form}}
+  {{/into}}
+{{/wrap}}
+</textarea>
+</p>
+<p>
+
+<textarea class="php" name="code">
+{{wrap with="admin_modal_page_layout.phtml" into="content_zone"}}
+  <h1>Редактирование записи {$#item.title}</h1>
+  {{form id='object_form' name='object_form' method='post' enctype="multipart/form-data"}}
+    {{include file='admin_news/include/form_fields.phtml'/}}
+  {{/form}}
+{{/wrap}}
+</textarea>
+</p>
+
+<br/>
+<h3><strong>Добавление пункта в меню</strong></h3>
+<p>Для того, чтобы расширить стандартное меню необходимо добавить необходимую опцию в navigation-конфиг.</p>
+<p>Для этого создадим в нашем проекте файл navigation.conf.php, со следующим содержимым:</p>
+<p>
+<textarea class="php" name="code">
+<?php
+require_once('limb/cms/settings/navigation.conf.php');
+
+$conf[lmbCmsUserRoles::ADMIN][0]['children'][] = array(
+    'title' => 'Новости',
+    'url' => '/admin_news',
+    'icon' => '/shared/cms/images/icons/page.png',
+  );
+</textarea>
+</p>
