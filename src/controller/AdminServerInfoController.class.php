@@ -1,8 +1,8 @@
 <?php
-lmb_require('limb-cms/core/src/controller/lmbAdminObjectController.class.php');
+lmb_require('limb-cms/core/src/controller/AdminController.class.php');
 lmb_require('limb/validation/src/rule/lmbEmailRule.class.php');
 
-class AdminServerInfoController extends lmbAdminObjectController
+class AdminServerInfoController extends AdminController
 {
   protected $_object_class_name = 'AdminServerInfoController';
 

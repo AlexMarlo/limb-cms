@@ -1,10 +1,8 @@
 <?php
-lmb_require('limb-cms/core/src/controller/lmbAdminObjectController.class.php');
+lmb_require('limb-cms/core/src/controller/AdminController.class.php');
 
-class AdminManualController extends lmbAdminObjectController
+class AdminManualController extends AdminController
 {
-  protected $_object_class_name = 'AdminManualController';
-
   function doDisplay()
   {
     $main_doc_file_name = 'ru.html';
