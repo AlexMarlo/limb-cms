@@ -1,0 +1,66 @@
+<?php
+  if(isset($tree_node) && $tree_node->getParentId())
+    $chain = $tree_node->getParents();
+  else
+    $chain = new lmbCollection();
+
+  if(!isset($base_path))
+    $base_path = '';
+
+  if(!isset($separator))
+    $separator = '&nbsp;&raquo;';
+
+  if(!isset($main_page_title))
+    $main_page_title = 'Главная страница'
+?>
+
+<ul id="breadcrumbs">
+
+  {{if var='isset($list)'}}
+    {{list using='$list' counter='$counter' }}
+      {{list:item}}
+        {{if var='isset($tree_node) && $tree_node->isRoot() && $counter == count($list) && !isset($this->item->title)'}}
+          <li>{$item.title|raw}</li>
+        {{elseif var="!isset($item['title'])"}}
+          <li><a href='{$item.url}' <?=isset($item['class'])? "class='{$item['class']}'": '';?>>{$main_page_title|raw}</a>{$separator|raw}</li>
+        {{else}}
+          <li><a href='{$item.url}' <?=isset($item['class'])? "class='{$item['class']}'": '';?>>{$item.title|raw}</a>{$separator|raw}</li>
+        {{/if}}
+      {{/list:item}}
+    {{/list}}
+  {{/if}}
+
+  {{if var='isset($leaf) && $chain->count() < 1'}}
+    <li>{$leaf}</li>
+  {{/if}}
+
+  {{if var='isset($tree_node) && !$tree_node->isRoot()'}}
+    {{list using='$chain' counter="$counter"}}
+      {{list:item}}
+      {{if var='$item->getId() != 1'}}
+        <?
+          if(method_exists($item,'getUrl'))
+            $url = $item->getUrl();
+          elseif(method_exists($item, 'getUri'))
+            $url = $item->getUri();
+        ?>
+        <li><a href='{$base_path}{$url}'>{$item.title|raw}</a>{$separator|raw}</li>
+      {{/if}}
+      {{/list:item}}
+    {{/list}}
+  {{/if}}
+
+  {{if var='!isset($leaf) && isset($this->item->title)'}}
+    {{if var='isset($tree_node) && !$tree_node->isRoot() && (get_class($tree_node) != get_class($this->item) || $tree_node->id != $this->item->id )'}}
+      <?
+        if(method_exists($tree_node,'getUrl'))
+          $url = $tree_node->getUrl();
+        elseif(method_exists($tree_node, 'getUri'))
+          $url = $tree_node->getUri();
+      ?>
+      <li><a href='{$base_path}{$url}'>{$tree_node.title|raw}</a>{$separator|raw}</li>
+    {{/if}}
+    <li>{$#item.title|raw}</li>
+  {{/if}}
+
+</ul>

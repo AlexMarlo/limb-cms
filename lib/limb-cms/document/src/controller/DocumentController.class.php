@@ -11,7 +11,7 @@ class DocumentController extends lmbObjectController
   {
     if(!$this->item = $this->_getObjectByRequestedId())
       return $this->forwardTo404();
-  
+
     $mod_date=intval($this->item->utime);
     $expires = 43200; // half of day
     $last_modified = gmdate('D, d M Y H:i:s', $mod_date) . ' GMT';

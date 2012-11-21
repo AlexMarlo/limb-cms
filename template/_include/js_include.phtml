@@ -1,0 +1,13 @@
+<script type="text/javascript" src="{$#toolkit->getConf('common')->get('jquery_library_url')}?{$#static_files_version}"></script>
+<script type="text/javascript" src="/shared/js/js/limb.js?{$#static_files_version}" ></script>
+<script type="text/javascript" src="/js/main.js?{$#static_files_version}" ></script>
+
+{{slot id='js_include'/}}
+
+<script type="text/javascript">
+  {{slot id='js'/}}
+  jQuery(document).ready(function()
+  {
+    {{slot id='js_ready'/}}
+  });
+</script>
