@@ -103,6 +103,31 @@ CREATE TABLE  `lmb_cms_text_block` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
+
+DROP TABLE IF EXISTS `lmb_cms_menu`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `lmb_cms_menu` (
+  `id` int(11) NOT NULL auto_increment,
+  `title` varchar(255) DEFAULT NULL,
+  `url` varchar(255) DEFAULT NULL,
+  `identifier` varchar(128) DEFAULT NULL,
+  `is_published` tinyint(1) DEFAULT NULL,
+  `parent_id` int(11) DEFAULT NULL,
+  `level` int(11) DEFAULT NULL,
+  `path` varchar(255) DEFAULT NULL,
+  `priority` int(11) DEFAULT NULL,
+  `ctime` int(11) DEFAULT NULL,
+  `utime` int(11) DEFAULT NULL,
+  PRIMARY KEY  (`id`),
+  KEY `level` (`level`),
+  KEY `parent_id` (`parent_id`),
+  KEY `id` (`id`, `parent_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;

@@ -45,6 +45,7 @@ INSERT INTO `lmb_cms_seo` (`id`, `url`, `title`, `description`, `keywords`) VALU
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
+
 /*!40000 ALTER TABLE `lmb_cms_document` DISABLE KEYS */;
 INSERT INTO `lmb_cms_document` (`title`, `is_published`, `content`)
 VALUES (
@@ -65,6 +66,21 @@ VALUES (
 /*!40000 ALTER TABLE `lmb_cms_document` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+
+/*!40000 ALTER TABLE `lmb_cms_menu` DISABLE KEYS */;
+INSERT INTO `lmb_cms_menu` ( `parent_id`, `title`, `is_published`, `identifier`)
+VALUES (
+  0,
+  'root',
+  1,
+  'root'
+);
+/*!40000 ALTER TABLE `lmb_cms_menu` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

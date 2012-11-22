@@ -1,0 +1,13 @@
+{{wrap with="admin_modal_page_layout.phtml"}}
+  
+  {{into slot='content_zone'}}
+  
+    <h1>Редактирование пункта меню &laquo;{$#item.title}&raquo;</h1>
+  
+    {{form id='object_form' name='object_form' method='post' enctype="multipart/form-data"}}
+      {{include file='admin_menu/include/form_fields.phtml'/}}
+    {{/form}}
+
+  {{/into}}
+  
+{{/wrap}}

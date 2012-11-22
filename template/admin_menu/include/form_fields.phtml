@@ -1,0 +1,42 @@
+{{include file='_admin/form_errors.phtml'/}}
+
+  <div class='tabs'>
+
+    <ul>
+      <li id='properties'><a href="#">Свойства</a></li>
+    </ul>
+
+    <div id="tab_properties">
+
+      <dl class="required field">
+        <dt><label for="title">Заголовок:</label></dt>
+        <dd>{{input type="text" name="title" id="title" title="Заголовок"/}}</dd>
+      </dl>
+
+      <dl class="required field">
+        <dt><label for="url">URL:</label></dt>
+        <dd>
+          <?php if($this->item->isReadOnly()) { ?>
+            <input id="url" name="url" type="text" title="URL" disabled value="<?=isset($this->item)? $this->item->url: '';?>">
+          <? } else {?>
+            {{input type="text" name="url" id="url" title="URL"/}}
+          <? }?>
+        </dd>
+      </dl>
+
+      <dl class="field">
+        <dt><label for="identifier">Идентификатор:</label></dt>
+        <dd>
+          <?php if($this->item->isReadOnly()) { ?>
+            <input id="identifier" name="identifier" type="text" title="Идентификатор" disabled value="<?=isset($this->item)? $this->item->identifier: '';?>">
+          <? } else {?>
+            {{input id="identifier" name="identifier" type="text" title="Идентификатор"/}}
+          <? }?>
+        </dd>
+      </dl>
+
+    </div>
+
+  </div>
+
+{{include file='_admin/form_buttons.phtml'/}}

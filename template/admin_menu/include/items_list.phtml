@@ -1,0 +1,57 @@
+{{list using='{$iterator}' parity='{$parity}'}}
+
+  {{include file="_admin/selectors.phtml"/}}
+  {{include file="_admin_object/actions.phtml"/}}
+
+  <div class="list">
+    <div class='list_actions'>
+      {{apply template="save_priority_button" controller="admin_document" action="priority" params="parent_id={$#item.id}"/}}
+    </div>
+    
+    <table>
+      <tr>
+        <th>{{apply template="selectors_toggler"/}}</th>
+        <th>#ID </th>
+        <th>Порядок </th>
+        <th width="80%">Название </th>
+        <th>Идентификатор </th>
+        <th>&nbsp;</th>
+      </tr>
+      {{list:item}}
+        <tr class='{$parity}'>
+          <td>
+            <?php if(!$item->isReadOnly()) { ?>
+              {{apply template="selector" value="{$item.id}"/}}
+            <? }?>
+          </td>
+          <td>#{$item.id}</td>
+          <td>{{include file="_admin/priority_input.phtml" item="$item"/}}</td>
+          <td>
+            <a href='{{route_url params="action:display,id:{$item.id}"/}}' title="Перейти к вложенным пунктам" style="font-weight:bold;">{$item.title}</a>
+            <span title="Вложенных пунктов: {$item.loaded_kids_count|default:'0'}">({$item.loaded_kids_count|default:'0'})</span>
+            <? if($item->url) { ?>
+              <br/>[&nbsp;<a href="{$item.url}" title="Куда ссылаеться пункт меню?" target="_blank">{$item.url}</a>&nbsp;]
+            <? } ?>
+          </td>
+          <td>{$item.identifier}</td>
+          <td class='actions'>
+          <? if($item->getIsPublished()): ?>
+            {{apply template="object_action_unpublish" item="{$item}" icon="lightbulb_off"/}}
+          <?  else:  ?>
+            {{apply template="object_action_publish" item="{$item}" icon="lightbulb"/}}
+          <? endif; ?>
+          {{apply template="object_action_edit" item="{$item}" icon="page_edit"/}}
+          {{apply template="object_action_delete" item="{$item}"/}}
+          </td>
+        </tr>
+      {{/list:item}}
+      
+      {{list:empty}}
+        <div class="empty_list">Пункты меню не найдены</div>
+      {{/list:empty}}
+    </table>
+    
+    <div class='list_actions'>
+    </div>
+  </div>
+{{/list}}

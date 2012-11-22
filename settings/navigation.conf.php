@@ -8,6 +8,11 @@ $editor = array(array('title' => 'Контент', 'icon' => '/shared/cms/images
     'icon' => '/shared/cms/images/icons/page.png',
   ),
   array(
+    'title' => 'Меню',
+    'url' => '/admin_menu',
+    'icon' => '/shared/cms/images/icons/menu.png',
+  ),
+  array(
     'title' => 'Текстовые блоки',
     'url' => '/admin_text_block',
     'icon' => '/shared/cms/images/icons/layout.png',

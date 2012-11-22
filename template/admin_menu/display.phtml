@@ -1,0 +1,37 @@
+{{wrap with="admin_page_layout.phtml"}}
+
+  {{into slot="content_zone"}}
+
+    {{include file="_admin_object/actions.phtml"/}}
+    {{include file='_widgets/cms_document_breadcrumbs.phtml' item="{$#item}" base_path="/admin_menu/display/" link_field='id' root_path='/admin_menu/' root_title="Список Меню" /}}
+    
+    <div id="header">
+      <h1>Меню</h1>
+
+      <div class="header_actions">
+        <? if(!$this->item->isRoot()) { ?>
+
+          <? if($this->item->getIsPublished()) : ?>
+            {{apply template="object_action_unpublish" item="{$#item}" icon="lightbulb_off" is_link="true" title="Снять с публикации"/}}
+          <?  else:  ?>
+            {{apply template="object_action_publish" item="{$#item}" icon="lightbulb" is_link="true" title="Опубликовать"/}}
+          <? endif; ?>
+
+
+        <? } else { ?>
+          {{apply template="object_action" action="create" id="{$#item.id}" icon="link_add" title="Добавить пункт меню" is_link="true"/}}
+        <? } ?>
+
+      </div>
+
+      {{include file='_admin/pager.phtml' items='{$#items}'/}}
+
+    </div>
+
+    <div id="body">
+      {{include file='admin_menu/include/items_list.phtml' iterator="{$#items}"/}}
+    </div>
+
+  {{/into}}
+
+{{/wrap}}
