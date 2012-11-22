@@ -4,5 +4,5 @@ $conf = array(
                           'content' => '<p>Контактная информация</p>'),
 
   'footer' => array('title' => 'Подвал Сайта',
-                    'content' => '<p>&copy; 2012 Limb CMS |  Based on <a href="http://www.limb-project.org/">LIMB</a></p>'),
+                    'content' => '<p>&copy; 2012 Limb CMS |  Based on <a href="http://www.limb-project.com/">LIMB</a></p>'),
 );
