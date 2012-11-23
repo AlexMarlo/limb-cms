@@ -40,3 +40,16 @@
   </div>
 
 {{include file='_admin/form_buttons.phtml'/}}
+
+{{into slot="js_include"}}
+  <script type="text/javascript" src="/js/admin_main.js" ></script>
+{{/into}}
+
+{{into slot="js_ready"}}//<<script type="text/javascript">
+  $("#title").blur(function() {
+
+	  if( $("#identifier").val() == "" && $("#title").val() != "")
+	     $("#identifier").val( translit( $("#title").val()));
+       
+  });
+{{/into}}

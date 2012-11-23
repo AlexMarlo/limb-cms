@@ -1,6 +1,7 @@
 <?php
 lmb_require('limb/tree/src/lmbTreeNestedCollection.class.php');
 lmb_require('limb/tree/src/lmbTreeHelper.class.php');
+lmb_require('src/model/Menu.class.php');
 
 class MenuFinder
 {

@@ -1,4 +1,5 @@
 <?php
+lmb_require('limb-cms/core/src/model/lmbActiveRecordTreeNode.class.php');
 
 class Menu extends lmbActiveRecordTreeNode
 {

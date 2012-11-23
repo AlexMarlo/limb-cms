@@ -25,13 +25,8 @@ class AdminMenuController extends lmbAdminObjectController
     }
 
     $this->items = lmbActiveRecord :: find( $this->_object_class_name, array('criteria' => $criteria, 'sort'=>array('priority'=>'ASC')));
-
-    //echo get_class( $this->items);
-    //var_dump( get_class_methods( get_class( $this->items)));
-    //exit;
     
     $this->_applySortParams();
-//     parent::doDisplay();
   }
 }
 
