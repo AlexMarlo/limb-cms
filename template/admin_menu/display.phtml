@@ -9,6 +9,8 @@
       <h1>Меню</h1>
 
       <div class="header_actions">
+        {{apply template="object_action" action="create" item="{$#item}" icon="link_add" title="Добавить пункт меню" is_link="true" /}}
+
         <? if(!$this->item->isRoot()) { ?>
 
           <? if($this->item->getIsPublished()) : ?>
@@ -16,10 +18,10 @@
           <?  else:  ?>
             {{apply template="object_action_publish" item="{$#item}" icon="lightbulb" is_link="true" title="Опубликовать"/}}
           <? endif; ?>
-
+          
 
         <? } else { ?>
-          {{apply template="object_action" action="create" id="{$#item.id}" icon="link_add" title="Добавить пункт меню" is_link="true"/}}
+ 
         <? } ?>
 
       </div>

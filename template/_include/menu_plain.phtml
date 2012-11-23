@@ -4,16 +4,15 @@
   
   if(!isset($identifier)) $identifier = Menu::findRoot()->get('identifier');
   $node = MenuFinder :: findOneByIdentifier($identifier);
-  $iterator = MenuFinder :: findChildrenTree($node);
+  $iterator = MenuFinder :: findChildrenArrayForFront($node);
 ?>
 
-{{tree using="{$iterator}" as="{$item}" kids_prop="preloaded_children" counter="$counter"}}
+{{list using="{$iterator}" as="{$item}" }}
   <ul>
-    {{tree:node}}
+    {{list:item}}
       <li>
         <a href="{$item.url}">{$item.title}</a>
-        {{tree:nextlevel /}}
       </li>
-    {{/tree:node}}
+    {{/list:item}}
   </ul>
-{{/tree}}
+{{/list}}

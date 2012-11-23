@@ -28,7 +28,7 @@
           <td>{{include file="_admin/priority_input.phtml" item="$item"/}}</td>
           <td>
             <a href='{{route_url params="action:display,id:{$item.id}"/}}' title="Перейти к вложенным пунктам" style="font-weight:bold;">{$item.title}</a>
-            <span title="Вложенных пунктов: {$item.loaded_kids_count|default:'0'}">({$item.loaded_kids_count|default:'0'})</span>
+            <span title="Вложенных пунктов: ({$item.kids->count()})">({$item.kids->count()})</span>
             <? if($item->url) { ?>
               <br/>[&nbsp;<a href="{$item.url}" title="Куда ссылаеться пункт меню?" target="_blank">{$item.url}</a>&nbsp;]
             <? } ?>

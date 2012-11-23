@@ -10,7 +10,7 @@ $editor = array(array('title' => 'Контент', 'icon' => '/shared/cms/images
   array(
     'title' => 'Меню',
     'url' => '/admin_menu',
-    'icon' => '/shared/cms/images/icons/menu.png',
+    'icon' => '/shared/cms/images/icons/link.png',
   ),
   array(
     'title' => 'Текстовые блоки',

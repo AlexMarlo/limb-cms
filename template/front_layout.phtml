@@ -13,21 +13,21 @@
     <div id="wrapper">
 
 	  <div id="header">
-		<h3>header</h3>
+        <h3>header</h3>
 	  </div><!-- #header-->
 
 	  <div id="menu">
-		  {{include file="_include/menu.phtml" /}}
+        {{include file="_include/menu_plain.phtml" identifier="main_menu" /}}
 	  </div><!-- #header-->
 
 	  <div id="content">
-		{{slot id="content"}}
+        {{slot id="content"}}
 	  </div><!-- #content-->
 
     </div><!-- #wrapper -->
 
     <div id="footer">
-	    {{text_block id="footer"/}}
+      {{text_block id="footer"/}}
     </div><!-- #footer -->
 
     {{include file="_include/js_include.phtml" /}}

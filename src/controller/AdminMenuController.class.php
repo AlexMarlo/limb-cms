@@ -28,5 +28,15 @@ class AdminMenuController extends lmbAdminObjectController
     
     $this->_applySortParams();
   }
+  
+  function doCreate()
+  {
+    parent::doCreate();
+    $parent_id = $this->request->getInteger('id');
+    if( Menu :: findById( $parent_id))
+      $this->item->parent_id = $parent_id;
+    else
+      $this->item->parent_id = 0;
+  }
 }
 

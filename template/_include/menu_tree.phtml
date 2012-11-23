@@ -1,0 +1,22 @@
+<? 
+  lmb_require('src/finder/MenuFinder.class.php');
+  lmb_require('src/model/Menu.class.php');
+  
+  if(isset($identifier))
+  {
+  $node = MenuFinder :: findOneByIdentifier($identifier);
+  $iterator = MenuFinder :: findChildrenTree($node);
+?>
+
+{{tree using="{$iterator}" as="{$item}" kids_prop="preloaded_children" counter="$counter"}}
+  <ul>
+    {{tree:node}}
+      <li>
+        <a href="{$item.url}">{$item.title}</a>
+        {{tree:nextlevel /}}
+      </li>
+    {{/tree:node}}
+  </ul>
+{{/tree}}
+
+<? } ?>

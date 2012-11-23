@@ -35,6 +35,34 @@
         </dd>
       </dl>
 
+      
+      <dl class="field">
+        <dt><label for="parent_id">Родительский элемент:</label></dt>
+        <dd>
+        
+          <?php
+            $parent_id = isset($this->item)? $this->item->parent_id: 0;
+            
+            if($this->item->isReadOnly()) { ?>
+          <? } else {
+             $options = array();
+             $tree = Menu::find( array( 'sort' => array( 'path' => 'ASC')));
+             
+             foreach( $tree as $item)
+             {
+               $tab = str_repeat( " - ", $item->level);
+               $options[$item->id] = $tab . $item->title;
+             }
+             
+             $selected_value = array( $parent_id);
+             $selected_value_object = new lmbObject(array('value' => $parent_id));
+          ?>
+             {{select id="parent" options="$options" value="$selected_value_object" value_field="value" /}}
+          <? }?>
+
+        </dd>
+      </dl>
+      
     </div>
 
   </div>
@@ -49,7 +77,7 @@
   $("#title").blur(function() {
 
 	  if( $("#identifier").val() == "" && $("#title").val() != "")
-	     $("#identifier").val( translit( $("#title").val()));
+	     $("#identifier").val( translit( $("#title").val()).toLowerCase());
        
   });
 {{/into}}

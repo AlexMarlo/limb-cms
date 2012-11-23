@@ -72,10 +72,42 @@ UNLOCK TABLES;
 INSERT INTO `lmb_cms_menu` ( `parent_id`, `title`, `is_published`, `identifier`)
 VALUES (
   0,
-  'root',
+  'Корневой элемент',
   1,
   'root'
 );
+INSERT INTO `lmb_cms_menu` ( `parent_id`, `title`, `is_published`, `identifier`, `url`, `level`, `path`, `priority`)
+VALUES (
+  1,
+  'Главное меню',
+  1,
+  'main_menu',
+  '',
+  1,
+  '2/',
+  10
+),
+(
+  2,
+  'Главная страница',
+  1,
+  'main_page',
+  '/',
+   2,
+  '2/3/',
+  10
+),
+(
+  2,
+  'Контакты',
+  1,
+  'contacts',
+  '/contacts',
+   2,
+  '2/4/',
+  20
+);
+
 /*!40000 ALTER TABLE `lmb_cms_menu` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
