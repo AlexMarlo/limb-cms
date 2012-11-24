@@ -2,5 +2,10 @@
   <?
     $this->common_conf = $this->toolkit->getConf( 'common');
     $this->static_files_version = $this->common_conf->get( 'static_files_version');
+    
+    $this->current_url = lmbToolkit :: instance()->request->getUri()->getPath();
+    $this->current_url = lmbFS :: normalizePath($this->current_url);
+    if($this->current_url == '')
+      $this->current_url = '/';
   ?>
 {{/trim}}

@@ -53,7 +53,7 @@ VALUES (
   1,
   'root'
 );
-INSERT INTO `lmb_cms_document` (`title`, `is_published`, `content`, `identifier`, `parent_id`, `level`, `path`)
+INSERT INTO `lmb_cms_document` (`title`, `is_published`, `content`, `identifier`, `parent_id`, `level`, `path`, `priority`)
 VALUES (
   'Contacts',
   1,
@@ -61,7 +61,8 @@ VALUES (
   'contacts',
   1,
   1,
-  '/2/'
+  '/2/',
+  10
 );
 /*!40000 ALTER TABLE `lmb_cms_document` ENABLE KEYS */;
 UNLOCK TABLES;

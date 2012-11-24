@@ -1,8 +1,11 @@
 <?php
 $conf = array(
-  'contact_page' => array('title' => 'Контактная информация',
-                          'content' => '<p>Контактная информация</p>'),
+  'header_title' => array( 'title' => 'Заголовок сайта',
+                           'content' => 'Limb CMS'),
 
-  'footer' => array('title' => 'Подвал Сайта',
-                    'content' => '<p>&copy; 2012 Limb CMS |  Based on <a href="http://www.limb-project.com/">LIMB</a></p>'),
+  'copyright' => array( 'title' => 'Копирайт',
+                        'content' => '<p>&copy; 2012 Limb CMS |  Based on <a href="http://www.limb-project.com/">LIMB</a></p>'),
+
+  'contacts' => array( 'title' => 'Краткая контактная информация',
+                       'content' => '<p>Контактная информация</p>'),
 );

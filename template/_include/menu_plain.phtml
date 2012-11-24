@@ -11,7 +11,7 @@
   <ul>
     {{list:item}}
       <li>
-        <a href="{$item.url}">{$item.title}</a>
+        <a <?= ($item->getUrl() == $this->current_url )?'class="active"':'';?>href="{$item.url}">{$item.title}</a>
       </li>
     {{/list:item}}
   </ul>
