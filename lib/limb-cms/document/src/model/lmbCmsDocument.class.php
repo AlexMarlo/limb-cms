@@ -7,14 +7,14 @@
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
 
-lmb_require('limb-cms/core/src/model/lmbActiveRecordTreeNode.class.php');
+lmb_require('limb-cms/core/src/model/lmbCmsActiveRecordTreeNode.class.php');
 
 /**
  * class lmbCmsDocument.
  *
  * @package cms-document
  */
-class lmbCmsDocument extends lmbActiveRecordTreeNode
+class lmbCmsDocument extends lmbCmsActiveRecordTreeNode
 {
   protected $_db_table_name = 'lmb_cms_document';
   protected $_lazy_attributes = array('content');
@@ -38,26 +38,6 @@ class lmbCmsDocument extends lmbActiveRecordTreeNode
     return $validator;
   }
 
-  protected function _onBeforeSave()
-  {
-    $this->save();
-  }
-
-  function _onCreate()
-  {
-    $this->_setPriority();
-  }
-
-  protected function _setPriority()
-  {
-    if(!$parent_id = $this->getParentId())
-      $parent_id = lmbCmsDocument :: findRoot()->getId();
-
-    $sql = "SELECT MAX(priority) FROM " . $this->_db_table_name . " WHERE parent_id = " . $parent_id;
-    $max_priority = lmbDBAL :: fetchOneValue($sql);
-    $this->setPriority($max_priority + 10);
-  }
-
   function getUri()
   {
     $uri = ($this->getParent() && !$this->getParent()->isRoot()) ? $this->getParent()->getUri() : '';
@@ -75,12 +55,12 @@ class lmbCmsDocument extends lmbActiveRecordTreeNode
     $level = 0;
     foreach($identifiers as $identifier)
     {
-    	$identifier_criteria = lmbSQLCriteria::equal('identifier', $identifier);
+      $identifier_criteria = lmbSQLCriteria::equal('identifier', $identifier);
       $identifier_criteria->addAnd(lmbSQLCriteria::equal('level', $level));
       $criteria->addOr($identifier_criteria);
       $level++;
     }
-    $documents = lmbActiveRecord :: find('lmbCmsDocument', $criteria);
+    $documents = lmbActiveRecord :: find( 'lmbCmsDocument', $criteria);
     
     $parent_id = 0;
     foreach($identifiers as $identifier)

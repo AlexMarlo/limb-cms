@@ -1,7 +1,7 @@
 <?php
-lmb_require('limb-cms/core/src/model/lmbActiveRecordTreeNode.class.php');
+lmb_require('limb-cms/core/src/model/lmbCmsActiveRecordTreeNode.class.php');
 
-class Menu extends lmbActiveRecordTreeNode
+class Menu extends lmbCmsActiveRecordTreeNode
 {
   protected $_db_table_name = 'lmb_cms_menu';
 

@@ -99,10 +99,7 @@ abstract class lmbAdminObjectController extends lmbObjectController
     if(!is_array($ids))
       $ids = array($ids);
 
-    $this->items = lmbActiveRecord::findByIds($this->_object_class_name, $ids);
-
-    if(!$this->request->hasPost())
-      return;
+    $this->items = lmbActiveRecord::findByIds( $this->_object_class_name, $ids);
 
     $this->_onBeforeDelete();
 

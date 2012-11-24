@@ -6,7 +6,7 @@ class AdminMenuController extends lmbAdminObjectController
 {
   protected $_object_class_name = 'Menu';
 
-  function doDisplay($template_name = 'display.phtml')
+  function doDisplay( $template_name = 'display.phtml')
   {
     $this->setTemplate('admin_menu/' . $template_name);
     if(!$id = $this->request->getInteger('id')  )
@@ -24,7 +24,8 @@ class AdminMenuController extends lmbAdminObjectController
       $criteria = new lmbSQLCriteria('parent_id = ' . $this->item->getId());
     }
 
-    $this->items = lmbActiveRecord :: find( $this->_object_class_name, array('criteria' => $criteria, 'sort'=>array('priority'=>'ASC')));
+    $this->items = lmbActiveRecord :: find( $this->_object_class_name, array('criteria' => $criteria, 
+                                                                             'sort' => array('priority'=>'ASC')));
     
     $this->_applySortParams();
   }

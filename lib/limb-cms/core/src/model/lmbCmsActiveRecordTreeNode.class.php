@@ -1,9 +1,15 @@
 <?php
 
-lmb_require('limb/active_record/src/lmbActiveRecord.class.php');
+lmb_require('limb-cms/core/src/model/lmbCmsActiveRecord.class.php');
 lmb_require('limb/tree/src/lmbMPTree.class.php');
 
-abstract class lmbActiveRecordTreeNode extends lmbActiveRecord
+/**
+ * class lmbCmsActiveRecordTreeNode.
+ *
+ * @package core
+ */
+
+abstract class lmbCmsActiveRecordTreeNode extends lmbCmsActiveRecord
 {
   protected $_tree;
 
@@ -119,13 +125,12 @@ abstract class lmbActiveRecordTreeNode extends lmbActiveRecord
     return !((bool)$this->_getRaw('parent_id'));
   }
 
-  
   /**
    *
-   * @param lmbActiveRecordTreeNode $node
+   * @param lmbCmsActiveRecordTreeNode $node
    * @return bool
    */
-  function isChildOf( lmbActiveRecordTreeNode $node)
+  function isChildOf( lmbCmsActiveRecordTreeNode $node)
   {
     $rs = $this->getTree()->getParents($this);
     foreach($rs as $record)
@@ -141,5 +146,15 @@ abstract class lmbActiveRecordTreeNode extends lmbActiveRecord
     return lmbActiveRecord :: decorateRecordSet($rs,
                                                 get_class($this),
                                                 $this->_db_conn);
+  }
+  
+  protected function _setPriority()
+  {
+    if(!$parent_id = $this->getParentId())
+      $parent_id = $this->findRoot( $this->_db_table_name)->getId();
+  
+    $sql = "SELECT MAX(priority) FROM " . $this->_db_table_name . " WHERE parent_id = " . $parent_id;
+    $max_priority = lmbDBAL :: fetchOneValue($sql);
+    $this->setPriority($max_priority + 10);
   }
 }
