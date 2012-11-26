@@ -1,6 +1,6 @@
 <? 
-  lmb_require('src/finder/MenuFinder.class.php');
-  lmb_require('src/model/Menu.class.php');
+  lmb_require('limb-cms/menu/src/finder/MenuFinder.class.php');
+  lmb_require('limb-cms/menu/src/model/Menu.class.php');
   
   if(!isset($identifier)) $identifier = Menu::findRoot()->get('identifier');
   $node = MenuFinder :: findOneByIdentifier($identifier);

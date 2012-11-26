@@ -31,3 +31,5 @@ lmb_cms_load_packages('limb-cms');
 
 lmb_env_setor('CMS_DIR', dirname(__FILE__));
 lmb_env_setor('LIMB_VAR_DIR', CMS_DIR . '/var/');
+
+lmbToolkit :: instance()->setConfIncludePath('settings;limb-cms/*/settings;limb/*/settings');

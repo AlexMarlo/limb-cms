@@ -1,6 +1,6 @@
 <?php
 lmb_require('limb-cms/core/src/controller/lmbAdminObjectController.class.php');
-lmb_require('src/model/Menu.class.php');
+lmb_require('limb-cms/menu/src/model/Menu.class.php');
 
 class AdminMenuController extends lmbAdminObjectController
 {

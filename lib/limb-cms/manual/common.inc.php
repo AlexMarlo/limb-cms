@@ -8,10 +8,10 @@
  */
 
 /**
- * @package textblock
+ * @package manual
  */
 require_once('limb/core/common.inc.php');
 
 lmb_package_require('core', 'limb-cms/');
 
-lmb_package_register('textblock', dirname(__FILE__));
+lmb_package_register('manual', dirname(__FILE__));

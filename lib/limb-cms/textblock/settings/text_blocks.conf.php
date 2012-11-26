@@ -1,4 +1,5 @@
 <?php
+
 $conf = array(
   'header_title' => array( 'title' => 'Заголовок сайта',
                            'content' => 'Limb CMS'),
