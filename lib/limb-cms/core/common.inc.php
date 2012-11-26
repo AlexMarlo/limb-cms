@@ -38,3 +38,8 @@ function lmb_cms_get_loaded_packages()
     throw new lmbCmsException('Packages not inited. Use lmb_cms_load_packages().');
   return array_keys(lmb_packages_list(lmb_env_get('LIMB_CMS_PACKAGES_DIR')));
 }
+
+lmb_require( "limb-cms/core/src/filter/lmbCmsRequestDispatchingQueue.class.php");
+lmbCmsRequestDispatchingQueue::add( "lmbRoutesRequestDispatcher",
+                                    "limb/web_app/src/request/lmbRoutesRequestDispatcher.class.php",
+                                    lmbCmsRequestDispatchingQueue::BOTTOM);

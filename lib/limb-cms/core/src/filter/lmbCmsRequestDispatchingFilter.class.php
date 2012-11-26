@@ -8,8 +8,8 @@
  */
 lmb_require('limb/web_app/src/filter/lmbRequestDispatchingFilter.class.php');
 lmb_require('limb/web_app/src/request/lmbCompositeRequestDispatcher.class.php');
-lmb_require('limb-cms/document/src/request/lmbCmsDocumentRequestDispatcher.class.php');
-lmb_require('limb/web_app/src/request/lmbRoutesRequestDispatcher.class.php');
+//lmb_require('limb-cms/document/src/request/lmbCmsDocumentRequestDispatcher.class.php');
+//lmb_require('limb/web_app/src/request/lmbRoutesRequestDispatcher.class.php');
 
 /**
  * class lmbCmsRequestDispatchingFilter.
@@ -23,8 +23,13 @@ class lmbCmsRequestDispatchingFilter extends lmbRequestDispatchingFilter
   {
     $dispatcher = new lmbCompositeRequestDispatcher();
     
-    $dispatcher->addDispatcher(new lmbCmsDocumentRequestDispatcher());
-    $dispatcher->addDispatcher(new lmbRoutesRequestDispatcher());
+    $dispatcherQueue = lmbCmsRequestDispatchingQueue::getQueue();
+    
+    foreach( $dispatcherQueue as $subDispatcher)
+    {
+      lmb_require( $subDispatcher[ lmbCmsRequestDispatchingQueue::INCLUDE_PATH_NAME]);
+      $dispatcher->addDispatcher( new $subDispatcher[ lmbCmsRequestDispatchingQueue::OBJECT_NAME]());
+    }
     
     parent :: __construct($dispatcher, $default_controller_name);
   }

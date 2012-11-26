@@ -15,3 +15,7 @@ require_once('limb/core/common.inc.php');
 lmb_package_require('core', 'limb-cms/');
 
 lmb_package_register('document', dirname(__FILE__));
+
+lmbCmsRequestDispatchingQueue::add( "lmbCmsDocumentRequestDispatcher",
+                                    "limb-cms/document/src/request/lmbCmsDocumentRequestDispatcher.class.php",
+                                    lmbCmsRequestDispatchingQueue::TOP);
