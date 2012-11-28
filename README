@@ -1,23 +1,24 @@
-################################################################################
-            Limb3 Web Application Framework - http://limb-project.com
-################################################################################
+              For now this is just fork from Limb CMS 
 
-Limb3 is a general PHP5 only Web Application Framework consisting of many packages.
+Limb CMS baesd on Limb3 Web Application Framework (http://limb-project.com).
+It is based on MVC pattern.
+For now CMS still don't have web install inreface
+Cms consist of following modules for now:
 
-Here is the list of the most notable packages at the moment:
+    * core - contain common classes for content managment, user managment, seo managment
+    * document - module for creating text pages
+    * textblock - modele for creating text blocks such as copyright
+    * menu - functionality for creting tree like menus
+    * constructor - module for auto code generating
+    * wysiwyg - visual editor for html pages
+    * calendar
+    * js 
+    * server_info - module for check server settings, php info, email send settings, limb variables
+    * manual - documentation module
+    * web_cache
 
-    * core: the base system package which provides lazy loading of PHP code, iterators support,
-            generic object containers, decorators generators, transparent object proxies, etc
-    * toolkit: dependency injection tools
-    * filter_chain: InterceptingFilter design pattern implementation
-    * wact: a forked and a bit patched version of the brilliant template WACT subsystem(http://phpwact.org)
-    * web_app: FrontController and MVC patterns implementation.
-    * active_record: ActiveRecord pattern implementation(Rails alike flavour, http://rubyonrails.com/)
-    * dbal: Database Abstraction Layer which supports MySql, PostreSQL and Oracle at the moment.
-    * tests_runner: unit testing tools built around excellent SimpleTest library(http://simpletest.org)
-    * session: transparent PHP session wrappers with painless persistence of objects
-    * ..see more packages on Limb3 PEAR channel!
+Cms require:
+	# Limb3 Web Application Framework( http://github.com/AlexMarlo/limb)
+	# Limb DBMan (http://github.com/AlexMarlo/limb-app-dbman)
 
-If you have any questions and need support, don't hesitate contacting us at forum(http://limb-project.com/support)
-or one of the mailing lists(http://lists.limb-project.com).
-
+Now cms at active development.
