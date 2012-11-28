@@ -7,6 +7,13 @@
           title='Priority'
           size='3'
   /}}
+
+  <a class="priority_down" href="#" title="Опустить приориет">
+    <img src="/shared/cms/images/icons/arrow_down_not_active.png" />
+  </a>
+  <a class="priority_up" href="#" title="Поднять приориет">
+    <img src="/shared/cms/images/icons/arrow_up_not_active.png" />
+  </a>
 {{/template}}
 
 {{template name="save_priority_button"}}
@@ -21,6 +28,7 @@
     $title = isset($title) ? $title : lmb_i18n('Change order', 'cms');
   ?>
   <input type="button" class='button' value='{$title}' onclick='openWindowForSavePriority("{$title}?", "{$url}", this);return false;'/>
+  <input type="hidden" class="priority_url" value="{$url}" />
 {{/template}}
 
 {{into slot="js"}}

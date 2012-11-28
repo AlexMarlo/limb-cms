@@ -9,14 +9,14 @@
       {{apply template="selectors_button" action="delete" title="Удалить"/}}
       {{apply template="save_priority_button" params="parent_id={$#item.id}"/}}
     </div>
-    
+
     <table>
       <tr>
         <th>{{apply template="selectors_toggler"/}}</th>
-        <th>#ID </th>
-        <th>Порядок </th>
-        <th>Идентификатор </th>
-        <th width="80%">Название </th>
+        <th>#ID</th>
+        <th>Приоритет</th>
+        <th>Идентификатор</th>
+        <th>Название</th>
         <th>Статус</th>
         <th>Дата<br/>создания</th>
         <th>Последнее<br/>обновление</th>
@@ -43,13 +43,14 @@
           <td>{$item.ctime|i18n_date:"", "stamp", "short_date_time"}</td>
           <td>{$item.utime|i18n_date:"", "stamp", "short_date_time"}</td>
           <td class='actions'>
-          <? if($item->getIsPublished()): ?>
-            {{apply template="object_action_unpublish" item="{$item}" icon="lightbulb_off"/}}
-          <?  else:  ?>
-            {{apply template="object_action_publish" item="{$item}" icon="lightbulb"/}}
-          <? endif; ?>
-          {{apply template="object_action_edit" item="{$item}" icon="page_edit"/}}
-          {{apply template="object_action_delete" item="{$item}"/}}
+            {{apply template="object_action" item="{$item}" action="create" title="Добавление дочернего меню" icon="link_add"/}}
+            <? if($item->getIsPublished()): ?>
+              {{apply template="object_action_unpublish" item="{$item}" icon="lightbulb_off"/}}
+            <?  else:  ?>
+              {{apply template="object_action_publish" item="{$item}" icon="lightbulb"/}}
+            <? endif; ?>
+            {{apply template="object_action_edit" item="{$item}" icon="link_edit"/}}
+            {{apply template="object_action_delete" item="{$item}" icon="link_delete"/}}
           </td>
         </tr>
       {{/list:item}}

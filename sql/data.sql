@@ -37,7 +37,7 @@ UNLOCK TABLES;
 INSERT INTO `lmb_cms_seo` (`id`, `url`, `title`, `description`, `keywords`) VALUES(
   1,
   '/',
-  'Главная страница Сайта',
+  'Главная страница',
   'Описание',
   'Ключевые слова'
 );
@@ -47,11 +47,12 @@ UNLOCK TABLES;
 
 
 /*!40000 ALTER TABLE `lmb_cms_document` DISABLE KEYS */;
-INSERT INTO `lmb_cms_document` (`title`, `is_published`, `content`)
+INSERT INTO `lmb_cms_document` (`title`, `is_published`, `content`, `path`)
 VALUES (
-  'root',
+  'Корневой элемент',
   1,
-  'root'
+  'root',
+  '/'
 );
 INSERT INTO `lmb_cms_document` (`title`, `is_published`, `content`, `identifier`, `parent_id`, `level`, `path`, `priority`)
 VALUES (
@@ -70,12 +71,13 @@ UNLOCK TABLES;
 
 
 /*!40000 ALTER TABLE `lmb_cms_menu` DISABLE KEYS */;
-INSERT INTO `lmb_cms_menu` ( `parent_id`, `title`, `is_published`, `identifier`)
+INSERT INTO `lmb_cms_menu` ( `parent_id`, `title`, `is_published`, `identifier`, `path`)
 VALUES (
   0,
   'Корневой элемент',
   1,
-  'root'
+  'root',
+  '/'
 );
 INSERT INTO `lmb_cms_menu` ( `parent_id`, `title`, `is_published`, `identifier`, `url`, `level`, `path`, `priority`)
 VALUES (
@@ -85,7 +87,7 @@ VALUES (
   'main_menu',
   '',
   1,
-  '2/',
+  '/2/',
   10
 ),
 (
@@ -95,7 +97,7 @@ VALUES (
   'main_page',
   '/',
    2,
-  '2/3/',
+  '/2/3/',
   10
 ),
 (
@@ -105,7 +107,7 @@ VALUES (
   'contacts',
   '/contacts',
    2,
-  '2/4/',
+  '/2/4/',
   20
 );
 

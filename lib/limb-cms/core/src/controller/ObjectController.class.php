@@ -50,6 +50,11 @@ abstract class ObjectController extends lmbController
     if(!$this->item = $this->_getObjectByRequestedId())
       return $this->forwardTo404();
   }
+  
+  function getObjectClassName()
+  {
+    return $this->_object_class_name;
+  }
 }
 
 

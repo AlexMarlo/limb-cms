@@ -29,7 +29,6 @@ class lmbCmsDocument extends lmbCmsActiveRecordTreeNode
     $validator = new lmbValidator();
 
     $validator->addRequiredRule('title', 'Поле "Заголовок" обязательно для заполнения');
-    $validator->addRequiredRule('content', 'Поле "Текст" обязательно для заполнения');
     $validator->addRequiredRule('identifier', 'Поле "Идентификатор" обязательно для заполнения');
 
     lmb_require('limb-cms/core/src/validation/rule/lmbTreeIdentifierRule.class.php');

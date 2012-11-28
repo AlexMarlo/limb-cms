@@ -54,6 +54,6 @@ class MenuFinder
                 ->addAnd(lmbSQLCriteria::like('path', $node->path . '%'))
                 ->addAnd(new lmbSQLCriteria('id <> ' . $node->id));
     
-    return Menu :: find($criteria);
+    return Menu :: find( array('criteria' => $criteria, 'sort' => array( 'priority' => 'ASC')));
   }
 }

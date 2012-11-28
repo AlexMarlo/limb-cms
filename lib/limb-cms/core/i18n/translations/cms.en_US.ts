@@ -35,7 +35,7 @@
     </message>
     <message>
         <source>Change order</source>
-        <translation>Сменить приоритеты</translation>
+        <translation>Изменить приоритет</translation>
     </message>
     <message>
         <source>Are you sure want to delete selected objects?</source>

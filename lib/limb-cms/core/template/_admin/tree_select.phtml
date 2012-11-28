@@ -1,0 +1,23 @@
+<?php
+  $controller = lmbToolkit::instance()->getDispatchedController()->getName();
+  $controller =  lmb_camel_case( $controller) . 'Controller';
+  $controller_info = new $controller();
+  $object_class_name =  $controller_info->getObjectClassName();
+ 
+  $parent_id = isset( $this->item)? $this->item->parent_id: 0;
+  $criteria = isset( $this->item) && !$this->item->isDirty()? "NOT path LIKE '{$this->item->path}%'": "1=1";
+
+  $options = array();
+  $tree = lmbActiveRecord::find( $object_class_name, array( 'criteria' => $criteria, 'sort' => array( 'path' => 'ASC')));
+
+  foreach( $tree as $item)
+  {
+    $tab = str_repeat( " - ", $item->level);
+    $options[$item->id] = $tab . $item->title;
+  }
+
+  $selected_value = array( $parent_id);
+  $selected_value_object = new lmbObject( array('value' => $parent_id));
+?>
+
+{{select id="parent" options="$options" value="$selected_value_object" value_field="value" /}}

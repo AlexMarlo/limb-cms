@@ -16,47 +16,6 @@ class AdminDocumentController extends AdminTreeNodeObjectController
 {
   protected $_object_class_name = 'lmbCmsDocument';
 
-  function doDisplay()
-  {
-    if(!$id = $this->request->getInteger('id')  ){
-      $this->is_root = true;
-      $criteria = new lmbSQLCriteria('parent_id > 0');
-      $criteria->addAnd(new lmbSQLCriteria('level = 1'));
-      $this->item = lmbCmsDocument :: findRoot();
-    }
-    else {
-      $this->is_root = false;
-      if(!$this->item = $this->_getObjectByRequestedId())
-        return $this->forwardTo404();
-      $criteria = new lmbSQLCriteria('parent_id = ' . $this->item->getId());
-    }
-
-    $this->items = lmbActiveRecord :: find($this->_object_class_name, array('criteria' => $criteria, 'sort'=>array('priority'=>'ASC')));
-    $this->_applySortParams();
-  }
-
-  function doCreate()
-  {
-    if(!$this->parent = $this->_getObjectByRequestedId())
-      $this->forwardTo404();
-
-    $this->item = new $this->_object_class_name();
-
-    $this->_onCreate();
-
-    $this->useForm($this->_form_name);
-    $this->setFormDatasource($this->item);
-
-    if($this->request->hasPost())
-    {
-      $this->_import();
-      $this->item->setParent($this->parent);
-      $this->_validateAndSave($create = true);
-    }
-    else
-      $this->_initCreateForm();
-  }
-
   protected function _validateAndSave($is_create = false)
   {
     try

@@ -1,9 +1,9 @@
 <?php
-lmb_require('limb-cms/core/src/controller/lmbAdminObjectController.class.php');
+lmb_require('limb-cms/core/src/controller/AdminObjectController.class.php');
 lmb_require('limb/validation/src/rule/lmbMatchRule.class.php');
 lmb_require('limb-cms/core/src/model/lmbCmsUser.class.php');
 
-class AdminUserController extends lmbAdminObjectController
+class AdminUserController extends AdminObjectController
 {
   protected $_object_class_name = 'lmbCmsUser';
 

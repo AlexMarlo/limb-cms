@@ -147,7 +147,8 @@
           .list .list_actions {margin-left:-1px;}
           .list .list_actions:last-child {margin-top:-1px;}
           .list .list_actions .button_wrapper {margin:0 10px 0 0;}
-         .list .priority {display:block;width: 30px; text-align: right;margin:0 auto;}
+        .list .priority {width: 30px; text-align: right;margin:0 6px 0 auto;float:left;}
+          .list a.priority_down img, .list a.priority_up img {margin:0px 3px 0 -8px;}
 
   /*MESSAGE ERROR*/
     .message_error {margin:0 9px 1em;}

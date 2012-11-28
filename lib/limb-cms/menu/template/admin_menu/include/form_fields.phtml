@@ -1,83 +1,49 @@
 {{include file='_admin/form_errors.phtml'/}}
 
-  <div class='tabs'>
+<div class='tabs'>
 
-    <ul>
-      <li id='properties'><a href="#">Свойства</a></li>
-    </ul>
+  <ul>
+    <li id='properties'><a href="#">Свойства</a></li>
+  </ul>
 
-    <div id="tab_properties">
+  <div id="tab_properties">
 
-      <dl class="required field">
-        <dt><label for="title">Заголовок:</label></dt>
-        <dd>{{input type="text" name="title" id="title" title="Заголовок"/}}</dd>
-      </dl>
+    <dl class="required field">
+      <dt><label for="title">Заголовок:</label></dt>
+      <dd>{{input type="text" name="title" id="title" title="Заголовок"/}}</dd>
+    </dl>
 
-      <dl class="required field">
-        <dt><label for="url">URL:</label></dt>
-        <dd>
-          <?php if($this->item->isReadOnly()) { ?>
-            <input id="url" name="url" type="text" title="URL" disabled value="<?=isset($this->item)? $this->item->url: '';?>">
-          <? } else {?>
-            {{input type="text" name="url" id="url" title="URL"/}}
-          <? }?>
-        </dd>
-      </dl>
+    <dl class="required field">
+      <dt><label for="url">URL:</label></dt>
+      <dd>
+        <?php if($this->item->isReadOnly()) { ?>
+          <input id="url" name="url" type="text" title="URL" disabled value="<?=isset($this->item)? $this->item->url: '';?>">
+        <? } else {?>
+          {{input type="text" name="url" id="url" title="URL"/}}
+        <? }?>
+      </dd>
+    </dl>
 
-      <dl class="field">
-        <dt><label for="identifier">Идентификатор:</label></dt>
-        <dd>
-          <?php if($this->item->isReadOnly()) { ?>
-            <input id="identifier" name="identifier" type="text" title="Идентификатор" disabled value="<?=isset($this->item)? $this->item->identifier: '';?>">
-          <? } else {?>
-            {{input id="identifier" name="identifier" type="text" title="Идентификатор"/}}
-          <? }?>
-        </dd>
-      </dl>
-
-      
-      <dl class="field">
-        <dt><label for="parent_id">Родительский элемент:</label></dt>
-        <dd>
-        
-          <?php
-            $parent_id = isset($this->item)? $this->item->parent_id: 0;
-            
-            if($this->item->isReadOnly()) { ?>
-          <? } else {
-             $options = array();
-             $tree = Menu::find( array( 'sort' => array( 'path' => 'ASC')));
-             
-             foreach( $tree as $item)
-             {
-               $tab = str_repeat( " - ", $item->level);
-               $options[$item->id] = $tab . $item->title;
-             }
-             
-             $selected_value = array( $parent_id);
-             $selected_value_object = new lmbObject(array('value' => $parent_id));
-          ?>
-             {{select id="parent" options="$options" value="$selected_value_object" value_field="value" /}}
-          <? }?>
-
-        </dd>
-      </dl>
-      
-    </div>
-
+    <dl class="field">
+      <dt><label for="identifier">Идентификатор:</label></dt>
+      <dd>
+        <?php if($this->item->isReadOnly()) { ?>
+          <input id="identifier" name="identifier" type="text" title="Идентификатор" disabled value="<?=isset($this->item)? $this->item->identifier: '';?>">
+        <? } else {?>
+          {{input id="identifier" name="identifier" type="text" title="Идентификатор"/}}
+        <? }?>
+      </dd>
+    </dl>
+    
+    <dl class="field">
+      <dt><label for="parent_id">Родительский элемент:</label></dt>
+      <dd>
+        {{include file="_admin/tree_select.phtml" item="{$#item}" object_class_name="{$#_object_class_name}" /}}
+      </dd>
+    </dl>
+    
   </div>
 
+</div>
+
 {{include file='_admin/form_buttons.phtml'/}}
-
-{{into slot="js_include"}}
-  <script type="text/javascript" src="/js/admin_main.js" ></script>
-{{/into}}
-
-{{into slot="js_ready"}}//<<script type="text/javascript">
-  $("#title").blur(function() {
-
-	  if( $("#identifier").val() == "" && $("#title").val() != "")
-	     $("#identifier").val( translit( $("#title").val()).toLowerCase());
-       
-  });
-{{/into}}
