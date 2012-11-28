@@ -1,8 +1,9 @@
 <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
 
-<title>{{slot id='page_title'/}}</title>
-<meta name="keywords" content='{{slot id="page_keywords" /}}'/>
-<meta name="description" content='{{slot id="page_description" /}}'/>
+<?php lmb_require('limb-cms/core/src/model/lmbCmsSeo.class.php'); ?>
+<title><?php echo lmbCmsSeo :: getMetaTitle(); ?></title>
+<meta name="description" content="<?php echo  lmbCmsSeo :: getMetaDescription(); ?>"/>
+<meta name="keywords" content="<?php echo lmbCmsSeo :: getMetaKeywords(); ?>"/>
 
 <link rel="stylesheet" type="text/css" href="/styles/main.css?{$#static_files_version}" />
 <!--[if lt IE 8]><link rel="stylesheet" type="text/css" href="/styles/main_ie.css?{$#static_files_version}" /><![endif]-->

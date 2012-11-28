@@ -14,7 +14,7 @@ lmb_require('limb/web_app/src/controller/lmbController.class.php');
  * @package cms
  * @version $Id$
  */
-abstract class lmbObjectController extends lmbController
+abstract class ObjectController extends lmbController
 {
   protected $_object_class_name = '';
 

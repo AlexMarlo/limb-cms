@@ -1,8 +1,8 @@
 <?php
-lmb_require('limb-cms/core/src/controller/lmbAdminObjectController.class.php');
+lmb_require('limb-cms/core/src/controller/AdminTreeNodeObjectController.class.php');
 lmb_require('limb-cms/menu/src/model/Menu.class.php');
 
-class AdminMenuController extends lmbAdminObjectController
+class AdminMenuController extends AdminTreeNodeObjectController
 {
   protected $_object_class_name = 'Menu';
 
@@ -26,7 +26,6 @@ class AdminMenuController extends lmbAdminObjectController
 
     $this->items = lmbActiveRecord :: find( $this->_object_class_name, array('criteria' => $criteria, 
                                                                              'sort' => array('priority'=>'ASC')));
-    
     $this->_applySortParams();
   }
   
@@ -34,7 +33,8 @@ class AdminMenuController extends lmbAdminObjectController
   {
     parent::doCreate();
     $parent_id = $this->request->getInteger('id');
-    if( Menu :: findById( $parent_id))
+
+    if( lmbActiveRecord :: findById( $this->_object_class_name, $parent_id))
       $this->item->parent_id = $parent_id;
     else
       $this->item->parent_id = 0;

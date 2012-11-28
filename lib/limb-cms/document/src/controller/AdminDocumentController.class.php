@@ -9,10 +9,10 @@
  * @version    $Id$
  * @package    cms
  */
-lmb_require('limb-cms/core/src/controller/lmbAdminObjectController.class.php');
+lmb_require('limb-cms/core/src/controller/AdminTreeNodeObjectController.class.php');
 lmb_require('limb-cms/core/src/model/lmbCmsDocument.class.php');
 
-class AdminDocumentController extends lmbAdminObjectController
+class AdminDocumentController extends AdminTreeNodeObjectController
 {
   protected $_object_class_name = 'lmbCmsDocument';
 
@@ -35,14 +35,6 @@ class AdminDocumentController extends lmbAdminObjectController
     $this->_applySortParams();
   }
 
-  function doPriority()
-  {
-    if($this->request->has('parent_id'))
-      $this->_changeItemsPriority('lmbCmsDocument', 'parent_id', $this->request->get('parent_id'));
-
-    $this->_endDialog();
-  }
-
   function doCreate()
   {
     if(!$this->parent = $this->_getObjectByRequestedId())
@@ -63,12 +55,6 @@ class AdminDocumentController extends lmbAdminObjectController
     }
     else
       $this->_initCreateForm();
-  }
-
-  protected function _onBeforeImport()
-  {
-    $this->request->set('identifier', trim($this->request->get('identifier')));
-    $this->request->set('title', trim($this->request->get('title')));
   }
 
   protected function _validateAndSave($is_create = false)

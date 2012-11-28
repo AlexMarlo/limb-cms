@@ -1,8 +1,8 @@
 <?php
-lmb_require('limb-cms/core/src/controller/lmbAdminObjectController.class.php');
+lmb_require('limb-cms/core/src/controller/AdminObjectController.class.php');
 lmb_require('limb-cms/textblock/src/model/lmbCmsTextBlock.class.php');
 
-class AdminTextBlockController extends lmbAdminObjectController
+class AdminTextBlockController extends AdminObjectController
 {
   protected $_form_name = 'object_form';
   protected $_object_class_name = 'lmbCmsTextBlock';

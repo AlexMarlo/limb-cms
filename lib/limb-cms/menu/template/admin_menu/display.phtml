@@ -2,8 +2,8 @@
 
   {{into slot="content_zone"}}
 
-    {{include file="_admin_object/actions.phtml"/}}
-    {{include file='_widgets/cms_document_breadcrumbs.phtml' item="{$#item}" base_path="/admin_menu/display/" link_field='id' root_path='/admin_menu/' root_title="Список Меню" /}}
+    {{include file="_admin_object_tpls/actions_tpls.phtml"/}}
+    {{include file='_admin/tree_breadcrumbs.phtml' item="{$#item}" base_path="/admin_menu/display/" link_field='id' root_path='/admin_menu/' root_title="Список Меню" /}}
     
     <div id="header">
       <h1>Меню</h1>
@@ -12,14 +12,11 @@
         {{apply template="object_action" action="create" item="{$#item}" icon="link_add" title="Добавить пункт меню" is_link="true" /}}
 
         <? if(!$this->item->isRoot()) { ?>
-
           <? if($this->item->getIsPublished()) : ?>
             {{apply template="object_action_unpublish" item="{$#item}" icon="lightbulb_off" is_link="true" title="Снять с публикации"/}}
           <?  else:  ?>
             {{apply template="object_action_publish" item="{$#item}" icon="lightbulb" is_link="true" title="Опубликовать"/}}
           <? endif; ?>
-          
-
         <? } else { ?>
  
         <? } ?>

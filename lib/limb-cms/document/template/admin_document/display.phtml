@@ -1,8 +1,8 @@
 {{wrap with="admin_page_layout.phtml"}}
   {{into slot="content_zone"}}
 
-    {{include file="_admin_object/actions.phtml"/}}
-    {{include file='_widgets/cms_document_breadcrumbs.phtml' item="{$#item}" base_path="/admin_document/display/" link_field='id' root_path='/admin_document/' root_title="Список документов" /}}
+    {{include file="_admin_object_tpls/actions_tpls.phtml"/}}
+    {{include file='_admin/tree_breadcrumbs.phtml' item="{$#item}" base_path="/admin_document/display/" link_field='id' root_path='/admin_document/' root_title="Список документов" /}}
 
     <div id="header">
       <h1>
@@ -25,7 +25,7 @@
             {{apply template="object_action_publish" item="{$#item}" icon="lightbulb" is_link="true" title="Опубликовать"/}}
           <? endif; ?>
 
-          {{apply template="object_action_delete" item="{$#item}" is_link="true" title="Удалить"/}}
+          {{apply template="object_action_delete" item="{$#item}" is_link="true"/}}
 
         <?  else:  ?>
           <?php $item = lmbCmsDocument :: findRoot(); ?>

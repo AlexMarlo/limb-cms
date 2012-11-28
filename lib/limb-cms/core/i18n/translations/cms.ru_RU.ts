@@ -3,7 +3,16 @@
   <context>
     <message>
       <source>{Field} can contain numeric, latin alphabet and `-`, `_`, `.` symbols only</source>
-      <translation type="unfinished"/>
+      <translation>Поле {Field} может содержать только символы латиского алфавита и `-`, `_`, `.`!</translation>
     </message>
-  </context>
+    <message>
+        <source>Home page</source>
+        <translation>Главная страница</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Удалить</translation>
+    </message>
+
+</context>
 </TS>

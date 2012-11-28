@@ -6,7 +6,7 @@
  * @copyright  Copyright &copy; 2004-2007 BIT(http://bit-creative.com)
  * @license    LGPL http://www.gnu.org/copyleft/lesser.html
  */
-lmb_require('limb-cms/core/src/controller/lmbObjectController.class.php');
+lmb_require('limb-cms/core/src/controller/ObjectController.class.php');
 lmb_require('limb/datetime/src/lmbDateTime.class.php');
 
 /**
@@ -15,7 +15,7 @@ lmb_require('limb/datetime/src/lmbDateTime.class.php');
  * @package cms
  * @version $Id$
  */
-abstract class lmbAdminObjectController extends lmbObjectController
+abstract class AdminObjectController extends ObjectController
 {
   protected $_form_name = 'object_form';
   protected $_popup = true;
@@ -205,7 +205,7 @@ abstract class lmbAdminObjectController extends lmbObjectController
       $this->redirect($this->_back_url);
   }
 
-  protected function _changeItemsPriority($model, $where_field, $where_field_value)
+  protected function _changeItemsPriority( $model, $where_field, $where_field_value)
   {
     $priority_items = $this->request->get('priority_items');
 
@@ -215,25 +215,24 @@ abstract class lmbAdminObjectController extends lmbObjectController
     $current_priorities_object = $current_priorities_object->getArray();
 
     $current_priorities = array();
-    foreach($current_priorities_object as $item)
+    foreach( $current_priorities_object as $item)
       $current_priorities[$item->get('id')] = $item->get('priority');
 
-    foreach($priority_items as $id=>$priority)
+    foreach( $priority_items as $id => $priority)
       $current_priorities[$id] = $priority;
 
-    asort($current_priorities);
+    asort( $current_priorities);
 
-    $i = 10;
 
     $table_name = $info_item->getTableName();
 
-    foreach($current_priorities as $id => $priority)
+    $i = 10;
+    foreach( $current_priorities as $id => $priority)
     {
       $sql = "UPDATE " . $table_name . " SET priority='" . $i . "' WHERE id='". $id . "'";
       lmbDBAL :: execute($sql);
       $i += 10;
     }
-
   }
 
   function closePopup()

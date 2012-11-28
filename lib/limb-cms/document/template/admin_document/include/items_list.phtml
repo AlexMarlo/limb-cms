@@ -1,12 +1,13 @@
 {{list using='{$items}' parity='{$parity}'}}
 
-  {{include file="_admin/selectors.phtml"/}}
-  {{include file="_admin_object/actions.phtml"/}}
+  {{include file="_admin_object_tpls/selectors_tpls.phtml"/}}
+  {{include file="_admin_object_tpls/actions_tpls.phtml"/}}
+  {{include file="_admin_object_tpls/priority_tpls.phtml"/}}
 
   <div class="list" id="documents">
     <div class='list_actions'>
-      {{apply template="selectors_button" action="delete" title="Удалить" /}}
-      {{apply template="save_priority_button" controller="admin_document" action="priority" params="parent_id={$#item.id}"/}}
+      {{apply template="selectors_button" action="delete" title="Удалить"/}}
+      {{apply template="save_priority_button" params="parent_id={$#item.id}"/}}
     </div>
     <table>
       <tr>
@@ -23,7 +24,7 @@
       <tr class='{$parity}'>
         <td>{{apply template="selector" value="{$item.id}"/}}</td>
         <td>#{$item.id}</td>
-        <td>{{include file="_admin/priority_input.phtml" item="$item"/}}</td>
+        <td>{{apply template="object_priority_input" item="$item"/}}</td>
         <td width="80%">
           <a href='{{route_url params="action:display,id:{$item.id}"/}}' title="Просмотр дочерних документов" style="font-weight:bold;">{$item.title}</a> ({$item.kids->count()})
           <br/>[<a href="{$item.uri}" title="Посмотреть на сайте" target="_blank">{$item.uri}</a>]

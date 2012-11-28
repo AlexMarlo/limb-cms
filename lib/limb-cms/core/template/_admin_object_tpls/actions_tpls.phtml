@@ -12,7 +12,7 @@
   <?
     $controller = isset($controller) ? $controller : lmbToolkit::instance()->getDispatchedController()->getName();
     $is_link = isset($is_link) ? $is_link : false;
-    $title = isset($title) ? $title : 'Редактировать';
+    $title = isset($title) ? $title : lmb_i18n('Edit', 'cms');
     $icon = isset($icon) ? $icon : "pencil";
   ?>
   <a href='{{route_url params="controller:{$controller},action:edit,id:{$item.id}"/}}' title="{$title|default:'Редактировать'}" class="thickbox"><img src='/shared/cms/images/icons/{$icon|default:"pencil"}.png'/> <? if($is_link) echo $title; ?></a>
@@ -22,17 +22,21 @@
   <?
     $controller = isset($controller) ? $controller : lmbToolkit::instance()->getDispatchedController()->getName();
     $is_link = isset($is_link) ? $is_link : false;
-    $title = isset($title) ? $title : 'Удалить';
+    $title = isset($title) ? $title : lmb_i18n('Delete', 'cms');
     $icon = isset($icon) ? $icon : "delete";
   ?>
-  <a href='#' onclick="if(confirm('Вы действительно желаете удалить выбранный объект?')) {jQuery.post('{{route_url params='controller:{$controller},action:delete'/}}', {ids:{$item.id}}, function(){document.location.reload()})}"  title="{$title|default:'Удалить'}"><img src='/shared/cms/images/icons/{$icon|default:"delete"}.png'/> <? if($is_link) echo $title; ?></a>
+  
+  
+  <a href='#' onclick="if(confirm('{{i18n text='Are you sure want to delete selected objects?' domain='cms'/}}')) {jQuery.post('{{route_url params='controller:{$controller},action:delete'/}}', {ids:{$item.id}}, function(){document.location.reload()})}"  title="{$title|default:'Удалить'}">
+    <img src='/shared/cms/images/icons/{$icon|default:"delete"}.png'/> <? if($is_link) echo $title; ?>
+  </a>
 {{/template}}
 
 {{template name="object_action_publish"}}
   <?
     $controller = isset($controller) ? $controller : lmbToolkit::instance()->getDispatchedController()->getName();
     $is_link = isset($is_link) ? $is_link : false;
-    $title = isset($title) ? $title : 'Показать';
+    $title = isset($title) ? $title : lmb_i18n('Publish', 'cms');
     $icon = isset($icon) ? $icon : "lightbulb";
   ?>
   <a href='{{route_url params="controller:{$controller},action:publish,id:{$item.id}"/}}' title="{$title|default:'Показать'}" class="publish thickbox"><img src='/shared/cms/images/icons/{$icon|default:"lightbulb"}.png'/> <? if($is_link) echo $title; ?></a>
@@ -42,7 +46,7 @@
   <?
     $controller = isset($controller) ? $controller : lmbToolkit::instance()->getDispatchedController()->getName();
     $is_link = isset($is_link) ? $is_link : false;
-    $title = isset($title) ? $title : 'Скрыть';
+    $title = isset($title) ? $title : lmb_i18n('Unpublish', 'cms');
     $icon = isset($icon) ? $icon : "lightbulb_off";
   ?>
 

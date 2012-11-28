@@ -33,3 +33,4 @@ lmb_env_setor('CMS_DIR', dirname(__FILE__));
 lmb_env_setor('LIMB_VAR_DIR', CMS_DIR . '/var/');
 
 lmbToolkit :: instance()->setConfIncludePath('settings;limb-cms/*/settings;limb/*/settings');
+lmb_env_setor( 'LIMB_TRANSLATIONS_INCLUDE_PATH', 'i18n/translations;limb-cms/*/i18n/translations;limb/*/i18n/translations');

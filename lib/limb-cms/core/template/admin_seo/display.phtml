@@ -1,32 +1,33 @@
 {{wrap with="admin_page_layout.phtml"}}
 
-  {{include file="_admin/selectors.phtml"/}}
-  {{include file="_admin_object/actions.phtml"/}}
+  {{include file="_admin_object_tpls/selectors_tpls.phtml"/}}
+  {{include file="_admin_object_tpls/actions_tpls.phtml"/}}
 
   {{into slot="content_zone"}}
     <div id="header">
-      <h1>Мета-данные (SEO)</h1>
+      <h1>{{i18n text="SEO" domain="cms"/}}</h1>
 
       <div class="header_actions">
-        <a href='{{route_url params="controller:admin_seo,action:create"/}}' title="Добавить элемент" class='thickbox'><img src='/shared/cms/images/icons/page_white_add.png'/> Добавить элемент</a>
+        <a href='{{route_url params="controller:admin_seo,action:create"/}}' title="{{i18n text='Add element' domain='cms'/}}" class='thickbox'><img src='/shared/cms/images/icons/page_white_add.png'/>{{i18n text="Add element" domain="cms"/}}</a>
       </div>
     </div>
 
     <div id="body">
       <?php  $this->items->sort(array('url' => 'asc')); ?>
       {{list using='{$#items}' parity='{$parity}'}}
-      {{include file="_admin_object/actions.phtml"/}}
       <div class="list">
         <table>
           <tr>
+            <th>{{apply template="selectors_toggler"/}}</th>
             <th>#ID</th>
-            <th width='20%'>URL</th>
-            <th width='20%'>Title</th>
-            <th width='60%'>Metadata</th>
-            <th>Действия</th>
+            <th width='20%'>{{i18n text="URL" domain="cms"/}}</th>
+            <th width='20%'>{{i18n text="Title" domain="cms"/}}</th>
+            <th width='60%'>{{i18n text="Metadata" domain="cms"/}}</th>
+            <th>{{i18n text="Actions" domain="cms"/}}</th>
             </tr>
             {{list:item}}
             <tr class='{$parity}'>
+              <td>{{apply template="selector" value="{$item.id}"/}}</td>
               <td>#{$item.id}</td>
               <td><a href="{$item.url}" style="font-weight: bold;">{$item.url}</a></td>
               <td>{$item.title}</td>
@@ -43,7 +44,7 @@
             </tr>
             {{/list:item}}
             {{list:empty}}
-              <div class="empty_list">Записи отсутствуют</div>
+              <div class="empty_list">{{i18n text="List is empty!" domain="cms"/}}</div>
             {{/list:empty}}
           </table>
         </div>

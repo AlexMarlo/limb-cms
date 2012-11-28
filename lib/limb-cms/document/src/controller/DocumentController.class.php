@@ -1,9 +1,7 @@
 <?php
-lmb_require('limb-cms/core/src/controller/lmbObjectController.class.php');
-lmb_require('limb-cms/core/src/model/lmbCmsDocument.class.php');
-lmb_require('limb-cms/core/src/model/Seo.class.php');
+lmb_require('limb-cms/core/src/controller/ObjectController.class.php');
 
-class DocumentController extends lmbObjectController
+class DocumentController extends ObjectController
 {
   protected $_object_class_name = 'lmbCmsDocument';  
   
@@ -20,7 +18,6 @@ class DocumentController extends lmbObjectController
     $this->response->addHeader('Last-Modified: ' . $last_modified);
     $this->response->addHeader('Expires: '.$expire_date);
     $this->response->addHeader('Cache-Control: max-age='.$expires.', must-revalidate'); //half day
-
   }
 
 }
