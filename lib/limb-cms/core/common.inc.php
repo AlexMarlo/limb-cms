@@ -44,3 +44,9 @@ lmb_require( "limb-cms/core/src/filter/lmbCmsRequestDispatchingQueue.class.php")
 lmbCmsRequestDispatchingQueue::add( "lmbRoutesRequestDispatcher",
                                     "limb/web_app/src/request/lmbRoutesRequestDispatcher.class.php",
                                     lmbCmsRequestDispatchingQueue::BOTTOM);
+
+lmbCmsRequestDispatchingQueue::add( "LocaleRequestDispatcher",
+                                    "limb-cms/core/src/filter/LocaleRequestDispatcher.class.php",
+                                    lmbCmsRequestDispatchingQueue::TOP);
+
+

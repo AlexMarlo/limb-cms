@@ -8,7 +8,10 @@
       <h1>{{i18n text="SEO" domain="cms"/}}</h1>
 
       <div class="header_actions">
-        <a href='{{route_url params="controller:admin_seo,action:create"/}}' title="{{i18n text='Add element' domain='cms'/}}" class='thickbox'><img src='/shared/cms/images/icons/page_white_add.png'/>{{i18n text="Add element" domain="cms"/}}</a>
+        <a href='{{route_url params="controller:admin_seo,action:create"/}}' title="{{i18n text='Add element' domain='cms'/}}" class='thickbox'>
+          <img src='/shared/cms/images/icons/page_white_add.png'/>
+          {{i18n text="Add element" domain="cms"/}}
+        </a>
       </div>
     </div>
 
@@ -33,8 +36,8 @@
               <td>{$item.title}</td>
               <td>
                 <dl class="cms_meta">
-                  <dt>Keywords</dt><dd>{$item.keywords}</dd>
-                  <dt>Description</dt><dd>{$item.description}</dd>
+                  <dt>{{i18n text="Keywords" domain="cms"/}}</dt><dd>{$item.keywords}</dd>
+                  <dt>{{i18n text="Description" domain="cms"/}}</dt><dd>{$item.description}</dd>
                 </dl>
               </td>
               <td class='actions'>

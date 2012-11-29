@@ -1,0 +1,43 @@
+{{template name="text_field"}}
+  <?php
+    $value = isset($this->item) && isset($name)? $this->item->get( $name): '';
+    $i18n = isset( $i18n)? $i18n: 1;
+    if( $i18n)
+      $title = lmb_i18n( $title, "cms");
+  ?>
+  <dl class="<?php echo (isset($required) && $required)?'required ':'';?>field">
+    <dt><label for="{$name}">{$title}:</label></dt>
+    <dd>{{input type="text" name="{$name}" id="{$name}" title="{$title}" value="{$value}"/}}</dd>
+  </dl>
+{{/template}}
+
+{{template name="textarea_field"}}
+  <?php
+    $value = isset($this->item) && isset($name)? $this->item->get( $name): '';
+    $i18n = isset( $i18n)? $i18n: 1;
+    if( $i18n)
+      $title = lmb_i18n( $title, "cms");
+
+    $rows = isset($rows)?$rows:2;
+    $cols = isset($cols)?$cols:40;
+  ?>
+  <dl class="<?php echo (isset($required) && $required)?'required ':'';?>field">
+    <dt><label for="{$name}">{$title}:</label></dt>
+    <dd>{{textarea name='{$name}' title='{$title}' rows="{$rows}" cols="{$cols}" value="{$value}"/}}</dd>
+  </dl>
+{{/template}}
+
+{{template name="tree_select_field"}}
+  <?php
+    $i18n = isset( $i18n)? $i18n: 1;
+    if( $i18n)
+      $title = lmb_i18n( $title, "cms");
+  ?>
+  <dl class="<?php echo (isset($required) && $required)?'required ':'';?>field">
+    <dt><label for="{$name}">{$title}:</label></dt>
+    <dd>
+      {{include file="_admin/tree_select.phtml" item="{$item}" name="{$name}"/}}
+    </dd>
+  </dl>
+{{/template}}
+  
