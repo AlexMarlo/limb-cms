@@ -254,6 +254,30 @@
         <translation>Навигация</translation>
     </message>
     <message>
+        <source>Administrators</source>
+        <translation>Администраторы</translation>
+    </message>
+    <message>
+        <source>Administrator list</source>
+        <translation>Список администраторов</translation>
+    </message>
+    <message>
+        <source>Add administrator</source>
+        <translation>Добавить администратора</translation>
+    </message>
+    <message>
+        <source>Edit administrator</source>
+        <translation>Редактировать администратора</translation>
+    </message>
+    <message>
+        <source>Administrator info</source>
+        <translation>Иформация об администраторе</translation>
+    </message>
+    <message>
+        <source>Change administrator password</source>
+        <translation>Изменение пароля администратора</translation>
+    </message>
+    <message>
         <source></source>
         <translation></translation>
     </message>
