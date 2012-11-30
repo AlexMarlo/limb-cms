@@ -1,22 +1,13 @@
-  <dl class='required field'>
-    <dt>{{label for="login" errorclass='error_label'}}Логин:{{/label}}</dt>
-    <dd>{{input name="login" type="text" title="Логин" /}}</dd>
-  </dl>
+{{include file='_admin_object_tpls/fieds_tpls.phtml'/}}
 
-  <dl class='field required'>
-    <dt>{{label for="name" errorclass='error_label'}}Имя:{{/label}}</dt>
-    <dd>{{input name="name" type="text" title="Имя" /}}</dd>
-  </dl>
+{{apply template="text_field" name="login" title="Login" required="1"/}}
+{{apply template="text_field" name="name" title="Name" required="1"/}}
+{{apply template="text_field" name="email" title="E-mail" required="1"/}}
 
-  <dl class='field required'>
-    <dt>{{label for="email" errorclass='error_label'}}E-mail{{/label}}</dt>
-    <dd>{{input name="email" type="text" title="E-mail"/}}</dd>
-  </dl>
-
-  <dl class='field'>
-    <dt>{{label for="role_id" errorclass='error_label'}}Группа:{{/label}}</dt>
-    <dd>
-      <?php $list = lmbCmsUser::getRoleTypeList(); ?>
-      {{select id='role_type' name='role_type' options="{$list}" /}}
-    </dd>
-  </dl>
+<dl class='field'>
+  <dt>{{label for="role_id" errorclass='error_label'}}{{i18n text="Group" domain="cms"/}}:{{/label}}</dt>
+  <dd>
+    <?php $list = lmbCmsUser::getRoleTypeList(); ?>
+    {{select id='role_type' name='role_type' options="{$list}" /}}
+  </dd>
+</dl>

@@ -182,6 +182,78 @@
         <translation>Аннотация</translation>
     </message>
     <message>
+        <source>Name</source>
+        <translation>Имя</translation>
+    </message>
+    <message>
+        <source>Login</source>
+        <translation>Логин</translation>
+    </message>
+    <message>
+        <source>Group</source>
+        <translation>Группа</translation>
+    </message>
+    <message>
+        <source>User list</source>
+        <translation>Список пользователей</translation>
+    </message>
+    <message>
+        <source>Change password</source>
+        <translation>Сменить пароль</translation>
+    </message>
+    <message>
+        <source>Are you sure you want to delete user</source>
+        <translation>Вы действительно желаете удалить пользователя</translation>
+    </message>
+    <message>
+        <source>Add user</source>
+        <translation>Добавить пользователя</translation>
+    </message>
+    <message>
+        <source>Change user password</source>
+        <translation>Изменение пароля пользователя</translation>
+    </message>
+    <message>
+        <source>User info</source>
+        <translation>Иформация о пользователе</translation>
+    </message>
+    <message>
+        <source>User edit</source>
+        <translation>Редактирование пользователя</translation>
+    </message>
+    <message>
+        <source>Users</source>
+        <translation>Пользователи</translation>
+    </message>
+    <message>
+        <source>Documentation</source>
+        <translation>Документация</translation>
+    </message>
+    <message>
+        <source>Current password</source>
+        <translation>Текущий пароль</translation>
+    </message>
+    <message>
+        <source>New password</source>
+        <translation>Новый пароль</translation>
+    </message>
+    <message>
+        <source>Repeat new password</source>
+        <translation>Подтверждение пароля</translation>
+    </message>
+    <message>
+        <source>Filter</source>
+        <translation>/}}Фильтровать</translation>
+    </message>
+    <message>
+        <source>Section</source>
+        <translation>Раздел</translation>
+    </message>
+    <message>
+        <source>Navigation</source>
+        <translation>Навигация</translation>
+    </message>
+    <message>
         <source></source>
         <translation></translation>
     </message>

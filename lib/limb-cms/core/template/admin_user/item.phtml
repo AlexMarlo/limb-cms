@@ -1,8 +1,8 @@
 {{wrap with="_cms/page.phtml" into="content_zone"}}
-  <h1>Иформация о пользователе: '{$#user.login}'</h1>
+  <h1>{{i18n text="User info" domain="cms"/}}: '{$#user.login}'</h1>
   <br/>
-  Логин: {$#user.login}<br/>
-  Имя: {$#user.name}<br/>
-  E-mail: {$#user.email}<br/>
+  {{i18n text="Login" domain="cms"/}}: {$#user.login}<br/>
+  {{i18n text="Name" domain="cms"/}}: {$#user.name}<br/>
+  {{i18n text="E-mail" domain="cms"/}}: {$#user.email}<br/>
 {{/wrap}}
 

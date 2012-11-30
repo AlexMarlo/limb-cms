@@ -4,6 +4,9 @@
     $item = isset($item) ? $item : false;
     $is_link = isset($is_link) ? $is_link : false;
     $icon = isset($icon) ? $icon : "add";
+    $i18n = isset( $i18n)? $i18n: 1;
+    if( $i18n)
+      $title = lmb_i18n( $title, "cms");
   ?>
   <a href='{{route_url params="controller:{$controller},action:{$action},id:{$item.id}"/}}' title="{$title}" class="thickbox">
     <img src='/shared/cms/images/icons/{$icon|default:"add"}.png'/>
@@ -18,7 +21,7 @@
     $title = isset($title) ? $title : lmb_i18n('Edit', 'cms');
     $icon = isset($icon) ? $icon : "pencil";
   ?>
-  <a href='{{route_url params="controller:{$controller},action:edit,id:{$item.id}"/}}' title="{$title|default:'Редактировать'}" class="thickbox">
+  <a href='{{route_url params="controller:{$controller},action:edit,id:{$item.id}"/}}' title="{$title}" class="thickbox">
     <img src='/shared/cms/images/icons/{$icon|default:"pencil"}.png'/>
     <? if($is_link) echo $title; ?>
   </a>
@@ -32,7 +35,7 @@
     $icon = isset($icon) ? $icon : "delete";
   ?>
   
-  <a href='#' onclick="if(confirm('{{i18n text='Are you sure want to delete selected objects?' domain='cms'/}}')) {jQuery.post('{{route_url params='controller:{$controller},action:delete'/}}', {ids:{$item.id}}, function(){document.location.reload()})}"  title="{$title|default:'Удалить'}">
+  <a href='#' onclick="if(confirm('{{i18n text='Are you sure want to delete selected objects?' domain='cms'/}}')) {jQuery.post('{{route_url params='controller:{$controller},action:delete'/}}', {ids:{$item.id}}, function(){document.location.reload()})}"  title="{$title}">
     <img src='/shared/cms/images/icons/{$icon|default:"delete"}.png'/>
     <? if($is_link) echo $title; ?>
   </a>

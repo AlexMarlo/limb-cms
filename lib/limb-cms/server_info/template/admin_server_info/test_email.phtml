@@ -43,15 +43,15 @@
               <th width="50%"></th>
               <th width="50%"></th>
             </tr>
-          {{list:item}}
-            <tr>
-              <td>{$k}</td>
-              <td>{$v}</td>
-            </tr>
-          {{/list:item}}
-          {{list:empty}}
-            <tr colspan="2">Нет Настроек</tr>
-          {{/list:empty}}
+            {{list:item}}
+              <tr>
+                <td>{$k}</td>
+                <td>{$v}</td>
+              </tr>
+            {{/list:item}}
+            {{list:empty}}
+              <tr colspan="2">Нет Настроек</tr>
+            {{/list:empty}}
           </table>
         </div>
       {{/list}}

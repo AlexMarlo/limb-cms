@@ -1,3 +1,5 @@
+{{include file='_admin_object_tpls/fieds_tpls.phtml'/}}
+
 <div class='tabs'>
 
   <ul>
@@ -7,21 +9,12 @@
   <div id="tab_properties" class='bookmarks_content'>
 
     <div class="left_side">
-      {{include file='admin_user/common_fields.phtml'/}}
+      {{include file='admin_user/include/common_fields.phtml'/}}
     </div>
 
     <div class="right_side">
-
-      <div class='required field'>
-        {{label for="password" errorclass='error_label'}}Пароль:{{/label}}
-        {{input name="password" type="password" title="Пароль"/}}
-      </div>
-
-      <div class='required field'>
-        {{label for="repeat_password" errorclass='error_label'}}Подтверждение пароля:{{/label}}
-        {{input name="repeat_password" type="password" title="Подтверждение пароля"/}}
-      </div>
-
+      {{apply template="password_field" name="password" title="Password" required="1"/}}
+      {{apply template="password_field" name="repeat_password" title="Repeat password" required="1"/}}
     </div>
 
   </div>

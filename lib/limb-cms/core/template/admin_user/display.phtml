@@ -6,10 +6,10 @@
   
     <div id="header">
 
-      <h1>Список пользователей</h1>
+      <h1>{{i18n text="User list" domain="cms"/}}</h1>
 
       <div class="header_actions">
-        {{apply template="object_action" action="create" icon="user_add" is_link="true" title="Добавить пользователя"/}}
+        {{apply template="object_action" action="create" icon="user_add" is_link="true" title="Add user"/}}
       </div>
 
     </div>
@@ -21,26 +21,32 @@
         <table>
           <tr>
             <th>#ID</th>
-            <th>Имя</th>
-            <th>Логин</th>
-            <th>E-mail</th>
-            <th>Группа</th>
+            <th>{{i18n text="Name" domain="cms"/}}</th>
+            <th>{{i18n text="Login" domain="cms"/}}</th>
+            <th>{{i18n text="E-mail" domain="cms"/}}</th>
+            <th>{{i18n text="Group" domain="cms"/}}</th>
             <th>{{i18n text="Actions" domain="cms"/}}</th>
           </tr>
           {{list using='{$#items}' parity='{$parity}'}}
             {{list:item}}
-            <tr class='{$parity}'>
-              <td>#{$item.id}</td>
-              <td>{$item.name}</td>
-              <td>{$item.login}</td>
-              <td><a href='mailto:{$item.email}'>{$item.email}</a></td>
-              <td>{$item.role_type|ucfirst}</td>
-              <td class='actions'>
-                  <a href='{{route_url params="action:change_password,id:{$item.id}"/}}'  title="Сменить пароль" class="thickbox"><img src='/shared/cms/images/icons/key.png' alt='Сменить пароль'/></a>
-                  <a href='{{route_url params="action:edit,id:{$item.id}"/}}' title="Редактировать" class="thickbox"><img src='/shared/cms/images/icons/user_edit.png' alt='Редактировать' /></a>
-                  <a href='{{route_url params="action:delete?id={$item.id}"/}}' onclick="if(confirm('Вы действительно желаете удалить пользователя &laquo;{$item.name}&raquo;?'))return true; else return false;" title="Удалить"><img src='/shared/cms/images/icons/user_delete.png'/></a>
-              </td>
-            </tr>
+              <tr class='{$parity}'>
+                <td>#{$item.id}</td>
+                <td>{$item.name}</td>
+                <td>{$item.login}</td>
+                <td><a href='mailto:{$item.email}'>{$item.email}</a></td>
+                <td>{$item.role_type|ucfirst}</td>
+                <td class='actions'>
+                    <a href='{{route_url params="action:change_password,id:{$item.id}"/}}'  title='{{i18n text="Change password" domain="cms"/}}' class="thickbox">
+                      <img src='/shared/cms/images/icons/key.png' alt='{{i18n text="Change password" domain="cms"/}}'/>
+                    </a>
+                    <a href='{{route_url params="action:edit,id:{$item.id}"/}}' title='{{i18n text="Edit" domain="cms"/}}' class="thickbox">
+                      <img src='/shared/cms/images/icons/user_edit.png' alt='{{i18n text="Edit" domain="cms"/}}' />
+                    </a>
+                    <a href='{{route_url params="action:delete?id={$item.id}"/}}' onclick="if(confirm('{{i18n text='Are you sure you want to delete user' domain='cms'/}} &laquo;{$item.name}&raquo;?'))return true; else return false;" title='{{i18n text="Delete" domain="cms"/}}'>
+                      <img src='/shared/cms/images/icons/user_delete.png'/>
+                    </a>
+                </td>
+              </tr>
             {{/list:item}}
           {{/list}}
         </table>

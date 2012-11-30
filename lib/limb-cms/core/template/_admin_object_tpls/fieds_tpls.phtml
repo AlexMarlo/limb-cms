@@ -1,6 +1,6 @@
 {{template name="text_field"}}
   <?php
-    $value = isset($this->item) && isset($name)? $this->item->get( $name): '';
+    $value = isset($this->item) && isset($name) && $this->item->has($name) ? $this->item->get( $name): '';
     $i18n = isset( $i18n)? $i18n: 1;
     if( $i18n)
       $title = lmb_i18n( $title, "cms");
@@ -11,9 +11,22 @@
   </dl>
 {{/template}}
 
+{{template name="password_field"}}
+  <?php
+    $value = isset($this->item) && isset($name) && $this->item->has($name) ? $this->item->get( $name): '';
+    $i18n = isset( $i18n)? $i18n: 1;
+    if( $i18n)
+      $title = lmb_i18n( $title, "cms");
+  ?>
+  <dl class="<?php echo (isset($required) && $required)?'required ':'';?>field">
+    <dt><label for="{$name}">{$title}:</label></dt>
+    <dd>{{input type="password" name="{$name}" id="{$name}" title="{$title}" value="{$value}"/}}</dd>
+  </dl>
+{{/template}}
+
 {{template name="textarea_field"}}
   <?php
-    $value = isset($this->item) && isset($name)? $this->item->get( $name): '';
+    $value = isset($this->item) && isset($name) && $this->item->has($name)? $this->item->get( $name): '';
     $i18n = isset( $i18n)? $i18n: 1;
     if( $i18n)
       $title = lmb_i18n( $title, "cms");

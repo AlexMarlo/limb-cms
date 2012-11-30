@@ -1,0 +1,24 @@
+<?php
+  lmb_require('limb-cms/core/src/fetcher/lmbCmsAdminNavigationFetcher.class.php');
+  $this->navigation = new lmbCmsAdminNavigationFetcher();
+  $this->navigation = $this->navigation->fetch();
+?>
+
+<dl id='main_menu'>
+  {{list:list id='navigation' using='$#navigation'}}
+    {{list:item}}
+    <dt class='{$item.id}'><img src='{$item.icon}'/> {$item.title} </dt>
+    <dd>
+      {{list:list using='$item.children' as="$sub_item"}}
+        <ul>
+          {{list:item}}
+            <li>
+              <img src='{$sub_item.icon}'/> <a href='{$sub_item.url}'>{$sub_item.title}</a>
+            </li>
+          {{/list:item}}
+        </ul>
+      {{/list:list}}
+    </dd>
+    {{/list:item}}
+  {{/list:list}}
+</dl>

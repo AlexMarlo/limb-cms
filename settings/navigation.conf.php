@@ -26,17 +26,17 @@ $editor = array(array('title' => lmb_i18n('Content', 'cms'), 'icon' => '/shared/
 
 $only_admin = array(array('title' => lmb_i18n('Administration', 'cms'), 'icon' => '/shared/cms/images/icons/menu_service.png','children' => array(
   array(
-    'title' => 'Пользователи',
+    'title' => lmb_i18n('Users', 'cms'),
     'url' => '/admin_user',
     'icon' => '/shared/cms/images/icons/user.png',
   ),
   array(  
-    'title' => 'Документация',  
+    'title' => lmb_i18n('Documentation', 'cms'),  
     'url' => '/admin_manual',  
     'icon' => '/shared/cms/images/icons/book.png',  
   ),
   array(
-    'title' => 'Server Info',
+    'title' => lmb_i18n('Server Info', 'cms'),
     'url' => '/admin_server_info',
     'icon' => '/shared/cms/images/icons/server.png',
   ),
