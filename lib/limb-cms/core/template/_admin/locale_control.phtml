@@ -3,14 +3,14 @@
 ?>
 
 <?php if( $toolkit->get('locale') != 'ru_RU') {?>
-  <a href='javascript:void(0)' class='locale_ru'>RU</a>
+  <a href='javascript:void(0)' class='locale_ru not_active_locale'>RU</a>
 <?php }else{?>
-  <span>RU</span>
+  <span class="active_locale">RU</span>
 <?php }?>
 
 
 <?php if( $toolkit->get('locale') != 'en_US') {?>
-  <a href='javascript:void(0)' class='locale_en'>EN</a>
+  <a href='javascript:void(0)' class='locale_en not_active_locale'>EN</a>
 <?php }else{?>
-  <span>EN</span>
+  <span class="active_locale">EN</span>
 <?php }?>

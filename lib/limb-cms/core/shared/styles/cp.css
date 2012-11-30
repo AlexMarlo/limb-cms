@@ -277,3 +277,16 @@
     
   #filter_form label{margin:0;}
   #filter_form input[type='text'], #filter_form select {width:auto;margin:0 10px 0 0;}
+
+  .not_active_locale{
+  	color: grey !important;
+  	text-decoration:none;
+  }
+  .not_active_locale:hover{
+  	color: white !important;
+  	text-decoration:none; 
+  }
+  .active_locale {
+  	color: white;
+  }
+  

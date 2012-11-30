@@ -205,7 +205,7 @@ abstract class AdminObjectController extends ObjectController
       $this->redirect($this->_back_url);
   }
 
-  protected function _changeItemsPriority( $model, $where_field, $where_field_value)
+  protected function _changeItemsPriority( $model, $where_field = '1', $where_field_value = '1')
   {
     $priority_items = $this->request->get('priority_items');
 
