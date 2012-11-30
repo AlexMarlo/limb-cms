@@ -1,0 +1,9 @@
+<?php
+  lmb_require('limb-cms/counter/src/model/Counter.class.php');
+  $counters = Counter :: findPublished();
+?>
+{{list using="{$counters}" as="$counter"}}
+  {{list:item}}
+    {$counter.code|raw}
+  {{/list:item}}
+{{/list}}

@@ -1,0 +1,17 @@
+{{wrap with="admin_page_layout.phtml" in="content_zone"}}
+
+  <div id="header">
+    <h1>Счетчики</h1>
+
+    <div class="header_actions">
+      {{apply template="object_action" action="create" title="Создать счетчик" icon="book_add" is_link="true" /}}
+    </div>
+
+    {{include file='_admin/pager.phtml' items='{$#items}'/}}
+  </div>
+
+  <div id="body">
+    {{include file='admin_counter/items_list.phtml' items="{$#items}"/}}
+  </div>
+
+{{/wrap}}

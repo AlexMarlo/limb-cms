@@ -117,6 +117,17 @@ h1, h2, h3 {
     bottom: 0;
 }
 
+#counter {
+	padding: 10px;
+    top: 0;
+    left: 0;
+    margin-left: auto;
+    margin-right: auto;
+    position: absolute;
+    right: 0;
+    width: 10%;
+}
+
 #contacts {
     padding: 10px;
     position: absolute;

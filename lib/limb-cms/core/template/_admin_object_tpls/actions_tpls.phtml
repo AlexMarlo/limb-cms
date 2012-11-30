@@ -67,3 +67,15 @@
     <? if($is_link) echo $title; ?>
   </a>
 {{/template}}
+
+{{template name="object_action_revert_publish"}}
+  <? if($item->getIsPublished()): ?>
+    {{apply template="object_action_unpublish" item="{$item}" icon="lightbulb_off"/}}
+  <?  else:  ?>
+    {{apply template="object_action_publish" item="{$item}" icon="lightbulb"/}}
+  <? endif; ?>
+{{/template}}
+
+{{template name="publish_status"}}
+  <? echo $item->getIsPublished() ? '<img src="/shared/cms/images/icons/lightbulb.png" title="Опубликована"/>' : '<img src="/shared/cms/images/icons/lightbulb_off.png" title="Скрыта"/>'; ?>
+{{/template}}

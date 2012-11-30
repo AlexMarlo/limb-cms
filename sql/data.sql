@@ -111,6 +111,26 @@ VALUES (
   20
 );
 
+INSERT INTO `counter` ( `title`, `is_published`, `code`, `priority`)
+VALUES (
+  'test_counter',
+  1,
+  '
+<script type="text/javascript" src="/shared/js/js/limb.js?1" ></script>
+<script type="text/javascript">
+  var cookie_name = "test_counter";
+  var visits = 1;
+  if(Limb.cookie(cookie_name))
+    visits = Limb.cookie(cookie_name)*1 + 1;
+	  
+  Limb.cookie(cookie_name, visits);
+  document.write( "<b>" + visits + "</b>")
+ 
+</script>
+  ',
+  10
+);
+
 /*!40000 ALTER TABLE `lmb_cms_menu` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

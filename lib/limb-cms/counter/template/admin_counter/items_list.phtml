@@ -1,0 +1,52 @@
+{{list using="{$items}" as="$item" counter="$counter" parity='$parity'}}
+
+  {{include file="_admin_object_tpls/selectors_tpls.phtml"/}}
+  {{include file="_admin_object_tpls/actions_tpls.phtml"/}}
+  {{include file="_admin_object_tpls/priority_tpls.phtml"/}}
+
+  <div class='list'>
+    <div class='list_actions'>
+      {{apply template="selectors_button" action="delete" title="Удалить"/}}
+      {{apply template="save_priority_button"/}}
+    </div>
+
+    <table>
+      <tr>
+        <th>{{apply template="selectors_toggler"/}}</th>
+        <th>#ID</th>
+        <th>Порядок</th>
+        <th>Название</th>
+        <th>Код</th>
+        <th>Статус</th>
+        <th>Дата<br/>создания</th>
+        <th>Последнее<br/>обновление</th>
+        <th>&nbsp;</th>
+      </tr>
+      {{list:item}}
+        <tr class="{$parity}">
+          <td>{{apply template="selector" value="{$item.id}"/}}</td>
+          <td>{$item.id}</td>
+          <td>{{apply template="object_priority_input" item="$item"/}}</td>
+          <td>{$item.title}</td>
+          <td width="40%">{$item.code}</td>
+          <td>{{apply template="publish_status" item="{$item}"/}}</td>
+          <td>{$item.ctime|i18n_date:"", "stamp", "short_date_time"}</td>
+          <td>{$item.utime|i18n_date:"", "stamp", "short_date_time"}</td>
+          <td class='actions'>
+            {{apply template="object_action_revert_publish" item="{$item}" /}}
+            {{apply template="object_action_edit" item="{$item}" /}}
+            {{apply template="object_action_delete" item="{$item}" /}}
+          </td>
+        </tr>
+      {{/list:item}}
+      {{list:empty}}
+        <div class="empty_list">Счетчики не найдены</div>
+      {{/list:empty}}
+    </table>
+    <div class='list_actions'>
+      {{apply template="selectors_button" action="delete" title="Удалить"/}}
+      {{apply template="save_priority_button"/}}
+    </div>
+  </div>
+
+{{/list}}

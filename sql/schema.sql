@@ -128,6 +128,21 @@ CREATE TABLE `lmb_cms_menu` (
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 
+--
+-- Structure for table `counter`
+--
+CREATE TABLE `counter` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` text,
+  `code` longtext,
+  `ctime` int(11) DEFAULT '0',
+  `utime` int(11) DEFAULT '0',
+  `priority` int(11) DEFAULT '0',
+  `is_published` tinyint(1) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `is_published` (`is_published`)
+) ENGINE=InnoDB CHARSET=utf8;
+
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;

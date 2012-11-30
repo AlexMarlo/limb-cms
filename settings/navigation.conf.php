@@ -22,6 +22,11 @@ $editor = array(array('title' => lmb_i18n('Content', 'cms'), 'icon' => '/shared/
     'url' => '/admin_seo',
     'icon' => '/shared/cms/images/icons/page_white_stack.png',
   ),
+  array(
+    'title' => 'Счетчики',
+    'url' => '/admin_counter',
+    'icon' => '/shared/cms/images/icons/layout.png',
+  ),
 )));
 
 $only_admin = array(array('title' => lmb_i18n('Administration', 'cms'), 'icon' => '/shared/cms/images/icons/menu_service.png','children' => array(

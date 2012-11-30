@@ -1,0 +1,17 @@
+{{include file='_admin_object_tpls/fieds_tpls.phtml'/}}
+{{include file='_admin/form_errors.phtml'/}}
+
+<div class='tabs'>
+  <ul>
+    <li id='content'><a href="#">Счетчик</a></li>
+  </ul>
+
+  <div id="tab_content">
+    {{apply template="text_field" name="title" title="Tilte"/}}
+    {{apply template="textarea_field" name="code" title="Код"/}}
+  </div>
+
+</div>
+
+{{include file='_admin/form_buttons.phtml'/}}
+
