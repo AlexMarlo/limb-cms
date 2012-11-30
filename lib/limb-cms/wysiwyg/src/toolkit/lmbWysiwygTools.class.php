@@ -10,6 +10,11 @@ class lmbWysiwygTools extends lmbAbstractTools
 {
   function isWysiwygFileUploaderEnabled()
   {
-    return false;
+    lmbToolkit :: instance()->getSession()->start();
+    if( !lmbToolkit::instance()->getCmsUser()->isLoggedIn())
+      return false;
+
+    $enabled = lmbToolkit::instance()->getConf('wysiwyg')->get('enabled');
+    return $enabled;
   }
 }

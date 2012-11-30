@@ -15,4 +15,7 @@ lmb_require('limb/toolkit/src/lmbToolkit.class.php');
 lmb_require('limb-cms/core/src/toolkit/lmbCmsTools.class.php');
 lmbToolkit :: merge(new lmbCmsTools());
 
-
+function get_toolkit()
+{
+  return lmbToolkit::instance();
+}

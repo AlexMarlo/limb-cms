@@ -1,6 +1,8 @@
 <?php
 
 $conf = array (
+    
+  'enabled' => true,
 
   'default_profile' => 'default_fckeditor',
 
