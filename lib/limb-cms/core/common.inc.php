@@ -13,7 +13,6 @@
 require_once('limb/core/common.inc.php');
 
 lmb_env_setor('LIMB_CONTROLLERS_INCLUDE_PATH', 'src/controller;limb-cms/*/src/controller;limb/*/src/controller');
-lmb_env_setor('LIMB_CONTROLLERS_INCLUDE_PATH', 'src/controller;limb-cms/*/src/controller;limb/*/src/controller');
 
 lmb_package_require('web_app');
 lmb_require('limb-cms/core/toolkit.inc.php');
@@ -41,12 +40,10 @@ function lmb_cms_get_loaded_packages()
 }
 
 lmb_require( "limb-cms/core/src/filter/lmbCmsRequestDispatchingQueue.class.php");
-lmbCmsRequestDispatchingQueue::add( "lmbRoutesRequestDispatcher",
-                                    "limb/web_app/src/request/lmbRoutesRequestDispatcher.class.php",
-                                    lmbCmsRequestDispatchingQueue::BOTTOM);
+lmb_require( "limb/web_app/src/request/lmbRoutesRequestDispatcher.class.php");
+lmb_require( "limb-cms/core/src/filter/LocaleRequestDispatcher.class.php");
 
-lmbCmsRequestDispatchingQueue::add( "LocaleRequestDispatcher",
-                                    "limb-cms/core/src/filter/LocaleRequestDispatcher.class.php",
-                                    lmbCmsRequestDispatchingQueue::TOP);
+lmbCmsRequestDispatchingQueue::add( new lmbRoutesRequestDispatcher(), lmbCmsRequestDispatchingQueue::BOTTOM);
+lmbCmsRequestDispatchingQueue::add( new LocaleRequestDispatcher(), lmbCmsRequestDispatchingQueue::TOP);
 
 

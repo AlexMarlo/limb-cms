@@ -6,7 +6,7 @@
 
     <div id="header">
       <h1>
-        <? if(!$this->is_root) : ?>
+        <? if(!$this->item->isRoot()) : ?>
           Страница &laquo;<a href="{$#item.uri}" title="Посмотреть на сайте" target="_blank">{$#item.title}</a>&raquo;
         <? else : ?>
           Список документов
@@ -14,24 +14,14 @@
       </h1>
 
       <div class="header_actions">
-        <? if(!$this->is_root) : ?>
-
+        <? if(!$this->item->isRoot()) : ?>
           {{apply template="object_action" item="{$#item}" action="create" is_link="true" title="Добавить документ" icon="page_add"/}}
           {{apply template="object_action_edit" item="{$#item}" icon="page_edit" is_link="true" title="Редактировать"/}}
-
-          <? if($this->item->getIsPublished()) : ?>
-            {{apply template="object_action_unpublish" item="{$#item}" icon="lightbulb_off" is_link="true" title="Снять с публикации"/}}
-          <?  else:  ?>
-            {{apply template="object_action_publish" item="{$#item}" icon="lightbulb" is_link="true" title="Опубликовать"/}}
-          <? endif; ?>
-
+          {{apply template="object_action_revert_publish" item="{$#item}"/}}
           {{apply template="object_action_delete" item="{$#item}" is_link="true"/}}
-
         <?  else:  ?>
-          <?php $item = lmbCmsDocument :: findRoot(); ?>
-          {{apply template="object_action" item="{$item}" action="create" title="Создать документ" icon="page_add" is_link="true"/}}
+          {{apply template="object_action" item="{$#item}" action="create" title="Создать документ" icon="page_add" is_link="true"/}}
         <? endif ?>
-
       </div>
     </div>
 

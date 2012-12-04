@@ -1,5 +1,6 @@
 <?php
 lmb_require('limb-cms/core/src/controller/AdminObjectController.class.php');
+lmb_require('limb-cms/core/src/model/lmbCmsActiveRecordTreeNode.class.php');
 
 abstract class AdminTreeNodeObjectController extends AdminObjectController
 {
@@ -18,14 +19,12 @@ abstract class AdminTreeNodeObjectController extends AdminObjectController
   {
     if(!$id = $this->request->getInteger('id')  )
     {
-      $this->is_root = true;
       $criteria = new lmbSQLCriteria('parent_id > 0');
       $criteria->addAnd(new lmbSQLCriteria('level = 1'));
       $this->item = lmbCmsActiveRecordTreeNode :: findRoot( $this->_object_class_name);
     }
     else
     {
-      $this->is_root = false;
       if(!$this->item = $this->_getObjectByRequestedId())
         return $this->forwardTo404();
       $criteria = new lmbSQLCriteria('parent_id = ' . $this->item->getId());
@@ -39,7 +38,7 @@ abstract class AdminTreeNodeObjectController extends AdminObjectController
   function doCreate()
   {
     parent::doCreate();
-    $parent_id = $this->request->getInteger('id');
+    $parent_id = $this->request->getInteger('id', 1);
   
     if( lmbActiveRecord :: findById( $this->_object_class_name, $parent_id))
       $this->item->parent_id = $parent_id;

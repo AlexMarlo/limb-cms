@@ -1,11 +1,9 @@
 <?php
-  $controller = lmbToolkit::instance()->getDispatchedController()->getName();
-  $controller =  lmb_camel_case( $controller) . 'Controller';
-  $controller_info = new $controller();
-  $object_class_name =  $controller_info->getObjectClassName();
+  $tree_field_name = isset( $tree_field_name)? $tree_field_name: 'parent_id';
+  $object_class_name = isset($object_class_name)? $object_class_name: lmbToolkit::instance()->getObjectClassName();
  
-  $parent_id = isset( $this->item)? $this->item->parent_id: 0;
-  $criteria = isset( $this->item) && !$this->item->isDirty()? "NOT path LIKE '{$this->item->path}%'": "1=1";
+  $parent_id = isset( $this->item)? $this->item->get( $tree_field_name): 0;
+  $criteria = !isset( $not_tree_edit) && isset( $this->item) && !$this->item->isDirty()? "NOT path LIKE '{$this->item->path}%'": "1=1";
 
   $options = array();
   $tree = lmbActiveRecord::find( $object_class_name, array( 'criteria' => $criteria, 'sort' => array( 'path' => 'ASC')));
@@ -13,7 +11,15 @@
   foreach( $tree as $item)
   {
     $tab = str_repeat( " - ", $item->level);
-    $options[$item->id] = $tab . $item->title;
+    
+    if( $item->isRoot())
+    {
+      $root_title = lmb_i18n( 'Root element', 'cms');
+      $options[$item->id] = $tab . $root_title;
+    }
+    else
+      $options[$item->id] = $tab . $item->title;
+    
   }
 
   $selected_value = array( $parent_id);

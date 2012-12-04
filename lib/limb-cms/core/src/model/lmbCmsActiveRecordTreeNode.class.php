@@ -16,10 +16,12 @@ abstract class lmbCmsActiveRecordTreeNode extends lmbCmsActiveRecord
   function __construct($magic_params = null, $conn = null)
   {
     parent :: __construct($magic_params, $conn);
-
+    
     $this->_tree = $this->getTree();
-  }
 
+    if(!$this->_tree->getRootNode())
+      $this->_tree->initTree();
+  }
 
   /**
    * @return lmbMPTree
@@ -112,8 +114,13 @@ abstract class lmbCmsActiveRecordTreeNode extends lmbCmsActiveRecord
   {
     if(!$class_name)
       $class_name = self :: _getCallingClass();
+    
+    $calling_class = new $class_name();
 
-    return lmbActiveRecord :: findOne($class_name, lmbSQLCriteria::equal('parent_id', 0));
+    if(!$calling_class->getTree()->getRootNode())
+      $calling_class->getTree()->initTree();
+
+    return lmbActiveRecord :: findOne( $class_name, lmbSQLCriteria::equal('parent_id', 0));
   }
 
   /**

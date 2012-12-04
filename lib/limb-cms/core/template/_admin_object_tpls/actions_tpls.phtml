@@ -69,11 +69,14 @@
 {{/template}}
 
 {{template name="object_action_revert_publish"}}
-  <? if($item->getIsPublished()): ?>
-    {{apply template="object_action_unpublish" item="{$item}" icon="lightbulb_off"/}}
-  <?  else:  ?>
-    {{apply template="object_action_publish" item="{$item}" icon="lightbulb"/}}
-  <? endif; ?>
+  <? 
+    $controller = isset($controller) ? $controller : lmbToolkit::instance()->getDispatchedController()->getName();
+    if($item->getIsPublished()){
+  ?>
+    {{apply template="object_action_unpublish" item="{$item}" icon="lightbulb_off" controller="{$controller}"/}}
+  <? }else{ ?>
+    {{apply template="object_action_publish" item="{$item}" icon="lightbulb" controller="{$controller}"/}}
+  <? } ?>
 {{/template}}
 
 {{template name="publish_status"}}

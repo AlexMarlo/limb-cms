@@ -278,6 +278,10 @@
         <translation>Изменение пароля администратора</translation>
     </message>
     <message>
+        <source>Root element</source>
+        <translation>Корневой элемент</translation>
+    </message>
+    <message>
         <source></source>
         <translation></translation>
     </message>

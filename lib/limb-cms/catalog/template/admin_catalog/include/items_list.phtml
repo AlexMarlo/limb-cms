@@ -1,0 +1,53 @@
+{{list using='{$iterator}' parity='{$parity}'}}
+
+  {{include file="_admin_object_tpls/selectors_tpls.phtml"/}}
+  {{include file="_admin_object_tpls/actions_tpls.phtml"/}}
+  {{include file="_admin_object_tpls/priority_tpls.phtml"/}}
+  
+  <div class="list" id="category">
+    <div class='list_actions'>
+      {{apply template="selectors_button" action="delete" title="Удалить"/}}
+      {{apply template="save_priority_button" params="parent_id={$#item.id}"/}}
+    </div>
+    
+    <table>
+      <tr>
+        <th>{{apply template="selectors_toggler"/}}</th>
+        <th>#ID</th>
+        <th>Приоритет</th>
+        <th width="80%">Название</th>
+        <th>Дата<br/>создания</th>
+        <th>Последнее<br/>обновление</th>
+        <th>{{i18n text="Actions" domain="cms"/}}</th>
+      </tr>
+      {{list:item}}
+      <tr class='{$parity}'>
+        <td>{{apply template="selector" value="{$item.id}"/}}</td>
+        <td>#{$item.id}</td>
+        <td>{{apply template="object_priority_input" item="{$item}" /}}</td>
+        <td>
+          <a href='{{route_url params="action:display,id:{$item.id}"/}}' title="Просмотр подкатегорий"><b>{$item.title}</b></a>
+          <br/>
+          [<a href="{$#item.uri}/{$item.identifier}" title="Посмотреть на сайте" target="_blank">{$#item.uri}/{$item.identifier}</a>]
+        </td>
+        <td>{$item.ctime|i18n_date:"", "stamp", "short_date_time"}</td>
+        <td>{$item.utime|i18n_date:"", "stamp", "short_date_time"}</td>
+        <td class='actions'> 
+          {{apply template="object_action_revert_publish" item="{$item}" /}}
+          {{apply template="object_action" item="{$item}" action="create" title="Создать вложенную категорию" icon="database_add"/}}
+          {{apply template="object_action_edit" item="{$item}" icon="database_edit"/}}
+          {{apply template="object_action_delete" item="{$item}" icon="database_delete"/}}
+        </td>
+      </tr>
+      {{/list:item}}
+      {{list:empty}}
+        <div class="empty_list">Категории не найдены</div>
+      {{/list:empty}}
+    </table>
+    
+    <div class='list_actions'>
+      {{apply template="selectors_button" action="delete" title="Удалить"/}}
+      {{apply template="save_priority_button" params="parent_id={$#item.id}"/}}
+    </div>
+  </div>
+{{/list}}

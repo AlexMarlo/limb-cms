@@ -16,6 +16,5 @@ lmb_package_require('core', 'limb-cms/');
 
 lmb_package_register('document', dirname(__FILE__));
 
-lmbCmsRequestDispatchingQueue::add( "lmbCmsDocumentRequestDispatcher",
-                                    "limb-cms/document/src/request/lmbCmsDocumentRequestDispatcher.class.php",
-                                    lmbCmsRequestDispatchingQueue::TOP);
+lmb_require("limb-cms/core/src/request/TreeRequestDispatcher.class.php");
+lmbCmsRequestDispatchingQueue::add( new TreeRequestDispatcher('lmb_cms_document', 'document'), lmbCmsRequestDispatchingQueue::TOP);

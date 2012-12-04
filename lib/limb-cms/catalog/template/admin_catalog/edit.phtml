@@ -1,0 +1,9 @@
+{{wrap with="admin_modal_page_layout.phtml" into="content_zone"}}
+  
+  <h1>Редактирование категории &laquo;{$#item.title}&raquo;</h1>
+  
+  {{form id='object_form' name='object_form' method='post' enctype="multipart/form-data"}}
+    {{include file='admin_catalog/include/form_fields.phtml'/}}
+  {{/form}}
+  
+{{/wrap}}

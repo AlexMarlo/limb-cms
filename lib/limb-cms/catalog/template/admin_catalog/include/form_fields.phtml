@@ -1,27 +1,23 @@
 {{include file='_admin_object_tpls/fieds_tpls.phtml'/}}
 {{include file='_admin/form_errors.phtml'/}}
+
 <div class='tabs'>
 
   <ul>
     <li id='properties'><a href="#">{{i18n text="Properties" domain="cms"/}}</a></li>
-    <li id='description'><a href="#">{{i18n text="Annotation" domain="cms"/}}</a></li>
-    <li id='content'><a href="#">{{i18n text="Text" domain="cms"/}}</a></li>
+    <li id='description'><a href="#">{{i18n text="Description" domain="cms"/}}</a></li>
   </ul>
 
   <div id="tab_properties">
     {{apply template="text_field" name="title" title="Title" required="1"/}}
     {{apply template="text_field" name="identifier" title="Identifier" required="1"/}}
-    {{apply template="textarea_field" name="keywords" title="Keywords" required="1"/}}
     {{apply template="tree_select_field" name="parent" title="Parent element" item="{$#item}"/}}
   </div>
 
   <div id="tab_description">
-    {{wysiwyg id='description' name='description' width='100%' height='310' title="Annotation"/}}
-  </div>
-
-  <div id="tab_content">
-    {{wysiwyg id='content' name='content' width='100%' height='310' title="Text"/}}
+    {{wysiwyg id='description' name='description' width='100%' height='310' title="Description"/}}
   </div>
 
 </div>
+
 {{include file='_admin/form_buttons.phtml'/}}

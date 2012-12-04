@@ -1,0 +1,19 @@
+{{wrap with="front_layout.phtml"}}
+
+  {{into slot="page_title"}}{$#item.title} - {$#item.category.title} - Каталог - {{/into}}
+
+  {{into slot="content"}}
+    <?
+    $list = array(
+        array('url' => '/', ),
+        array('url' => '/catalog', 'title' => 'Каталог'),
+      );
+    ?>
+    {{include file='_include/breadcrumbs.phtml' tree_node="{$#item.category}" list='{$list}' link_field='uri'/}}
+
+    <h1>{$#item.title}</h1>
+
+    {$#item.description|raw}
+  {{/into}}
+
+{{/wrap}}

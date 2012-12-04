@@ -79,7 +79,17 @@ class lmbCmsTools extends lmbAbstractTools
 
     return $this->mailer_conf;
   }
+  
+  function getObjectClassName( $controller_name = null)
+  {
+    if( $controller_name == null)
+      $controller_name = lmbToolkit::instance()->getDispatchedController()->getName();
 
+    $controller =  lmb_camel_case( $controller_name) . 'Controller';
+    $controller_info = new $controller();
+    $object_class_name =  $controller_info->getObjectClassName();
+    return $object_class_name;
+  }
 }
 
 

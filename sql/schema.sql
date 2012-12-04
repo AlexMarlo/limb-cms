@@ -111,14 +111,14 @@ CREATE TABLE `lmb_cms_menu` (
   `id` int(11) NOT NULL auto_increment,
   `title` varchar(255) DEFAULT NULL,
   `url` varchar(255) DEFAULT NULL,
-  `identifier` varchar(128) DEFAULT NULL,
-  `is_published` tinyint(1) DEFAULT NULL,
-  `parent_id` int(11) DEFAULT NULL,
-  `level` int(11) DEFAULT NULL,
-  `path` varchar(255) DEFAULT NULL,
-  `priority` int(11) DEFAULT NULL,
-  `ctime` int(11) DEFAULT NULL,
-  `utime` int(11) DEFAULT NULL,
+  `is_published` tinyint(1) default '0',
+  `parent_id` int(11) NOT NULL default '0',
+  `level` int(11) NOT NULL default '0',
+  `identifier` varchar(128) NOT NULL default '',
+  `priority` integer NOT NULL default 0,
+  `path` varchar(255) NOT NULL default '',
+  `ctime` int(11) NOT NULL default '0',
+  `utime` int(11) NOT NULL default '0',
   PRIMARY KEY  (`id`),
   KEY `level` (`level`),
   KEY `parent_id` (`parent_id`),
@@ -142,6 +142,51 @@ CREATE TABLE `counter` (
   PRIMARY KEY (`id`),
   KEY `is_published` (`is_published`)
 ) ENGINE=InnoDB CHARSET=utf8;
+
+
+
+--
+-- Structure for table `catalog_category`
+--
+CREATE TABLE `catalog_category` (
+  `id` int(11) NOT NULL auto_increment,
+  `title` varchar(255) DEFAULT NULL,
+  `identifier` varchar(128) DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `is_published` tinyint(1) DEFAULT 0,
+  `parent_id` int(11) DEFAULT 0,
+  `level` int(11) DEFAULT 0,
+  `path` varchar(255) DEFAULT NULL,
+  `priority` int(6) DEFAULT 0,
+  `ctime` int(11) DEFAULT NULL,
+  `utime` int(11) DEFAULT NULL,
+  PRIMARY KEY  (`id`),
+  KEY `level` (`level`),
+  KEY `parent_id` (`parent_id`),
+  KEY `id` (`id`,`parent_id`),
+  KEY `identifier` (`identifier`,`level`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Structure for table `catalog_product`
+--
+CREATE TABLE `catalog_product` (
+  `id` int(11) NOT NULL auto_increment,
+  `category_id` int(11) NOT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `image_ext` varchar(6) DEFAULT NULL,
+  `price` decimal(11,0) DEFAULT NULL,
+  `article` varchar(255) DEFAULT NULL,
+  `is_published` tinyint(1) DEFAULT 0,
+  `priority` int(6) DEFAULT 0,
+  `ctime` int(11) DEFAULT NULL,
+  `utime` int(11) DEFAULT NULL,
+  PRIMARY KEY  (`id`),
+  KEY `category_id` (`category_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

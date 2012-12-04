@@ -1,0 +1,44 @@
+{{wrap with="front_layout.phtml"}}
+
+  {{into slot="page_title"}}{$#item.title} - Каталог - {{/into}}
+
+  {{into slot="content"}}
+    <?
+    $list = array(
+        array('url' => '/', ),
+        array('url' => '/catalog', 'title' => 'Каталог'),
+      );
+    ?>
+    {{include file='_include/breadcrumbs.phtml' tree_node="{$#item}" list="{$list}" link_field='uri' /}}
+
+    <h1>
+      <? if(!$this->item->isRoot()) { ?>
+        {$#item.title}  
+      <? } else { ?>
+        Каталог
+      <? } ?>
+    </h1>
+
+    {$#item.description|raw}
+
+    {{list using="{$#children}"}}
+      <ul>
+        {{list:item}}
+          <li><a href='{$item.uri}'>{$item.title}</a></li>
+        {{/list:item}}
+      </ul>
+    {{/list}}
+
+    {{list using="{$#products}"}}
+      <ul>
+        {{list:item}}
+          <li>
+            <a href='{$item.uri}'>{$item.title}</a>
+          </li>
+        {{/list:item}}
+      </ul>
+    {{/list}}
+
+  {{/into}}
+
+{{/wrap}}

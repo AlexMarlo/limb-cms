@@ -47,12 +47,11 @@ UNLOCK TABLES;
 
 
 /*!40000 ALTER TABLE `lmb_cms_document` DISABLE KEYS */;
-INSERT INTO `lmb_cms_document` (`title`, `is_published`, `content`, `path`)
+
+
+INSERT INTO `lmb_cms_document` (`path`)
 VALUES (
-  'Корневой элемент',
-  1,
-  'root',
-  '/'
+  '/1/'
 );
 INSERT INTO `lmb_cms_document` (`title`, `is_published`, `content`, `identifier`, `parent_id`, `level`, `path`, `priority`)
 VALUES (
@@ -62,23 +61,21 @@ VALUES (
   'contacts',
   1,
   1,
-  '/2/',
+  '/1/2/',
   10
 );
+
 /*!40000 ALTER TABLE `lmb_cms_document` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 
 /*!40000 ALTER TABLE `lmb_cms_menu` DISABLE KEYS */;
-INSERT INTO `lmb_cms_menu` ( `parent_id`, `title`, `is_published`, `identifier`, `path`)
+INSERT INTO `lmb_cms_menu` ( `path`)
 VALUES (
-  0,
-  'Корневой элемент',
-  1,
-  'root',
-  '/'
+  '/1/'
 );
+
 INSERT INTO `lmb_cms_menu` ( `parent_id`, `title`, `is_published`, `identifier`, `url`, `level`, `path`, `priority`)
 VALUES (
   1,
@@ -87,7 +84,7 @@ VALUES (
   'main_menu',
   '',
   1,
-  '/2/',
+  '/1/2/',
   10
 ),
 (
@@ -97,7 +94,7 @@ VALUES (
   'main_page',
   '/',
    2,
-  '/2/3/',
+  '/1/2/3/',
   10
 ),
 (
@@ -107,9 +104,10 @@ VALUES (
   'contacts',
   '/contacts',
    2,
-  '/2/4/',
+  '/1/2/4/',
   20
 );
+
 
 INSERT INTO `counter` ( `title`, `is_published`, `code`, `priority`)
 VALUES (
@@ -129,6 +127,11 @@ VALUES (
 </script>
   ',
   10
+);
+
+INSERT INTO `catalog_category` ( `path`)
+VALUES (
+  '/1/'
 );
 
 /*!40000 ALTER TABLE `lmb_cms_menu` ENABLE KEYS */;

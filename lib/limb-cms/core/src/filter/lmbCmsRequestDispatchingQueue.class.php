@@ -12,22 +12,19 @@ class lmbCmsRequestDispatchingQueue extends lmbObject
   const BOTTOM = 2;
   
   const INCLUDE_PATH_NAME = "include_path_name";
-  const OBJECT_NAME = "oject_name";
+  const OBJECT_NAME = "object_name";
+  const PARAMS_NAME = "params";
 
-  static function add( $object_name, $object_include_path, $position = self::MEDIUM)
+  static function add( $object, $position = self::MEDIUM)
   {
     if( $position == self::TOP)
-      self::$_queue_top[] = array( self::OBJECT_NAME => $object_name,
-                                   self::INCLUDE_PATH_NAME => $object_include_path);
+      self::$_queue_top[] = $object;
     elseif( $position == self::MEDIUM)
-      self::$_queue_medium[] = array( self::OBJECT_NAME => $object_name,
-                                      self::INCLUDE_PATH_NAME => $object_include_path);
+      self::$_queue_medium[] = $object;
     elseif( $position == self::BOTTOM)
-      self::$_queue_bottom[] = array( self::OBJECT_NAME => $object_name,
-                                      self::INCLUDE_PATH_NAME => $object_include_path);
+      self::$_queue_bottom[] = $object;
     else
-      self::$_queue_medium[] = array( self::OBJECT_NAME => $object_name,
-                                      self::INCLUDE_PATH_NAME => $object_include_path);
+      self::$_queue_medium[] = $object;
   }
 
   static function getQueue()

@@ -1,0 +1,31 @@
+{{include file='_admin_object_tpls/fieds_tpls.phtml'/}}
+{{include file='_admin/form_errors.phtml'/}}
+
+<div class='tabs'>
+
+  <ul>
+    <li id='properties'><a href="#">{{i18n text="Properties" domain="cms"/}}</a></li>
+    <li id='description'><a href="#">{{i18n text="Description" domain="cms"/}}</a></li>
+  </ul>
+
+  <div id="tab_properties">
+    {{apply template="text_field" name="title" title="Title" required="1"/}}
+    {{apply template="text_field" name="article" title="Артикул" required="1"/}}
+    {{apply template="text_field" name="price" title="Цена" required="1"/}}
+  
+    <dl class="required field">
+    <dt><label for="category">Категория:</label></dt>
+    <dd>
+      {{include file="_admin/tree_select.phtml" name="category" title="Категория" item="{$#item.category}" tree_field_name="category" object_class_name="CatalogCategory" not_tree_edit="1"/}}
+    </dd>
+  </dl>
+  
+  </div>
+
+  <div id="tab_description">
+    {{wysiwyg id='description' name='description' width='100%' height='310' title="Описание"/}}
+  </div>
+
+</div>
+
+{{include file='_admin/form_buttons.phtml'/}}

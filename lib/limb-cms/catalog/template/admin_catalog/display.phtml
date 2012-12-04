@@ -1,0 +1,40 @@
+{{wrap with="admin_page_layout.phtml"}}
+  {{into slot="content_zone"}}
+  
+    {{include file="_admin_object_tpls/actions_tpls.phtml"/}}
+    {{include file='_admin/tree_breadcrumbs.phtml' item="{$#item}" base_path="/admin_catalog/display/" root_path='/admin_catalog/display' root_title="Каталог товаров" link_field='id' /}}
+  
+    <div id="header">
+      <h1>
+        <? if(!$this->item->isRoot()) { ?>
+          Категория &laquo;<a href="{$#item.uri}" target="_blank" title="Посмотреть на сайте">{$#item.title}</a>&raquo;
+        <? } else { ?>
+          Каталог товаров
+        <? } ?>
+      </h1>
+
+      <div class="header_actions">
+        <? if(!$this->item->isRoot()) { ?>
+          {{apply template="object_action" action="create" id="{$#item.id}" icon="database_add" title="Создать подкатегорию" is_link="true"/}}
+          {{apply template="object_action_revert_publish" item="{$#item}" is_link="true"/}}
+          {{apply template="object_action_edit" item="{$#item}" icon="database_edit" is_link="true"/}}
+          {{apply template="object_action_delete" item="{$#item}" icon="database_delete" is_link="true" redirect_url="/admin_catalog/display/{$#item.parent_id}" /}}
+        <? } else { ?>
+          {{apply template="object_action" action="create" item="{$#item}" icon="database_add" title="Создать категорию" is_link="true"/}}
+        <? } ?>
+
+        {{apply template="object_action" controller="admin_catalog_product" action="create" params="parent_id={$#item.id}" title="Добавить товар" icon="cart_add" is_link="true" /}}
+      </div>
+      
+      {{include file='_admin/pager.phtml' items='{$#items}'/}}
+    </div>
+
+    <div id="body">
+      {{include file='admin_catalog/include/items_list.phtml' iterator="{$#items}"/}}
+
+      <h2>Товары</h2>
+      {{include file='admin_catalog_product/include/items_list.phtml' iterator="{$#products}"/}}
+    </div>
+
+  {{/into}}
+{{/wrap}}
