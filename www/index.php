@@ -10,7 +10,5 @@
 require_once(dirname(__FILE__) . '/../setup.php');
 require_once('src/MyCmsApplication.class.php');
 
-date_default_timezone_set('Europe/Moscow');
-
 $application = new MyCmsApplication();
 $application->process();

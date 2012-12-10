@@ -10,6 +10,9 @@
 /**
  * @package cms-core
  */
+
+date_default_timezone_set('Europe/Moscow');
+
 set_include_path(implode(PATH_SEPARATOR,
   array(
     dirname(__FILE__) . '/lib/',
