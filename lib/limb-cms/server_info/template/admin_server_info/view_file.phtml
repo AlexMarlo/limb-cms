@@ -1,23 +1,23 @@
 {{wrap with="admin_modal_page_layout.phtml" into="content_zone"}}
 
-  <h1>Просмотр файла</h1>
-
   {{form id='view_file' name='view_file' method='post' enctype="multipart/form-data"}}
+    <a href="javascript: void(0);" onclick="$('#path').val($('#current_path').val()+'<?php echo DIRECTORY_SEPARATOR;?>..');$('#view_file').submit();">
+      <img src='/shared/cms/images/icons/arrow_up.png'/>
+    </a>
+    &nbsp;
+    <a href="javascript: void(0);" onclick="$('#path').val($('#current_path').val());$('#view_file').submit();">
+      <img src='/shared/cms/images/icons/arrow_refresh_small.png'/>
+    </a>
+
     {{include file='_admin/form_errors.phtml'/}}
-
-    <dl class='field'>
-      <dt>{{label for="file_path"}}Path:{{/label}}</dt>
-      <dd>{{input id="file_path" name="file_path" type="text" title="Path"/}}</dd>
-    </dl>
-
-    {{include file='_admin/form_buttons.phtml' save_button_name="Просмотреть" is_used_ajax="0"/}}
+    {{input id="current_path" name="current_path" type="hidden" value="$#current_path"/}}
+    {{input id="path" name="path" type="hidden" title="path" value=""/}}
   {{/form}}
-  <br/>
 
   <? if($this->type == 'file' || $this->type == 'text'){?>
-<textarea class="php" name="code">
-{$#content|raw}
-</textarea>
+    <textarea class="php" name="code">
+    {$#content|raw}
+    </textarea>
 
   <?}elseif($this->type == 'image'){?>
     <img src="{$#content}">
@@ -37,9 +37,20 @@
 
   <?}elseif($this->type == 'dir'){?>
     {{list using="{$#content}"}}
+      <table width="100%">
+        <tr>
+          <th>Name</th>
+          <th>Size</th>
+          <th>Type</th>
+        </tr>
       {{list:item}}
-        {$item}<br/>
+        <tr>
+          <td><a href="javascript:void(0)" onclick="$('#path').val($('#current_path').val()+'<?php echo DIRECTORY_SEPARATOR;?>{$item.name}');$('#view_file').submit();">{$item.name}</a></td>
+          <td>{$item.size}</td>
+          <td>{$item.type}</td>          
+        </tr>
       {{/list:item}}
+      </table>
     {{/list}}
 
   <?}?>

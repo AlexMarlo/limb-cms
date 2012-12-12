@@ -1,6 +1,9 @@
 <?php
+use taskman\str;
+
 lmb_require('limb-cms/core/src/controller/AdminController.class.php');
 lmb_require('limb/validation/src/rule/lmbEmailRule.class.php');
+lmb_require('limb/net/src/lmbMimeType.class.php');
 
 class AdminServerInfoController extends AdminController
 {
@@ -168,83 +171,111 @@ class AdminServerInfoController extends AdminController
     $this->content = null;
     $this->type = null;
 
+    $path = $this->request->getPost('path', DIRECTORY_SEPARATOR);
+
     $this->UseForm('view_file');
     $this->setFormDataSource($this->request);
-    if($this->request->hasPost())
+
+    $path = CMS_DIR . $path;
+
+    $path = lmbFS::normalizePath( $path);
+    if( !strstr($path, CMS_DIR))
+      $path = CMS_DIR . DIRECTORY_SEPARATOR;
+
+    $this->current_path = str_replace( CMS_DIR, "", $path);
+
+    if(!file_exists($path))
+      return $this->addError('Файл не найден!');
+
+    try
     {
-      if(!$file_path = $this->request->getPost('file_path', false))
-        return $this->addError('Файл не указан!');
-
-      $file_path = CMS_DIR . $file_path;
-
-      if(!file_exists($file_path))
-        return $this->addError('Файл не найден!');
-
-      try
+      if(is_file($path))
       {
-        if(is_file($file_path))
+        $file_name = array_pop(explode(DIRECTORY_SEPARATOR, $path));
+        if(strstr($file_name, '.'))
         {
-          $file_name = array_pop(explode(DIRECTORY_SEPARATOR, $file_path));
-          if(strstr($file_name, '.'))
+          $ext = strtolower(array_pop(explode('.', $path)));
+          if(in_array($ext, array('gif', 'jpg', 'png', 'jpeg', 'bmp', )))
           {
-            $ext = strtolower(array_pop(explode('.', $file_path)));
-            if(in_array($ext, array('gif', 'jpg', 'png', 'jpeg', 'bmp', )))
-            {
-              $this->type = 'image';
-              $this->content = "/admin_server_info/get_file?file_path=$file_path";
-            }
-            elseif(in_array($ext, array('swf', )))
-            {
-              $this->type = 'flash';
-              $this->content = "/admin_server_info/get_file?file_path=$file_path";
-            }
-            elseif(in_array($ext, array('txt', 'php', 'htmml', 'phtml', 'bmp')))
-            {
-              $this->type = 'text';
-              $this->content = file_get_contents($file_path);
-            }
-            else
-            {
-              $this->type = 'file';
-              $this->content = file_get_contents($file_path);
-            }
-          } 
+            $this->type = 'image';
+            $this->content = "/admin_server_info/get_file?path=$path";
+          }
+          elseif(in_array($ext, array('swf', )))
+          {
+            $this->type = 'flash';
+            $this->content = "/admin_server_info/get_file?path=$path";
+          }
+          elseif(in_array($ext, array('txt', 'php', 'htmml', 'phtml', 'bmp')))
+          {
+            $this->type = 'text';
+            $this->content = file_get_contents($path);
+          }
           else
           {
             $this->type = 'file';
-            $this->content = file_get_contents($file_path);
+            $this->content = file_get_contents($path);
           }
-        }
-        elseif(is_dir($file_path))
+        } 
+        else
         {
-          $this->content = scandir($file_path);
-          $this->type = 'dir';
+          $this->type = 'file';
+          $this->content = file_get_contents($path);
         }
       }
-      catch(lmbExeception $e)
+      elseif(is_dir($path))
       {
-        return $this->addError('Ошибка при чтении файлы: ' . $e->getMessage());
+        $this->type = 'dir';
+        $files = scandir( $path);
+        
+        $this->content = array();
+        foreach($files as $file)
+        {
+          $file_path = $path . DIRECTORY_SEPARATOR . $file;
+          
+          $file_size = stat( $file_path);
+          $file_size = $file_size['size'];
+          
+          if( is_dir( $file_path))
+            $file_type = 'dir';
+          elseif( is_file( $file_path))
+            $file_type = 'file';
+          elseif( is_link( $file_path))
+            $file_type = 'link';
+          else
+            $file_type = 'none';
+
+          $item = array();
+          $item['name'] = $file;
+          $item['size'] = $file_size;
+          $item['type'] = $file_type;
+          
+          $this->content[] = $item;
+        }
       }
+    }
+    catch(lmbExeception $e)
+    {
+      return $this->addError('Ошибка при чтении файлы: ' . $e->getMessage());
     }
   }
 
   function doGetFile()
   {
-    if(!$file_path = $this->request->getGet('file_path', false))
+    if(!$path = $this->request->getGet('path', false))
       return '404';
 
     $mode = $this->request->getGet('mode', 'view');
 
-    $ext = strtolower(array_pop(explode('.', $file_path)));
+    $ext = strtolower(array_pop(explode('.', $path)));
     $mime_type = lmbMimeType :: getMimeType($ext);
-    $file_size = filesize($file_path);
-    $file_name = array_pop(explode(DIRECTORY_SEPARATOR, $file_path));
+    $file_size = filesize($path);
+    $file_name = array_pop(explode(DIRECTORY_SEPARATOR, $path));
 
     header("Content-type: {$mime_type}");
     if($mode == 'get')
       header("Content-Disposition: attachment; filename=\"{$file_name}\"");
     header("Content-Length: {$file_size}");
-    readfile($file_path);
+    readfile($path);
   }
 
   function doSql()

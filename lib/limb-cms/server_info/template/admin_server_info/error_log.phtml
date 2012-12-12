@@ -1,7 +1,7 @@
 {{wrap with="admin_modal_page_layout.phtml" into="content_zone"}}
 
   {{form id='refresh_form' name='refresh_form' method='post' enctype="multipart/form-data"}}
-    <a href="javascript: void(0);" onclick="document.getElementById('refresh_form').submit();">
+    <a href="javascript: void(0);" onclick="$('#refresh_form').submit();">
       <img src='/shared/cms/images/icons/arrow_refresh_small.png'/>
     </a>
   {{/form}}
