@@ -1,7 +1,5 @@
 <?php
 lmb_require('limb-cms/core/src/controller/AdminTreeNodeObjectController.class.php');
-lmb_require('limb-cms/catalog/src/model/CatalogCategory.class.php');
-lmb_require('limb-cms/catalog/src/model/CatalogProduct.class.php');
 
 class AdminCatalogController extends AdminTreeNodeObjectController
 {

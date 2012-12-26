@@ -1,6 +1,4 @@
 <?php
-lmb_require('limb-cms/catalog/src/model/CatalogCategory.class.php');
-lmb_require('limb-cms/catalog/src/model/CatalogProduct.class.php');
 lmb_require('limb-cms/catalog/src/finder/CatalogFinder.class.php');
 
 class CatalogController extends lmbController

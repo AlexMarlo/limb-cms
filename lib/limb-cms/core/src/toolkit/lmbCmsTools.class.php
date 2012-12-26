@@ -20,7 +20,54 @@ class lmbCmsTools extends lmbAbstractTools
 {
   protected $tree;
   protected $user;
+  protected $visitor;
+  protected $html_sanitizer;
   protected $mailer_conf;
+  
+  protected function _getVisitorObjectName($user_class_name)
+  {
+    return 'Visitor' . $user_class_name;
+  }
+  
+  function getVisitor($user_class_name)
+  {
+    $session = lmbToolkit::instance()->getSession();
+  
+    if(!$this->visitor = $session->get($this->_getVisitorObjectName($user_class_name)))
+      $this->visitor = new Visitor($user_class_name);
+  
+    $session->set($this->_getVisitorObjectName($user_class_name), $this->visitor);
+  
+    return $this->visitor;
+  }
+  
+  function getVisitorUser($user_class_name)
+  {
+    try
+    {
+      $user = lmbToolkit::instance()->getVisitor($user_class_name)->getUser();
+      return $user;
+    }
+    catch(lmbARNotFoundException $e)
+    {
+      $this->resetVisitorUser($user_class_name);
+      return null;
+    }
+  }
+  
+  function resetVisitorUser($user_class_name)
+  {
+    $session = lmbToolkit :: instance()->getSession();
+    $session->destroy($this->_getVisitorObjectName($user_class_name));
+  }
+  
+  function setVisitorUser($user)
+  {
+    $visitor = $this->getVisitor(get_class($user));
+    $visitor->setUser($user);
+  
+    lmbToolkit::instance()->getSession()->set($this->_getVisitorObjectName(get_class($user)), $visitor);
+  }
 
   function getCmsTree($tree_name = 'node')
   {

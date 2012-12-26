@@ -1,0 +1,50 @@
+{{wrap with="front_layout.phtml"}}
+
+  {{into slot="page_title"}}Регистрация - {{/into}}
+
+  {{into slot="content"}}
+
+    <h1>Регистрация</h1>
+
+    {{form method="POST" id='register_form' name="register_form"}}
+
+      {{include file='_admin_include/form_errors.phtml'/}}
+
+      <dl class="field">
+        <dt><label for='name'>Имя:</label></dt>
+        <dd>{{input type="text" name="name" id="name" title="Логин"/}}</dd>
+      </dl>
+
+      <dl class="field">
+        <dt><label for='email'>Email:</label></dt>
+        <dd>{{input type="text" name="email" id="email" title="Email"/}}</dd>
+      </dl>
+
+      <dl class="field">
+        <dt><label for='password'>Введите пароль:</label></dt>
+        <dd>{{input type="password" name="password" id="password" title="Пароль" class='input'/}}</dd>
+      </dl>
+
+      <dl class="field">
+        <dt><label for='password_repeat'>Повторите пароль:</label></dt>
+        <dd>{{input type="password" name="password_repeat" id="password_repeat" title="Повторите пароль" class='input'/}}</dd>
+      </dl>
+
+      <dl class="field">
+        <dt><label for='captcha'>Проверочный код:</label></dt>
+        <dd>
+          <input type="text" name="captcha" id="captcha" title="Проверочный код" class='input'/><br />
+          <img src="/captcha.php" id="captcha_image"/>
+          <a href="javascript:void(0)" onclick='jQuery("#captcha_image").attr("src", "/captcha.php?" + Math.random());return false;'>показать другую картинку</a>
+        </dd>
+      </dl>
+
+      <div class="form_buttons">
+        <input type='submit' id="submit" name='submit' value="Зарегистрироваться" />
+      </div>
+
+    {{/form}}
+
+  {{/into}}
+
+{{/wrap}}

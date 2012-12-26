@@ -1,0 +1,42 @@
+{{wrap with="front_layout.phtml"}}
+
+  {{into slot="page_title"}}Вход на сайт - {{/into}}
+
+  {{into slot="content"}}
+
+    <h1>Вход на сайт</h1>
+
+    {{form id="login_form" name="login_form" method="post"}}
+
+      {{include file='_admin/form_errors.phtml'/}}
+
+      <dl class="field">
+        <dt><label for="email">Email</label></dt>
+        <dd>{{input type="text" id="email" name="email"/}}</dd>
+      </dl>
+
+      <dl class="field">
+        <dt><label for="password">Пароль</label></dt>
+        <dd>{{input type="password" id="password" name="password"/}}</dd>
+      </dl>
+
+      <dl class="field">
+        <dt>&nbsp;</dt>
+        <dd><label for="remember_me">{{input type="checkbox" id="remember_me" name="remember_me" checked="checked"/}} запомнить пароль на две недели</label></dd>
+      </dl>
+      
+      <div class="form_buttons">
+        <input type='submit' id="submit" name='submit' value="Войти" />
+      </div>
+
+    {{/form}}
+    
+    <ul>
+      <li><a href="/user_auth/forgot_password">Забыли пароль?</a></li>
+      <li><a href="/user_auth/registration">Регистрация</a></li>
+    </ul>
+
+  {{/into}}
+
+{{/wrap}}
+

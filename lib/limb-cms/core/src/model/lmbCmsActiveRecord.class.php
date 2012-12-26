@@ -18,6 +18,15 @@ lmb_require('limb/active_record/src/lmbActiveRecord.class.php');
 abstract class lmbCmsActiveRecord extends lmbActiveRecord
 {
   protected $_db_table_name;
+  protected $_priority_field_name = 'priority';
+  
+
+  protected function _onBeforeCreate()
+  {
+    lmb_require('limb/net/src/lmbIp.class.php');
+    if($this->has('create_ip'))
+      $this->create_ip = lmbIp::encode(lmbIp::getRealIp());
+  }
 
   protected function _onBeforeSave()
   {
@@ -26,15 +35,14 @@ abstract class lmbCmsActiveRecord extends lmbActiveRecord
 
   function _onCreate()
   {
-    $this->_setPriority();
+    if($this->has( $this->_priority_field_name))
+      $this->_setPriority();
   }
 
   protected function _setPriority()
   {
-    $sql = "SELECT MAX(priority) FROM " . $this->_db_table_name;
+    $sql = "SELECT MAX(" . $this->_priority_field_name . ") FROM " . $this->_db_table_name;
     $max_priority = lmbDBAL :: fetchOneValue( $sql);
     $this->setPriority( $max_priority + 10);
   }
 }
-
-

@@ -1,6 +1,5 @@
 <?php
 lmb_require('limb-cms/core/src/controller/AdminObjectController.class.php');
-lmb_require('limb-cms/counter/src/model/Counter.class.php');
 
 class AdminCounterController extends AdminObjectController
 {

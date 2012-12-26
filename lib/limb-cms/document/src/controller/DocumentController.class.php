@@ -1,6 +1,5 @@
 <?php
 lmb_require('limb-cms/core/src/controller/ObjectController.class.php');
-lmb_require('limb-cms/document/src/model/lmbCmsDocument.class.php');
 
 class DocumentController extends ObjectController
 {

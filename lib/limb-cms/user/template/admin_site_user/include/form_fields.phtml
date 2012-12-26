@@ -1,0 +1,22 @@
+<div class='tabs'>
+  {{include file='_admin_object_tpls/fieds_tpls.phtml'/}}
+
+  <ul>
+    <li id='properties'><a href="javascript:void(null)">Свойства</a></li>
+  </ul>
+
+  <div id="tab_properties">
+    
+    {{apply template="text_field" name="name" title="Name" required="1"/}}
+    {{apply template="text_field" name="email" title="E-mail" required="1"/}}
+
+    {{apply template="js_checkbox_field" name="is_banned" title="Заблокирован?"/}}
+    <? if(!$this->item->is_activated) {?>
+      {{apply template="js_checkbox_field" name="is_activated" title="Активирован?"/}}
+    <? }?>
+
+    {{apply template="password_field" name="password" title="Password" required="1"/}}
+    {{apply template="password_field" name="repeat_password" title="Repeat password" required="1"/}}
+  </div>
+
+</div>

@@ -1,7 +1,6 @@
 <?php
 lmb_require('limb-cms/core/src/controller/AdminObjectController.class.php');
 lmb_require('limb/validation/src/rule/lmbMatchRule.class.php');
-lmb_require('limb-cms/core/src/model/lmbCmsUser.class.php');
 
 class AdminUserController extends AdminObjectController
 {
@@ -47,16 +46,29 @@ class AdminUserController extends AdminObjectController
 
   function doDelete()
   {
-    $id = $this->request->get('id');
-    if(!$this->item = lmbActiveRecord::findById($this->_object_class_name, $id, false))
-      return $this->flashErrorAndRedirect('Пользователь не найден', '/admin_user');
+    if(!$this->request->hasPost())
+      $ids = $this->request->get('ids');
+    else
+      $ids = $this->request->getPost('ids');
+    
+    if(!is_array($ids))
+      $ids = array($ids);
+    
+    $this->items = lmbActiveRecord::findByIds( $this->_object_class_name, $ids);
+    
+    $this->_onBeforeDelete();
+    
+    foreach ($this->items as $item)
+    {
+      if($item->getId() == $this->toolkit->getCmsUser()->getId())
+        return $this->flashErrorAndRedirect('Запрещено удалять свою учетную запись', '/admin_user');
+      else
+        $item->destroy();
+    }
 
-    if($this->item->getId() == $this->toolkit->getCmsUser()->getId())
-      return $this->flashErrorAndRedirect('Запрещено удалять свою учетную запись', '/admin_user');
-
-    $this->item->destroy();
-    $this->flash('Пользователь удален');
-    $this->redirect('/admin_user');
+    $this->_onAfterDelete();
+    
+    $this->_endDialog();
   }
 }
 

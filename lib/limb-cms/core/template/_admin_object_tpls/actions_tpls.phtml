@@ -33,9 +33,9 @@
     $is_link = isset($is_link) ? $is_link : false;
     $title = isset($title) ? $title : lmb_i18n('Delete', 'cms');
     $icon = isset($icon) ? $icon : "delete";
+    $warning = isset($warning) ? lmb_i18n( $warning, 'cms') : lmb_i18n("Are you sure want to delete selected objects?", 'cms');
   ?>
-  
-  <a href='#' onclick="if(confirm('{{i18n text='Are you sure want to delete selected objects?' domain='cms'/}}')) {jQuery.post('{{route_url params='controller:{$controller},action:delete'/}}', {ids:{$item.id}}, function(){document.location.reload()})}"  title="{$title}">
+  <a href='#' onclick="if(confirm('{$warning}')) {jQuery.post('{{route_url params='controller:{$controller},action:delete'/}}', {ids:{$item.id}}, function(){document.location.reload()})}"  title="{$title}">
     <img src='/shared/cms/images/icons/{$icon|default:"delete"}.png'/>
     <? if($is_link) echo $title; ?>
   </a>

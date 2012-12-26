@@ -10,7 +10,6 @@
  * @package    cms
  */
 lmb_require('limb-cms/core/src/controller/AdminTreeNodeObjectController.class.php');
-lmb_require('limb-cms/document/src/model/lmbCmsDocument.class.php');
 
 class AdminDocumentController extends AdminTreeNodeObjectController
 {

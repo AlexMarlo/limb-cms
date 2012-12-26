@@ -186,7 +186,20 @@ CREATE TABLE `catalog_product` (
   KEY `category_id` (`category_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
+CREATE TABLE `user` (
+  `id` int(11) unsigned NOT NULL auto_increment,
+  `reverse_id` int(11) DEFAULT NULL,
+  `email` varchar(30) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `password` varchar(40) DEFAULT NULL,
+  `is_activated` tinyint(1) DEFAULT '0',
+  `is_banned` tinyint(1) DEFAULT '0',
+  `photo_ext` varchar(6) DEFAULT NULL,
+  `ctime` int(11) DEFAULT NULL,
+  `utime` int(11) DEFAULT NULL,
+  `create_ip` int(11) DEFAULT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

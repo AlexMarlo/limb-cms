@@ -32,6 +32,11 @@ $editor = array(array('title' => lmb_i18n('Content', 'cms'), 'icon' => '/shared/
     'url' => '/admin_catalog',
     'icon' => '/shared/cms/images/icons/database.png',
   ),
+  array(
+    'title' => 'Пользователи',
+    'url' => '/admin_site_user',
+    'icon' => '/shared/cms/images/icons/user.png',
+  ),
 )));
 
 $only_admin = array(array('title' => lmb_i18n('Administration', 'cms'), 'icon' => '/shared/cms/images/icons/menu_service.png','children' => array(

@@ -1,0 +1,69 @@
+{{wrap with="admin_page_layout.phtml" in="content_zone"}}
+
+  {{include file="_admin_object_tpls/actions_tpls.phtml"/}}
+
+  <div id="header">
+
+    <h1>{{i18n text="Site users" domain="cms"/}}</h1>
+  
+    <div class="header_actions">
+      {{apply template="object_action" action="create" icon="user_add" is_link="true" title="Add user"/}}
+    </div>
+
+  </div>
+  <div id="body">
+
+    {{include file='_admin/pager.phtml' items='$#items'/}}
+    {{list using="{$#items}" parity='$parity'}}
+
+      <div class='list'>
+
+        <div class='list_actions'>
+
+        </div>
+
+        <table>
+          <tr>
+            <th>#ID</th>
+            <th>{{i18n text="Name" domain="cms"/}}</th>
+            <th>{{i18n text="E-mail" domain="cms"/}}</th>
+            <th>Активирован</th>
+            <th>Заблокирован</th>
+            <th>Дата<br/>регистрации</th>
+            <th>IP</th>
+            <th>{{i18n text="Actions" domain="cms"/}}</th>
+          </tr>
+
+          {{list:item}}
+            <tr class="{$parity}">
+              <td>#{$item.id}</td>
+              <td>{$item.name}</td>
+              <td>{$item.email}</td>
+              <td><?= ($item->is_activated) ? 'Да' : 'Нет' ?></td>
+              <td><?= ($item->is_banned) ? 'Да' : 'Нет' ?></td>
+              <td>{$item.ctime|date:"d.m.Y H:i"}</td>
+              <td>{$item.create_ip|decode_ip}</td>
+              <td class='actions'>
+                {{apply template="object_action_edit" item="{$item}" icon="user_edit"/}}
+                {{apply template="object_action_delete" item="{$item}" icon="user_delete"/}}
+                &nbsp;
+                {{apply template="object_action_edit" item="{$item}" action="login_like" title="Авторизоваться как пользователь сайта" icon="user_go"/}}
+              </td>
+            </tr>
+          {{/list:item}}
+
+          {{list:empty}}
+            <div class="empty_list">Пользователи не найдены</div>
+          {{/list:empty}}
+        </table>
+
+        <div class='list_actions'>
+
+        </div>
+      </div>
+
+    {{/list}}
+
+  </div>
+
+{{/wrap}}

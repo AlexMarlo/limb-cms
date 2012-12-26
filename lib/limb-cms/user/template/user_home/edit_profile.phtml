@@ -1,0 +1,36 @@
+{{wrap with="front_layout.phtml"}}
+
+  {{into slot="page_title"}}Редактирование профиля - {{/into}}
+
+  {{into slot="content"}}
+  
+    <div class="breadcrumbs">
+      <a href="/user_home">Личный кабинет</a> &raquo;
+      <b>Редактирование профиля</b>
+    </div>
+  
+    <h1>Редактирование профиля</h1>
+
+    {{form method="post" id='profile_form' name="profile_form" enctype="multipart/form-data"}}
+
+      {{include file='_admin/form_errors.phtml'/}}
+
+      <dl class="field">
+        <dt><label for='name'>Имя:</label></dt>
+        <dd>{{input type="text" name="name" id="name" title="Логин"/}}</dd>
+      </dl>
+
+      <dl class="field">
+        <dt><label for='email'>Email:</label></dt>
+        <dd>{{input type="text" name="email" id="email" title="Email"/}}</dd>
+      </dl>
+
+      <div class="form_buttons">
+        <input type='submit' id="submit" name='submit' value="Сохранить" />
+      </div>
+
+    {{/form}}
+
+  {{/into}}
+
+{{/wrap}}

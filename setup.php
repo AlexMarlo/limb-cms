@@ -15,15 +15,15 @@ date_default_timezone_set('Europe/Moscow');
 
 set_include_path(implode(PATH_SEPARATOR,
   array(
-    dirname(__FILE__) . '/lib/',
     dirname(__FILE__),
+    dirname(__FILE__) . '/lib/',
     get_include_path()
   )
 ));
 
 require_once('limb/core/common.inc.php');
 
-lmb_app_mode(LIMB_APP_DEVELOPMENT);
+lmb_app_mode(LIMB_APP_PRODUCTION);
 
 if(file_exists(dirname(__FILE__) . '/setup.override.php'))
   require_once(dirname(__FILE__) . '/setup.override.php');
@@ -35,5 +35,4 @@ lmb_cms_load_packages('limb-cms');
 lmb_env_setor('CMS_DIR', dirname(__FILE__));
 lmb_env_setor('LIMB_VAR_DIR', CMS_DIR . '/var/');
 
-lmbToolkit :: instance()->setConfIncludePath('settings;limb-cms/*/settings;limb/*/settings');
-lmb_env_setor( 'LIMB_TRANSLATIONS_INCLUDE_PATH', 'i18n/translations;limb-cms/*/i18n/translations;limb/*/i18n/translations');
+require_once('common.inc.php');

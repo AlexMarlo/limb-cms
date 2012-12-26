@@ -1,7 +1,5 @@
 <?php
 lmb_require('limb-cms/core/src/controller/AdminObjectController.class.php');
-lmb_require('limb-cms/catalog/src/model/CatalogProduct.class.php');
-lmb_require('limb-cms/catalog/src/model/CatalogCategory.class.php');
 
 class AdminCatalogProductController extends AdminObjectController
 {

@@ -1,0 +1,13 @@
+{{wrap with="admin_modal_page_layout.phtml" into="content_zone"}}
+  
+  <h1>Редактирование пользователя: {$#item.name}</h1>
+
+  {{form id='object_form' name='object_form' method='post' enctype="multipart/form-data"}}
+    
+    {{include file='_admin/form_errors.phtml'/}}
+    {{include file='admin_site_user/include/form_fields.phtml'/}}
+    {{include file='_admin/form_buttons.phtml'/}}
+    
+  {{/form}}
+  
+{{/wrap}}

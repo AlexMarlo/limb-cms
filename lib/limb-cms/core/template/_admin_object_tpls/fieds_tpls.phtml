@@ -53,4 +53,19 @@
     </dd>
   </dl>
 {{/template}}
-  
+
+{{template name="js_checkbox_field"}}
+  <?php
+    $i18n = isset( $i18n)? $i18n: 1;
+    if( $i18n)
+      $title = lmb_i18n( $title, "cms");
+  ?>
+  <dl class='field'>
+    <dt>&nbsp;</dt>
+    <dd>
+      {{label for="{$name}"}}
+        {{js_checkbox id="{$name}" name="{$name}"/}}&nbsp;{$title}
+      {{/label}}
+    </dd>
+  </dl>
+{{/template}}

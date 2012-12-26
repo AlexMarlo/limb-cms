@@ -1,0 +1,6 @@
+<?php
+
+lmb_env_setor('LIMB_CACHE_DB_META_IN_FILE', false);
+lmb_app_mode(LIMB_APP_DEVELOPMENT);
+
+?>

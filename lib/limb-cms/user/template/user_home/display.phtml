@@ -1,0 +1,17 @@
+{{wrap with="front_layout.phtml"}}
+
+  {{into slot="page_title"}}Личный кабинет - {{/into}}
+
+  {{into slot="content"}}
+
+    <h1>Личный кабинет</h1>
+
+    <ul>
+      <li><a href="/user_home/edit_profile">Редактирование профиля</a></li>
+      <li><a href="/user_home/new_password">Смена пароля</a></li>
+      <li><a href="/user_auth/logout">Выход</a></li>
+    </ul>
+
+  {{/into}}
+
+{{/wrap}}
