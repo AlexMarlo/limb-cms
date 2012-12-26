@@ -16,9 +16,11 @@ Cms consist of following modules for now:
     * server_info - module for check server settings, php info, email send settings, limb variables
     * manual - documentation module
     * web_cache
+    * user - user module for site, user profile, login
+    * catalog - catalog module for shop, tree structure of categories
 
 Cms require:
 	# Limb3 Web Application Framework( http://github.com/AlexMarlo/limb)
 	# Limb DBMan (http://github.com/AlexMarlo/limb-app-dbman)
 
-Now cms at active development.
+Now cms in active development state.
