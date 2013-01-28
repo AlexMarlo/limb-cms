@@ -1,0 +1,6 @@
+[submodule "lib/limb"]
+	path = lib/limb
+	url = https://github.com/AlexMarlo/limb.git
+[submodule "lib/limb-app-dbman"]
+	path = lib/limb-app-dbman
+	url = https://github.com/AlexMarlo/limb-app-dbman.git
