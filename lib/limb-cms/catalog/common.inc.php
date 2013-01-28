@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @package cms-menu
+ * @package cms-catalog
  */
 require_once('limb/core/common.inc.php');
 

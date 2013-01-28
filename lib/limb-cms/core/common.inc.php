@@ -12,7 +12,7 @@
  */
 require_once('limb/core/common.inc.php');
 
-lmb_env_setor('LIMB_CONTROLLERS_INCLUDE_PATH', 'src/controller;limb-cms/*/src/controller;limb/*/src/controller');
+lmb_env_setor('LIMB_CONTROLLERS_INCLUDE_PATH', 'src/controller;modules/*/src/controller;limb-cms/*/src/controller;limb/*/src/controller');
 
 lmb_package_require('web_app');
 lmb_require('limb-cms/core/toolkit.inc.php');
@@ -26,7 +26,6 @@ function lmb_cms_load_packages($packages_dir)
   $cms_packages = lmb_glob($packages_dir.'/*');
   foreach ($cms_packages as $cms_package)
   {
-    lmb_env_set('LIMB_CMS_PACKAGES_DIR', realpath(dirname($cms_package)));
     if(is_dir($cms_package))
       lmb_package_require(basename($cms_package), $packages_dir);
   }
