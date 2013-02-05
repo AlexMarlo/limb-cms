@@ -1,0 +1,137 @@
+<? if(count($this->attached_images)) { ?>
+lmb_require('limb-cms/image/src/helper/UploadImageFileHelper.class.php');
+<? } ?>
+
+class User{$#model_name}Controller extends lmbController
+{
+  protected $_form_name = 'object_form';
+
+  function doDisplay()
+  {
+    $this->user = $this->toolkit->getUser();
+
+    if(!$this->user->isLoggedIn())
+      return $this->forwardTo404();
+
+    $this->items = lmbActiveRecord :: find(
+      '{$#model_name}', array(
+        'criteria' => lmbSQLCriteria::equal('user_id', $this->user->id),
+        'sort' => array('id' => 'DESC'),
+      )
+    );
+  }
+
+  function doCreate()
+  {
+    $this->user = $this->toolkit->getUser();
+
+    if(!$this->user->isLoggedIn())
+      return $this->forwardTo404();
+
+    $this->item = new {$#model_name}();
+
+    $this->useForm($this->_form_name);
+    $this->setFormDatasource($this->item);
+
+    if(!$this->request->hasPost())
+      return;
+
+    $this->_importAndValidateRequest();
+
+    if(!$this->error_list->isValid())
+      return;
+
+    $this->_saveAndProcessFiles();
+
+    $this->flashMessage('Объект {$#model_name}:' . $this->item->id . ' успешно создан');
+    $this->redirect('/user_{$#model_url}');
+  }
+
+  function doEdit()
+  {
+    $this->user = $this->toolkit->getUser();
+
+    if(!$this->user->isLoggedIn())
+      return $this->forwardTo404();
+
+    $item_id = $this->request->getInteger('id');
+
+    if( (!$this->item = lmbActiveRecord::findById('{$#model_name}', $item_id, false)) || ($this->item->user_id != $this->user->id) )
+       return $this->forwardTo404();
+
+    $this->useForm($this->_form_name);
+
+    $dataset = new lmbSet();
+    $dataset->import($this->item->export());
+    $dataset->import($this->request->getPost());
+    $this->setFormDatasource($dataset);
+
+    if(!$this->request->hasPost())
+      return;
+
+    $this->_importAndValidateRequest();
+
+    if(!$this->error_list->isValid())
+      return;
+
+    $this->_saveAndProcessFiles();
+
+    $this->flashMessage('Объект {$#model_name}:' . $this->item->id . ' успешно изменен');
+    $this->redirect('/user_{$#model_url}');
+  }
+
+  function doDelete()
+  {
+    $this->user = $this->toolkit->getUser();
+
+    if(!$this->user->isLoggedIn())
+      return $this->forwardTo404();
+
+    $item_id = $this->request->getInteger('id');
+
+    if( (!$this->item = lmbActiveRecord::findById('{$#model_name}', $item_id, false)) || ($this->item->user_id != $this->user->id) )
+      return $this->forwardTo404();
+
+    $this->item->destroy();
+
+    $this->flashMessage('Объект {$#model_name}:' . $this->item->id . ' успешно удален');
+    $this->redirect('/user_{$#model_url}');
+  }
+
+  protected function _importAndValidateRequest()
+  {
+    $this->item->import($this->request);
+    $this->item->setUser($this->user);
+
+    $this->item->validate($this->error_list);
+
+<? foreach($this->attached_images as $image_name) { ?>
+    ${$image_name}_file = $this->request->getFile('{$image_name}_file');
+    if(${$image_name}_file && ${$image_name}_file->isUploaded())
+    {
+      UploadImageFileHelper :: validateImageFile(
+        $this->item, '{$image_name}',
+        ${$image_name}_file->getFilePath(),
+        $this->error_list
+      );
+    }
+    <? echo PHP_EOL; ?>
+<? } ?>
+  }
+
+  protected function _saveAndProcessFiles()
+  {
+<? if(count($this->attached_images)) { ?>
+    $this->item->saveSkipValidation();
+<? } ?>
+
+<? foreach($this->attached_images as $image_name) { ?>
+    UploadImageFileHelper :: attachOrDeleteImageFile(
+      $this->item, '{$image_name}',
+      $this->request->getFile('{$image_name}_file')->getFilePath(),
+      (bool)$this->request->get('{$image_name}_file_delete')
+    );
+    <? echo PHP_EOL; ?>
+<? } ?>
+  }
+}

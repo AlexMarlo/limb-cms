@@ -1,0 +1,15 @@
+lmb_require('src/finder/{$#model_name}Finder.class.php');
+
+class {$#model_name}Controller extends lmbController
+{
+  function doDisplay()
+  {
+    $this->items = {$#model_name}Finder :: findLatest();
+  }
+  
+  function doItem()
+  {
+    if(!$this->item = {$#model_name}Finder :: findById((int)$this->request->get('id')))
+      return $this->forwardTo404();
+  }
+}

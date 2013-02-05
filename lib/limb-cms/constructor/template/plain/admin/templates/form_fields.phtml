@@ -1,0 +1,24 @@
+[[include file='_admin/form_errors.phtml'/]]
+
+<div class='tabs'>
+
+  <ul>
+    <li id='properties'><a>[[i18n text="Properties" domain="cms"/]]</a></li>
+  </ul>
+
+  <div id="tab_properties">
+    {{list using="{$#column_names}" as="$column_name"}}
+      {{list:item}}
+        {{if var="$column_name != 'priority'"}}
+          <dl class='field'>
+            <dt>[[label for="{$column_name}"]]{$column_name}:[[/label]]</dt>
+            <dd>{$#form_fields[$column_name]|raw}</dd>
+          </dl>
+        {{/if}}
+      {{/list:item}}
+    {{/list}}
+  </div>
+
+</div>
+
+[[include file='_admin/form_buttons.phtml'/]]

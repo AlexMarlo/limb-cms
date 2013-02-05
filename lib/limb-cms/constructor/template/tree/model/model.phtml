@@ -1,0 +1,63 @@
+lmb_require('bitcms/base/src/model/ActiveRecordTreeNode.class.php');
+
+class {$#model_name} extends ActiveRecordTreeNode
+{
+  protected $_db_table_name = '{$#table_name}';
+
+  protected $_is_being_destroyed = false;
+
+<? if(count($this->lazy_attributes)) { ?>  protected $_lazy_attributes = array('<? echo implode('\', \'', $this->lazy_attributes); ?>');<? echo "\n"; } ?>
+
+<? if(count($this->history_stored_fields)) { ?>  public $_history_stored_fields = array('<? echo implode('\', \'', $this->history_stored_fields); ?>');<? echo "\n"; } ?>
+
+<? if($this->relations_exist) { ?>
+  function _defineRelations()
+  {
+    parent :: _defineRelations();
+
+<? if($this->has_many) { ?>    $this->_has_many = {$#has_many|raw};<? echo "\n"; } ?>
+<? if($this->many_belongs_to) { ?>    $this->_many_belongs_to = {$#many_belongs_to|raw};<? echo "\n"; } ?>
+<? if($this->has_one) { ?>    $this->_has_one = {$#has_one|raw};<? echo "\n"; } ?>
+<? if($this->belongs_to) { ?>    $this->_belongs_to = {$#belongs_to|raw};<? echo "\n"; } ?>
+<? if($this->has_many_to_many) { ?>    $this->_has_many_to_many = {$#has_many_to_many|raw};<? echo "\n"; } ?>
+
+<? foreach($this->attached_images as $image_name) { ?>
+    $this->_composed_of['{$image_name}'] = array(
+      'class' => 'Image',
+      'mapping' => array(
+        'object_id' => 'id',
+        'extension' => '{$image_name}_ext',
+      ),
+      'setup_method' => 'setup_{$image_name}',
+    );
+    <? echo PHP_EOL; ?>
+<? } ?>
+  }
+<? } ?>
+
+<? foreach($this->attached_images as $image_name) { ?>
+  function setup_{$image_name}($image)
+  {
+    $image->setup(lmbToolkit::instance()->getConf('{$#table_name}')->get('{$image_name}'));
+    return $image;
+  }
+  <? echo PHP_EOL; ?>
+<? } ?>
+
+  function _createValidator()
+  {
+    $validator = parent :: _createValidator();
+
+    if($this->has('title'))
+      $validator->addRequiredRule('title', 'Поле "Заголовок" обязательно для заполнения');
+
+    return $validator;
+  }
+
+  function getUri()
+  {
+    $uri = ($this->parent && !$this->parent->isRoot()) ? $this->parent->uri : '';
+    return  '/{$#table_name}' . $uri . '/' . $this->identifier;
+  }
+
+}

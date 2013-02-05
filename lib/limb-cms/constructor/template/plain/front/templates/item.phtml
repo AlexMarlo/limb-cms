@@ -1,0 +1,21 @@
+[[wrap with="front_layout.phtml"]]
+
+  [[into slot="page_title"]]{$#model_name} [$#item.id] | {$#model_name} | [[/into]]
+  
+  [[into slot="content"]]
+    [[assign value="array(array('url' => '/', 'title' => 'Главная страница',),array('url' => '/{$#model_url}', 'title' => '{$#model_name}',),)" var="$list"]]
+    [[include file='_include/breadcrumbs.phtml' list='[$list]'/]]
+
+    <h1>{$#model_name} [$#item.id]</h1>
+{{-
+  }}{{list using="{$#columns}" as="$column"}}{{list:item}}{{-
+    }}{{if var="!in_array($column->getName(), $#invisible_columns)"}}
+    <dl>
+      <dt>{$column->getName()}:</dt>
+      <dd>[$#item.{$column->getName()}]</dd>
+    </dl>{{/if}}{{-
+  }}{{/list:item}}{{/list}}
+
+  [[/into]]
+  
+[[/wrap]]

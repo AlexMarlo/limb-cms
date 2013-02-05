@@ -1,0 +1,33 @@
+class {$#model_name}Finder
+{
+  static function getQueryForFront()
+  {
+    $query = lmbARQuery::create('{$#model_name}');
+    <? if(in_array('is_published', $this->column_names)){ ?>
+    $query->addCriteria(lmbSQLCriteria :: equal('is_published', 1));
+    <? }if(in_array('reverse_id', $this->column_names)){ ?>
+    $query->addOrder('reverse_id', 'ASC');
+    <? } ?>
+    
+    return $query;
+  }
+  
+  static function findLatest($limit = null)
+  {
+    $iterator = self::getQueryForFront()->fetch();
+    
+    if($limit)
+      $iterator->paginate($limit, 0);
+    
+    return $iterator;
+  }
+  
+  static function findById($id)
+  {
+    $criteria = lmbSQLCriteria::equal('id', $id);
+    <? if(in_array('is_published', $this->column_names)){ ?>
+    $criteria->addAnd(lmbSQLCriteria::equal('is_published', 1));
+    <? } ?>
+    return {$#model_name} :: findFirst($criteria);
+  }
+}

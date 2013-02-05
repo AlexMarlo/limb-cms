@@ -1,0 +1,65 @@
+[[list using='[$iterator]' parity='[$parity]']]
+
+  <div class="list">
+    <div class='list_actions'>
+      <?if($this->priority_exist){?>[[apply template="change_priority" params="parent_id=[$#item.id]" /]]<?}?>
+      <?if($this->published_exist){?>[[apply template="selectors_action" action="revert_publish" title="Опубликовать/Скрыть" /]]<?}?>
+      [[apply template="selectors_action" action="move" params="parent_id=[$#item.id]" title="Переместить" /]]
+      [[apply template="selectors_action" action="copy" params="parent_id=[$#item.id]" title="Копировать" /]]
+      [[apply template="selectors_action" action="delete" title="Удалить" /]]
+    </div>
+    <table>
+      <tr>
+        <th>[[apply template="selectors_toggler"/]]</th>
+        <th>#ID</th>
+        <?if($this->priority_exist){?><th>Приоритет</th><?}?>
+        <th width="80%">Название</th>
+        <th>Создан</th>
+        <th>Обновлен</th>
+        <th>&nbsp;</th>
+      </tr>
+      [[list:item]]
+      <tr class='[$parity]'>
+        <td>[[apply template="selector" value="[$item.id]"/]]</td>
+        <td>#[$item.id]</td>
+        <?if($this->priority_exist){?><td>[[apply template="priority_input" item="[$item]" /]]</td><?}?>
+        <td>
+          <a href='[[route_url params="action:display,id:[$item.id]"/]]' title="Просмотр дочерних объектов"><b>[$item.title]</b></a>
+          <span title="Дочерних объектов: [$item.loaded_kids_count|default:'0']">
+            ([$item.loaded_kids_count|default:'0'])
+          </span>
+          <br/>
+          \[<a href="[$#item.uri]/[$item.identifier]" title="Посмотреть на сайте" target="_blank">[$#item.uri]/[$item.identifier]</a>\]
+        </td>
+        <td>[$item.ctime|i18n_date:"", "stamp", "short_date_time"]</td>
+        <td>[$item.utime|i18n_date:"", "stamp", "short_date_time"]</td>
+        <td class='actions'> 
+          <?if($this->published_exist){?>[[apply template="object_action_revert_publish" item="[$item]" /]]<?}?>
+          [[apply template="object_action" id="[$item.id]" action="create" title="Создать дочерний объект" /]]
+          [[apply template="object_action_edit" id="[$item.id]" /]]
+          [[apply template="object_action_delete" id="[$item.id]" /]]
+          &nbsp;
+        <? if($this->history_exist) { ?>
+          [[apply template="object_action_history" item='[$item]' /]]
+        <? } ?>
+        <? foreach($this->attached_images as $image_name) { ?>
+          [[apply template="object_action_image" item='[$item]' object_name='{$image_name}' title='{$image_name}' /]]
+        <? } ?>
+        </td>
+      </tr>
+      [[/list:item]]
+      [[list:empty]]
+        <div class="empty_list">{$#model_name} не найдены</div>
+      [[/list:empty]]
+    </table>
+    <div class='list_actions'>
+      <?if($this->priority_exist){?>[[apply template="change_priority" params="parent_id=[$#item.id]" /]]<?}?>
+      <?if($this->published_exist){?>[[apply template="selectors_action" action="revert_publish" title="Опубликовать/Скрыть" /]]<?}?>
+      [[apply template="selectors_action" action="move" params="parent_id=[$#item.id]" title="Переместить" /]]
+      [[apply template="selectors_action" action="copy" params="parent_id=[$#item.id]" title="Копировать" /]]
+      [[apply template="selectors_action" action="delete" title="Удалить" /]]
+    </div>
+  </div>
+
+[[/list]]
+

@@ -1,0 +1,31 @@
+[[wrap with="front_layout.phtml"]]
+
+  [[into slot="page_title"]]{$#model_name}:[$#item.id] | [[/into]]
+
+  [[into slot="content"]]
+  
+    [[include file='_admin_include/tree_breadcrumbs.phtml' item="[$#item]" link_field='uri' /]]
+    
+    <h1>{$#model_name}:[$#item.id]</h1>
+    
+    {{list using="{$#columns}" as="$column"}}
+      <dl>
+        {{list:item}}
+          <dt>{$column->getName()}:</dt>
+          <dd>[$#item.{$column->getName()}]</dd>
+        {{/list:item}}
+      </dl>
+    {{/list}}
+    
+    [[list using="[$#children]"]]
+      <h1>Дочерние объекты</h2>
+      <ul>
+        [[list:item]]
+          <li><a href='[$item.uri]'>{$#model_name}:[$item.id]</a></li>
+        [[/list:item]]
+      </ul>
+    [[/list]]
+    
+  [[/into]]
+
+[[/wrap]]

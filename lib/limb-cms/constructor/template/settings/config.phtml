@@ -1,0 +1,26 @@
+$conf = array();
+
+<? foreach($this->attached_images as $image_name) { ?>
+$conf['{$image_name}'] = array(
+  'allowed_file_types' => array('image/jpeg', 'image/gif', 'image/png', 'image/pjpeg'),
+  'max_file_size' => 2000000, // 2Mb
+
+  'store_rules' => array(
+    'path' => lmb_env_get('PROJECT_DIR') . '/www/media/{$image_name}/',
+    'url' =>  '/media/{$image_name}/',
+  ),
+
+  'variations' => array(
+    array(
+      'name' => '',
+      'method' => 'resize_full_frame',
+      'frame' => array('width' => 640, 'height' => 480)),
+
+    array(
+      'name' => 'preview',
+      'method' => 'resize_full_frame',
+      'frame' => array('width' => 200, 'height' => 150)),
+  ),
+);
+<? echo PHP_EOL; ?>
+<? } ?>

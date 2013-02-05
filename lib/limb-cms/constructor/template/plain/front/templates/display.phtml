@@ -1,0 +1,29 @@
+[[wrap with="front_layout.phtml"]]
+
+  [[into slot="page_title"]]{$#model_name} | [[/into]]
+  
+  [[into slot="content"]]
+    [[assign value="array(array('url' => '/', 'title' => 'Главная страница',),)" var="$list"]]
+    [[include file='_include/breadcrumbs.phtml' list="[$list]" leaf='{$#model_name}'/]]
+  
+    <h1>{$#model_name}</h1>
+    
+    [[paginate iterator='[$#items]' pager='pager' limit="25" /]]
+    [[include file="_include/pager.phtml" iterator="[$#items]" /]]
+    
+    [[list:list using="[$#items]" as="$item"]]
+      <ul>
+        [[list:item]]
+          <li><a href="/{$#model_url}/item/[$item.id]">{$#model_name} [$item.id]</a></li>
+        [[/list:item]]
+        [[list:empty]]
+          <div class="empty_list">{$#model_name} не найдены</div>
+        [[/list:empty]]
+      </ul>
+    [[/list:list]]
+    
+    [[include file="_include/pager.phtml" iterator="[$#items]" /]]
+    
+  [[/into]]
+  
+[[/wrap]]

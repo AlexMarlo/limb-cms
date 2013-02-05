@@ -1,0 +1,40 @@
+[[wrap with="front_layout.phtml"]]
+
+  [[into slot="page_title"]]Моя лента {$#model_name} | Личный кабинет | [[/into]]
+  
+  [[into slot="content"]]
+
+    <div class="breadcrumbs">
+      <a href="/user_home">Личный кабинет</a> &raquo;
+      <b>Моя лента {$#model_name}</b>
+    </div>
+  
+    <h1>Моя лента {$#model_name}</h1>
+    
+    [[paginate iterator='[$#items]' pager='pager' limit="25" /]]
+    [[include file="_include/pager.phtml" iterator="[$#items]" /]]
+    
+    <a href="/user_{$#model_url}/create">Создать {$#model_name}</a>
+    
+    [[list:list using="[$#items]" as="$item"]]
+      <ul>
+        [[list:item]]
+          <li>
+            <a href="/{$#model_url}/item/[$item.id]" target="_blank" title="Посмотреть на сайте">{$#model_name}:[$item.id]</a>
+            <div>
+              <a href="/user_{$#model_url}/edit/[$item.id]">Редактировать</a>
+              <a href="/user_{$#model_url}/delete/[$item.id]" onclick="return confirm('Вы действительно желаете удалить объект {$#model_name}:[$item.id]');">Удалить</a>
+            </div>
+          </li>
+        [[/list:item]]
+        [[list:empty]]
+          <div class="empty_list">{$#model_name} не найдены</div>
+        [[/list:empty]]
+      </ul>
+    [[/list:list]]
+    
+    [[include file="_include/pager.phtml" iterator="[$#items]" /]]
+    
+  [[/into]]
+  
+[[/wrap]]

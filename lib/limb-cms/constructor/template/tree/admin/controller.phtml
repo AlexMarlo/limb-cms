@@ -1,0 +1,50 @@
+lmb_require('bitcms/base/src/controller/AdminTreeNodeObjectController.class.php');
+<? if(count($this->attached_images)) { ?>lmb_require('bitcms/image/src/helper/UploadImageFileHelper.class.php');<? echo PHP_EOL; } ?>
+
+class Admin{$#model_name}Controller extends AdminTreeNodeObjectController
+{
+  protected $_object_class_name = '{$#model_name}';
+
+  protected $_default_sort = array('field' => '{$#default_sort_params.field}', 'direction' => '{$#default_sort_params.direction}');
+
+<? if(count($this->history_exists)) { ?>
+  protected function _onAfterUpdate()
+  {
+    parent :: _onAfterUpdate();
+
+    lmb_require('bitcms/history/src/model/History.class.php');
+    History :: store($this->item, $this->toolkit->getAdminUser());
+  }
+<? } ?>
+
+<? if(count($this->attached_images)) { ?>
+  protected function _onBeforeValidate()
+  {
+    parent :: _onBeforeValidate();
+
+<? foreach($this->attached_images as $image_name) { ?>
+    UploadImageFileHelper :: validateImageFile(
+      $this->item, '{$image_name}',
+      $this->request->get('{$image_name}_file_temp'),
+      $this->error_list
+    );
+    <? echo PHP_EOL; ?>
+<? } ?>
+  }
+
+  protected function _onAfterSave()
+  {
+    parent :: _onAfterSave();
+
+<? foreach($this->attached_images as $image_name) { ?>
+    UploadImageFileHelper :: attachOrDeleteImageFile(
+      $this->item, '{$image_name}',
+      $this->request->get('{$image_name}_file_temp'),
+      (bool)$this->request->get('{$image_name}_file_delete')
+    );
+    <? echo PHP_EOL; ?>
+<? } ?>
+  }
+<? } ?>
+
+}

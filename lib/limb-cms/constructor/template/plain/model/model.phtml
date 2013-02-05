@@ -1,0 +1,57 @@
+lmb_require('limb-cms/core/src/model/lmbCmsActiveRecord.class.php');
+
+class {$#model_name} extends lmbCmsActiveRecord
+{
+  protected $_db_table_name = '{$#table_name}';
+
+  protected $_default_sort_params = array('{$#default_sort_params.field}' => '{$#default_sort_params.direction}');
+
+<? if(count($this->lazy_attributes)) { ?>  protected $_lazy_attributes = array('<? echo implode('\', \'', $this->lazy_attributes); ?>');<? echo "\n"; } ?>
+
+<? if(count($this->history_stored_fields)) { ?>  public $_history_stored_fields = array('<? echo implode('\', \'', $this->history_stored_fields); ?>');<? echo "\n"; } ?>
+
+<? if($this->relations_exist) { ?>
+  protected function _defineRelations()
+  {
+    parent :: _defineRelations();
+
+<? if($this->has_many) { ?>    $this->_has_many = {$#has_many|raw};<? echo "\n"; } ?>
+<? if($this->many_belongs_to) { ?>    $this->_many_belongs_to = {$#many_belongs_to|raw};<? echo "\n"; } ?>
+<? if($this->has_one) { ?>    $this->_has_one = {$#has_one|raw};<? echo "\n"; } ?>
+<? if($this->belongs_to) { ?>    $this->_belongs_to = {$#belongs_to|raw};<? echo "\n"; } ?>
+<? if($this->has_many_to_many) { ?>    $this->_has_many_to_many = {$#has_many_to_many|raw};<? echo "\n"; } ?>
+
+<? foreach($this->attached_images as $image_name) { ?>
+    $this->_composed_of['{$image_name}'] = array(
+      'class' => 'Image',
+      'mapping' => array(
+        'object_id' => 'id',
+        'extension' => '{$image_name}_ext',
+      ),
+      'setup_method' => 'setup_{$image_name}',
+    );
+    <? echo PHP_EOL; ?>
+<? } ?>
+  }
+<? } ?>
+
+<? foreach($this->attached_images as $image_name) { ?>
+  function setup_{$image_name}($image)
+  {
+    $image->setup(lmbToolkit::instance()->getConf('{$#table_name}')->get('{$image_name}'));
+    return $image;
+  }
+  <? echo PHP_EOL; ?>
+<? } ?>
+
+<? if($this->priority_exist){ ?>
+  protected function _onBeforeCreate()
+  {
+    parent :: _onBeforeCreate();
+
+    $sql = "SELECT MAX(priority) FROM " . $this->_db_table_name . ";";
+    $this->set('priority', (lmbDBAL::fetchOneValue($sql) + 10));
+  }
+<? } ?>
+
+}

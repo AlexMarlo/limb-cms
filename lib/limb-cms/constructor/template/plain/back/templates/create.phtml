@@ -1,0 +1,21 @@
+[[wrap with="front_layout.phtml"]]
+
+  [[into slot="page_title"]]Создание {$#model_name} | Моя лента {$#model_name} | Личный кабинет | [[/into]]
+  
+  [[into slot="content"]]
+
+    <div class="breadcrumbs">
+      <a href="/user_home">Личный кабинет</a> &raquo;
+      <a href="/user_{$#model_url}">Моя лента {$#model_name}</a> &raquo;
+      <b>Создание</b>
+    </div>
+  
+    <h1>Создание {$#model_name}</h1>
+    
+    [[form id='object_form' name='object_form' method='post' enctype="multipart/form-data"]]
+      [[include file='user_{$#model_url}/form_fields.phtml' /]]
+    [[/form]]
+    
+  [[/into]]
+  
+[[/wrap]]

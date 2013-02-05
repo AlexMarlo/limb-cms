@@ -1,0 +1,17 @@
+class {$#model_name}Finder
+{
+  static function findById($id)
+  {
+    return {$#model_name} :: findById($id, false);
+  }
+  
+  static function findChildren($parent)
+  {
+    $sql = "SELECT * FROM `{$#model_url}` WHERE `parent_id` = " . $parent->getId();
+    <? if(in_array('is_published', $this->column_names)){ ?>
+    $sql .= " AND `is_published` = 1;";
+    <? } ?>
+    
+    return {$#model_name} :: findBySql($sql);  
+  }
+}

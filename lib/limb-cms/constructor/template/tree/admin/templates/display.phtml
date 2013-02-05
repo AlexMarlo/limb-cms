@@ -1,0 +1,41 @@
+[[wrap with="admin_page_layout.phtml"]]
+
+  [[into slot="content_zone"]]
+  
+    [[include file='_admin_include/tree_breadcrumbs.phtml' item="[$#item]" base_path="/admin_{$#model_url}/display/" root_path='/admin_{$#model_url}/' root_title="{$#model_url}" link_field='id' /}}
+
+    <div id="header">
+    
+      <h1>
+        <? echo '<?'; ?> if(!$this->item->isRoot()) { <? echo '?>'; ?>
+          {$#model_name} &laquo;<a href="[$#item.uri]" target="_blank" title="Посмотреть на сайте">[$#item.title]</a>&raquo;
+        <? echo '<?'; ?> } else { <? echo '?>'; ?>
+          {$#model_name}
+        <? echo '<?'; ?> } <? echo '?>'; ?>
+      </h1>
+      
+      <div class="header_actions">
+        <? echo '<?'; ?> if(!$this->item->isRoot()) { <? echo '?>'; ?>
+          
+          <?if($this->published_exist){?>[[apply template="object_action_revert_publish" item="[$#item]" is_link="true" /]]<?}?>
+          [[apply template="object_action" action="create" id="[$#item.id]" title="Создать дочерний объект" is_link="true" /]]
+          [[apply template="object_action_edit" id="[$#item.id]" is_link="true" /]]
+          [[apply template="object_action_delete" id="[$#item.id]" is_link="true" /]]
+          
+        <? echo '<?'; ?> } else { <? echo '?>'; ?>
+          [[apply template="object_action" action="create" id="[$#item.id]" title="Создать дочерний объект" is_link="true"/]]
+        <? echo '<?'; ?> } <? echo '?>'; ?>
+        
+      </div>
+      
+      [[include file='_admin_include/pager.phtml' iterator='[$#items]' /]]
+      
+    </div>
+
+    <div id="body">
+      [[include file='admin_{$#model_url}/items_list.phtml' iterator="[$#items]" /}}
+    </div>
+
+  [[/into]]
+    
+[[/wrap]]
