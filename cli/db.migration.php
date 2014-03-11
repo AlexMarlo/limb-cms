@@ -3,7 +3,7 @@
 error_reporting(E_ALL);
 ini_set("display_errors", "on");
 ini_set("log_errors", "on");
-ini_set("error_log", "/var/log/php_errors.log");
+//ini_set("error_log", "/var/log/php_errors.log");
 
 define('CMS_ROOT', dirname(__FILE__) . '/..');
 define('DB_MIGRATION_ROOT', CMS_ROOT . '/lib/limb-app-dbman');

@@ -64,10 +64,10 @@ class lmbCmsSeo extends lmbActiveRecord
 
     $count_path = $uri->countPath();
     $meta = null;
-    $sql = 'SELECT keywords, description, title FROM lmb_cms_seo WHERE url = \'/\' OR ';
+    $sql = 'SELECT keywords, description, title FROM lmb_cms_seo WHERE url = \'/\' ';
 
     for($i = 1; $i < $count_path; $i++)
-      $sql .= ' url = \'' . self :: getDefaultConnection()->escape($uri->getPathToLevel($i)) . '\'' . ($i < $count_path - 1? ' OR ':''); 
+      $sql .= 'OR url = \'' . self :: getDefaultConnection()->escape($uri->getPathToLevel($i)) . '\'' . ($i < $count_path - 1? ' ':'');
     
     $sql .= ' ORDER BY url DESC LIMIT 1';
     $meta = lmbDBAL :: fetchOneRow($sql);

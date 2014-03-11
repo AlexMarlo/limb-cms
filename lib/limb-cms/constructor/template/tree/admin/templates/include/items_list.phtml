@@ -1,9 +1,15 @@
 [[list using='[$iterator]' parity='[$parity]']]
 
+  [[include file="_admin_object_tpls/selectors_tpls.phtml"/]]
+  [[include file="_admin_object_tpls/actions_tpls.phtml"/]]
+  [[include file="_admin_object_tpls/priority_tpls.phtml"/]]
+
   <div class="list">
     <div class='list_actions'>
       <?if($this->priority_exist){?>[[apply template="change_priority" params="parent_id=[$#item.id]" /]]<?}?>
+      
       <?if($this->published_exist){?>[[apply template="selectors_action" action="revert_publish" title="Опубликовать/Скрыть" /]]<?}?>
+      
       [[apply template="selectors_action" action="move" params="parent_id=[$#item.id]" title="Переместить" /]]
       [[apply template="selectors_action" action="copy" params="parent_id=[$#item.id]" title="Копировать" /]]
       [[apply template="selectors_action" action="delete" title="Удалить" /]]
@@ -22,7 +28,7 @@
       <tr class='[$parity]'>
         <td>[[apply template="selector" value="[$item.id]"/]]</td>
         <td>#[$item.id]</td>
-        <?if($this->priority_exist){?><td>[[apply template="priority_input" item="[$item]" /]]</td><?}?>
+        <?if($this->priority_exist){?><td>[[apply template="object_priority_input" item="[$item]" /]]</td><?}?>
         <td>
           <a href='[[route_url params="action:display,id:[$item.id]"/]]' title="Просмотр дочерних объектов"><b>[$item.title]</b></a>
           <span title="Дочерних объектов: [$item.loaded_kids_count|default:'0']">
@@ -39,9 +45,6 @@
           [[apply template="object_action_edit" id="[$item.id]" /]]
           [[apply template="object_action_delete" id="[$item.id]" /]]
           &nbsp;
-        <? if($this->history_exist) { ?>
-          [[apply template="object_action_history" item='[$item]' /]]
-        <? } ?>
         <? foreach($this->attached_images as $image_name) { ?>
           [[apply template="object_action_image" item='[$item]' object_name='{$image_name}' title='{$image_name}' /]]
         <? } ?>
@@ -53,11 +56,13 @@
       [[/list:empty]]
     </table>
     <div class='list_actions'>
-      <?if($this->priority_exist){?>[[apply template="change_priority" params="parent_id=[$#item.id]" /]]<?}?>
-      <?if($this->published_exist){?>[[apply template="selectors_action" action="revert_publish" title="Опубликовать/Скрыть" /]]<?}?>
-      [[apply template="selectors_action" action="move" params="parent_id=[$#item.id]" title="Переместить" /]]
-      [[apply template="selectors_action" action="copy" params="parent_id=[$#item.id]" title="Копировать" /]]
-      [[apply template="selectors_action" action="delete" title="Удалить" /]]
+      <?if($this->priority_exist){?>[[apply template="save_priority_button" params="parent_id=[$#item.id]" /]]<?}?>
+      
+      <?if($this->published_exist){?>[[apply template="selectors_button" action="revert_publish" title="Опубликовать/Скрыть" /]]<?}?>
+      
+      [[apply template="selectors_button" action="move" params="parent_id=[$#item.id]" title="Переместить" /]]
+      [[apply template="selectors_button" action="copy" params="parent_id=[$#item.id]" title="Копировать" /]]
+      [[apply template="selectors_button" action="delete" title="Удалить" /]]
     </div>
   </div>
 

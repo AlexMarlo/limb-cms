@@ -2,7 +2,8 @@
 
   [[into slot="content_zone"]]
   
-    [[include file='_admin_include/tree_breadcrumbs.phtml' item="[$#item]" base_path="/admin_{$#model_url}/display/" root_path='/admin_{$#model_url}/' root_title="{$#model_url}" link_field='id' /}}
+  	[[include file="_admin_object_tpls/actions_tpls.phtml"/]]
+    [[include file='_admin/tree_breadcrumbs.phtml' item="[$#item]" base_path="/admin_{$#model_url}/display/" root_path='/admin_{$#model_url}/' root_title="{$#model_url}" link_field='id' /]]
 
     <div id="header">
     
@@ -17,7 +18,8 @@
       <div class="header_actions">
         <? echo '<?'; ?> if(!$this->item->isRoot()) { <? echo '?>'; ?>
           
-          <?if($this->published_exist){?>[[apply template="object_action_revert_publish" item="[$#item]" is_link="true" /]]<?}?>
+          <?if($this->published_exist){?>
+          [[apply template="object_action_revert_publish" item="[$#item]" is_link="true" /]]<?}?>
           [[apply template="object_action" action="create" id="[$#item.id]" title="Создать дочерний объект" is_link="true" /]]
           [[apply template="object_action_edit" id="[$#item.id]" is_link="true" /]]
           [[apply template="object_action_delete" id="[$#item.id]" is_link="true" /]]
@@ -28,12 +30,12 @@
         
       </div>
       
-      [[include file='_admin_include/pager.phtml' iterator='[$#items]' /]]
+      [[include file='_admin/pager.phtml' iterator='[$#items]' /]]
       
     </div>
 
     <div id="body">
-      [[include file='admin_{$#model_url}/items_list.phtml' iterator="[$#items]" /}}
+      [[include file='admin_{$#model_url}/include/items_list.phtml' iterator="[$#items]" /}}
     </div>
 
   [[/into]]
