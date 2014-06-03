@@ -25,8 +25,8 @@ global $Config;
 
 // SECURITY: You must explicitly enable this "connector". (Set it to "true").
 // WARNING: don't just set "$Config['Enabled'] = true ;", you must be sure that only
-//		authenticated users can access this file or use some kind of session checking.
-require_once(dirname($_SERVER["DOCUMENT_ROOT"]).'/setup.php');
+// authenticated users can access this file or use some kind of session checking.
+require_once(dirname(__FILE__).'/../../../../../../../../../setup.php');
 
 $Config['Enabled'] = lmbToolkit::instance()->isWysiwygFileUploaderEnabled();
 
@@ -37,7 +37,7 @@ $Config['UserFilesPath'] = '/media/wysiwyg_uploads/';
 // user files directory. Useful if you are using a virtual directory, symbolic
 // link or alias. Examples: 'C:\\MySite\\userfiles\\' or '/root/mysite/userfiles/'.
 // Attention: The above 'UserFilesPath' must point to the same directory.
-$Config['UserFilesAbsolutePath'] = dirname($_SERVER["DOCUMENT_ROOT"]) . '/www' . $Config['UserFilesPath'];
+$Config['UserFilesAbsolutePath'] = CMS_DIR . '/www' . $Config['UserFilesPath'];
 
 // Due to security issues with Apache modules, it is recommended to leave the
 // following setting enabled.
