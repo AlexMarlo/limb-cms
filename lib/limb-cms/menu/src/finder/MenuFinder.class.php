@@ -5,6 +5,20 @@ lmb_require('limb-cms/menu/src/model/Menu.class.php');
 
 class MenuFinder
 {
+  static private function _sortTree($rs, $parent_id, $sort_params, $id_hash = 'id', $parent_hash = 'parent_id')
+  {
+    $tree_array = lmbTreeHelper :: _convertRs2Array($rs);
+
+    $item = reset($tree_array);
+    $parent_id;
+
+    $sorted_tree_array = array();
+
+    lmbTreeHelper :: _doSort($tree_array, $sorted_tree_array, $sort_params, $parent_id, $id_hash, $parent_hash);
+
+    return new lmbCollection($sorted_tree_array);
+  }
+
   static function findByUrl($url = null, $criteria = null)
   {
     if(!$url)
@@ -36,7 +50,7 @@ class MenuFinder
     if(!$node)
       return new lmbCollection();
     
-    $iterator = lmbTreeHelper :: sort(self::findChildrenArrayForFront($node), array('priority' => 'ASC'));
+    $iterator = self :: _sortTree( self::findChildrenArrayForFront($node), $node->id, array('priority' => 'ASC'));
     $iterator = new lmbTreeNestedCollection($iterator);
     
     $iterator->setChildrenField('preloaded_children');
